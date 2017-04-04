@@ -1,0 +1,17 @@
+{
+  "name": "AndOpe",
+  "version": "1.0.0",
+  "description": "AndOpe static website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Team AndOpe",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "1.0.1",
+    "grunt-contrib-watch": "1.0.0",
+    "grunt-sass": "2.0.0",
+    "grunt-browser-sync": "2.2.0"
+  }
+}
