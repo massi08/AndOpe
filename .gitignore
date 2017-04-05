@@ -5,3 +5,4 @@ node_modules/
 lib/
 target/
 .idea
+src/main/webapp/node_modules
