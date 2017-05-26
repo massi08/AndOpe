@@ -2,6 +2,21 @@
 
 module.exports = function (grunt) {
     grunt.initConfig({
+        express: {
+            build: {
+                options : {
+                    server: ('server.js')
+                }
+            }
+        },
+        jshint: {
+            files: ['Gruntfile.js', 'server.js'],
+            options: {
+                globals: {
+                    jQuery: true
+                }
+            }
+        },
         // Watch task config
         watch: {
             sass: {
@@ -41,9 +56,12 @@ module.exports = function (grunt) {
             }
         }
     });
-
+    grunt.registerTask('build', ['jshint', 'express', 'express-keepalive']);
+    grunt.loadNpmTasks('grunt-express');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-browser-sync');
     grunt.registerTask('default', ['browserSync', 'watch']);
 };
+
