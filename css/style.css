@@ -64,10 +64,10 @@ nav ul li a {
 .container-full {
   width: 100%;
   height: auto;
-  min-height: calc(100% - 64px - 184px);
-  border: solid 1px transparent; }
-  .container-full.fullscreen {
-    height: calc(100% - 64px); }
+  border: solid 1px transparent;
+  display: flex;
+  height: calc(100% - 64px);
+  flex-direction: column; }
 
 .row-full {
   width: 100%;

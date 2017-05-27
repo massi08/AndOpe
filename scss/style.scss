@@ -87,12 +87,11 @@ nav {
 .container-full {
   width: 100%;
   height: auto;
-  min-height: calc(100% - 64px - 184px);
   border: solid 1px transparent;
 
-  &.fullscreen {
-    height: calc(100% - 64px);
-  }
+  display: flex;
+  height: calc(100% - 64px);
+  flex-direction: column;
 }
 
 .row-full {

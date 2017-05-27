@@ -9,7 +9,9 @@ body {
   background: #424242;
   position: relative;
   border: none;
-  height: calc(100% - 64px - 34px) !important;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
 }
 
 .project-management {
@@ -803,9 +805,9 @@ body {
 
 .modal {
   h4 {
-    text-align: center;  
+    text-align: center;
   }
-  
+
   &:not(#compilation-modal) {
     top: 20% !important;
   }
