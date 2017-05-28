@@ -175,3 +175,21 @@ select.hidden_select.initialized {
 
 .footer-copyright {
   background: #4e4785; }
+
+.inscription-card {
+  width: 33.33%;
+  min-width: 280px;
+  margin: 0 auto; }
+  .inscription-card .header {
+    color: white;
+    background: linear-gradient(60deg, #ab47bc, #7b1fa2);
+    width: calc(100% - 40px);
+    padding: 20px 0;
+    box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    margin: -60px auto 0; }
+    .inscription-card .header h4 {
+      text-align: center;
+      font-size: 22px; }
+  .inscription-card .inscription-form {
+    margin: 20px 0 0 0;
+    padding: 10px; }
