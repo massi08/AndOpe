@@ -1,0 +1,12 @@
+.chapitres-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto; }
+  .chapitres-container .card {
+    padding: 24px; }
+    .chapitres-container .card a {
+      width: 100%;
+      display: block;
+      color: rgba(0, 0, 0, 0.87); }
+      .chapitres-container .card a:hover {
+        text-decoration: underline; }
