@@ -30,9 +30,10 @@ public class LoginController {
      */
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView receiveGet(HttpServletResponse reponse) {
+    public ObjetReponse receiveGet(HttpServletResponse reponse) {
+        System.out.println("get login");
         reponse.setStatus(405);
-        return new ModelAndView("error", "", "la demande n'est pas prise en compte (GET sur login).");
+        return new ObjetReponse("error", "", "la demande n'est pas prise en compte (GET sur login).");
     }
 
     /**
@@ -45,7 +46,7 @@ public class LoginController {
      */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView receivePost(@RequestParam(value="pseudo", required = true) String pseudo,
+    public ObjetReponse receivePost(@RequestParam(value="pseudo", required = true) String pseudo,
                                     @RequestParam(value="password", required = true) String password,
                                     HttpSession session) {
 
@@ -58,6 +59,6 @@ public class LoginController {
         }
 
         return new ObjetReponse("error", "", "Pseudo ou mot de passe incorrect.");*/
-        return new ModelAndView();
+        return new ObjetReponse();
     }
 }

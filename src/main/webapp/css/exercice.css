@@ -1,6 +1,7 @@
+body .container-full {
+  height: auto; }
 body .btn-reload {
   display: none; }
-
 body .user-input {
   width: 110px;
   text-align: center; }
@@ -10,7 +11,6 @@ body .user-input {
 
 .techno-name span {
   margin-left: 70px; }
-
 .techno-name .techno-logo {
   display: inline;
   position: relative; }
@@ -27,3 +27,5 @@ body .user-input {
   text-align: center; }
   .validate-button .preloader-wrapper {
     margin: 0 auto; }
+
+/*# sourceMappingURL=exercice.css.map */

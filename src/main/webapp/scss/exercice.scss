@@ -1,6 +1,10 @@
 @import "globals";
 
 body {
+  .container-full{
+    height: auto;
+  }
+
   .btn-reload {
     display: none;
   }
