@@ -1,11 +1,45 @@
 @import "globals";
 
-body{
-  .btn-reload{
+body {
+  .btn-reload {
     display: none;
   }
-  .user-input{
+  .user-input {
     width: 110px;
     text-align: center;
+  }
+}
+
+.exo-card {
+  padding: 20px;
+}
+
+.techno-name {
+  span {
+    margin-left: 70px;
+  }
+
+  .techno-logo {
+    display: inline;
+    position: relative;
+
+    img {
+      width: 60px;
+      height: 60px;
+      //border-radius: 50%;
+      margin: 0 auto;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.validate-button {
+  margin-top: 10px;
+  text-align: center;
+
+  .preloader-wrapper {
+    margin: 0 auto;
   }
 }

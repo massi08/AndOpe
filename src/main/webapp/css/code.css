@@ -5,7 +5,9 @@ body {
   background: #424242;
   position: relative;
   border: none;
-  height: calc(100% - 64px - 34px) !important; }
+  display: flex;
+  height: 100%;
+  flex-direction: column; }
 
 .project-management {
   position: relative;

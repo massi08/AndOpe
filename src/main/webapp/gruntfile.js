@@ -2,21 +2,6 @@
 
 module.exports = function (grunt) {
     grunt.initConfig({
-        express: {
-            build: {
-                options : {
-                    server: ('server.js')
-                }
-            }
-        },
-        jshint: {
-            files: ['Gruntfile.js', 'server.js'],
-            options: {
-                globals: {
-                    jQuery: true
-                }
-            }
-        },
         // Watch task config
         watch: {
             sass: {
@@ -34,6 +19,8 @@ module.exports = function (grunt) {
                     "./css/connexion.css": "./scss/connexion.scss",
                     "./css/code.css": "./scss/code.scss",
                     "./css/manage_project.css": "./scss/manage_project.scss",
+                    "./css/cours.css": "./scss/cours.scss",
+                    "./css/exercice.css": "./scss/exercice.scss",
                 }
             }
         },
@@ -44,6 +31,7 @@ module.exports = function (grunt) {
                     src: [
                         "css/*.css",
                         "*.html",
+                        "html_files/**",
                         "js/**"
                     ]
                 },
@@ -56,12 +44,9 @@ module.exports = function (grunt) {
             }
         }
     });
-    grunt.registerTask('build', ['jshint', 'express', 'express-keepalive']);
-    grunt.loadNpmTasks('grunt-express');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
+
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-browser-sync');
     grunt.registerTask('default', ['browserSync', 'watch']);
 };
-
