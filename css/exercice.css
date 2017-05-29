@@ -1,7 +1,29 @@
 body .btn-reload {
   display: none; }
+
 body .user-input {
   width: 110px;
   text-align: center; }
 
-/*# sourceMappingURL=exercice.css.map */
+.exo-card {
+  padding: 20px; }
+
+.techno-name span {
+  margin-left: 70px; }
+
+.techno-name .techno-logo {
+  display: inline;
+  position: relative; }
+  .techno-name .techno-logo img {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); }
+
+.validate-button {
+  margin-top: 10px;
+  text-align: center; }
+  .validate-button .preloader-wrapper {
+    margin: 0 auto; }

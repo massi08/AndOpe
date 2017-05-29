@@ -20,7 +20,7 @@ module.exports = function (grunt) {
                     "./css/code.css": "./scss/code.scss",
                     "./css/manage_project.css": "./scss/manage_project.scss",
                     "./css/cours.css": "./scss/cours.scss",
-                    "./css/exercices.css": "./scss/exercices.scss",
+                    "./css/exercice.css": "./scss/exercice.scss",
                 }
             }
         },
@@ -31,6 +31,7 @@ module.exports = function (grunt) {
                     src: [
                         "css/*.css",
                         "*.html",
+                        "html_files/**",
                         "js/**"
                     ]
                 },
