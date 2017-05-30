@@ -544,8 +544,10 @@ body {
 
 .modal h4 {
   text-align: center; }
+
 .modal:not(#compilation-modal) {
   top: 20% !important; }
+
 .modal .row {
   margin-bottom: 0; }
 
@@ -561,5 +563,3 @@ body {
   will-change: display; }
   #popup-overlay.opened-popup {
     display: block; }
-
-/*# sourceMappingURL=code.css.map */

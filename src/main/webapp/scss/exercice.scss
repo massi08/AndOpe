@@ -10,6 +10,11 @@ body {
   }
 }
 
+.container-full {
+  height: auto !important;
+  min-height: calc(100% - 64px);
+}
+
 .exo-card {
   padding: 20px;
 }
@@ -41,5 +46,31 @@ body {
 
   .preloader-wrapper {
     margin: 0 auto;
+  }
+}
+
+pre {
+  padding: 30px 15px;
+  background: #f7f7f7;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: pre;
+  font-size: 14px;
+  color: #666666;
+  border-left: 3px solid #7b7b7b;
+}
+
+.navigation-wrapper {
+  width: 100%;
+  margin-top: 20px;
+
+  .precedent {
+    float: left;
+    margin-left: 10px;
+  }
+
+  .next {
+    float: right;
+    margin-right: 10px;
   }
 }
