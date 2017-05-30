@@ -5,6 +5,7 @@
   src: url("../fonts/material_icons/MaterialIcons-Regular.eot");
   /* For IE6-8 */
   src: local("Material Icons"), local("MaterialIcons-Regular"), url("../fonts/material_icons/MaterialIcons-Regular.woff2") format("woff2"), url("../fonts/material_icons/MaterialIcons-Regular.woff") format("woff"), url("../fonts/material_icons/MaterialIcons-Regular.ttf") format("truetype"); }
+
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
@@ -48,10 +49,12 @@ footer {
 
 nav ul li.active-tab {
   background: rgba(0, 0, 0, 0.1); }
+
 nav ul li form {
   margin: 0;
   height: 0;
   width: 0 !important; }
+
 nav ul li a {
   color: rgba(0, 0, 0, 0.87); }
 
@@ -76,16 +79,20 @@ nav ul li a {
   box-shadow: 0 1px 0 0 #6159a6; }
   .input-field input[type]:not([type=search]):not([type=url]):not([type=hidden]):focus + label {
     color: #6159a6; }
+
 .input-field input[type]:not([type=search]):not([type=url]):not([type=hidden]).valid {
   border-bottom: 1px solid #6159a6;
   box-shadow: 0 1px 0 0 #6159a6; }
+
 .input-field input[type]:not([type=search]):not([type=url]):not([type=hidden]).invalid {
   border-bottom: 1px solid #f44336;
   box-shadow: 0 1px 0 0 #f44336; }
   .input-field input[type]:not([type=search]):not([type=url]):not([type=hidden]).invalid + label {
     color: #f44336; }
+
 .input-field.input-center {
   margin-left: 25% !important; }
+
 .input-field .prefix.active {
   color: #6159a6; }
 
@@ -111,6 +118,7 @@ select.hidden_select.initialized {
 
 .dropdown-content li > a, .dropdown-content li > span {
   color: rgba(0, 0, 0, 0.87); }
+
 .dropdown-content li.selected > a, .dropdown-content li.selected > span {
   color: #38c6f3; }
 
@@ -185,5 +193,3 @@ select.hidden_select.initialized {
   .inscription-card .inscription-form {
     margin: 20px 0 0 0;
     padding: 10px; }
-
-/*# sourceMappingURL=style.css.map */

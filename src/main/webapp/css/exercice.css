@@ -1,16 +1,20 @@
-body .container-full {
-  height: auto; }
 body .btn-reload {
   display: none; }
+
 body .user-input {
   width: 110px;
   text-align: center; }
+
+.container-full {
+  height: auto !important;
+  min-height: calc(100% - 64px); }
 
 .exo-card {
   padding: 20px; }
 
 .techno-name span {
   margin-left: 70px; }
+
 .techno-name .techno-logo {
   display: inline;
   position: relative; }
@@ -28,4 +32,22 @@ body .user-input {
   .validate-button .preloader-wrapper {
     margin: 0 auto; }
 
-/*# sourceMappingURL=exercice.css.map */
+pre {
+  padding: 30px 15px;
+  background: #f7f7f7;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: pre;
+  font-size: 14px;
+  color: #666666;
+  border-left: 3px solid #7b7b7b; }
+
+.navigation-wrapper {
+  width: 100%;
+  margin-top: 20px; }
+  .navigation-wrapper .precedent {
+    float: left;
+    margin-left: 10px; }
+  .navigation-wrapper .next {
+    float: right;
+    margin-right: 10px; }
