@@ -9,7 +9,7 @@
 
     <filter>
         <filter-name>AnonymousUserFilter</filter-name>
-        <filter-class>controllers.AnonymousUserFilter</filter-class>
+        <filter-class>Controllers.AnonymousUserFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>AnonymousUserFilter</filter-name>

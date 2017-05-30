@@ -1,17 +1,15 @@
-package controllers.Vuejs.Exercices;
-import controllers.*;
-
+package Controllers.Vuejs.Exercices;
+import Controllers.*;
 
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
+//import javax.persistence.EntityManager;
+//import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-
 @RestController
-@RequestMapping("/vuejs/exercice2")
-public class Exercice2 {
+@RequestMapping("/api/vuejs/exercice1")
+public class Exercice1 {
 
     @GetMapping
     @ResponseBody
@@ -24,7 +22,7 @@ public class Exercice2 {
     @ResponseBody
     public ObjetReponse receivePost(@RequestParam(value="answer", required = true) int answer,
                                     HttpSession session) {
-        System.out.println("exo2");
+        System.out.println("exo1");
         if(answer == 2)
             return new ObjetReponse("success", "", "Bravo! Passez à l'exercice suivant.");
         else

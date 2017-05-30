@@ -4,13 +4,33 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
     <persistence-unit name="pu-andope" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>Model.User</class>
+        <class>Model.Cours</class>
+        <class>Model.Exercice</class>
+        <class>Model.Inscrit</class>
+        <class>Model.Profile</class>
         <properties>
             <property name="hibernate.connection.autocommit" value="false" />
             <property name="javax.persistence.jdbc.password" value="root" />
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/andope" />
-            <property name="hibernate.connection.autocommit" value="false" />
+            <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/andope"/>
+            <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="eclipselink.jdbc.user"/>
+            <property name="eclipselink.jdbc.password"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/andope"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.username"/>
+            <property name="hibernate.connection.password"/>
+            <property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306/andope"/>
+            <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver"/>
+            <property name="openjpa.ConnectionUserName"/>
+            <property name="openjpa.ConnectionPassword"/>
+            <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/andope"/>
+            <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="toplink.jdbc.user"/>
+            <property name="toplink.jdbc.password"/>
         </properties>
     </persistence-unit>
     <persistence-unit name="pu-andope-test" transaction-type="RESOURCE_LOCAL">
