@@ -5,6 +5,13 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name="User.findAll", query="SELECT u FROM User u"),
+        @NamedQuery(name="User.findByName", query="SELECT u FROM User u WHERE u.username = :userName"),
+        @NamedQuery(name="User.findById", query="SELECT u FROM User u WHERE u.userId = :userId"),
+        @NamedQuery(name="User.findByPseudoAndPassword", query="SELECT u FROM User u WHERE u.userName = :userName AND u.userPassword = :userPassword"),
+})
+
 public class User {
     private int idU;
     private String firstname;

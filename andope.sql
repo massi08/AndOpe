@@ -13,6 +13,7 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`idU`)
 )
+CREATE UNIQUE INDEX user_pseudo_uindex ON andope.user (pseudo);
 
 DROP TABLE IF EXISTS `cours`;
 
