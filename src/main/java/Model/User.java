@@ -13,6 +13,7 @@ public class User {
     private String email;
     private String password;
     private Collection<Inscrit> inscritsByIdU;
+    private Collection<Profile> profilesByIdU;
 
     @Id
     @Column(name = "idU", nullable = false)
@@ -109,5 +110,14 @@ public class User {
 
     public void setInscritsByIdU(Collection<Inscrit> inscritsByIdU) {
         this.inscritsByIdU = inscritsByIdU;
+    }
+
+    @OneToMany(mappedBy = "userByIdU")
+    public Collection<Profile> getProfilesByIdU() {
+        return profilesByIdU;
+    }
+
+    public void setProfilesByIdU(Collection<Profile> profilesByIdU) {
+        this.profilesByIdU = profilesByIdU;
     }
 }

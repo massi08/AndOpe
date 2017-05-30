@@ -1,6 +1,7 @@
 package Model;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * Created by fanuel on 30/05/17.
@@ -11,6 +12,8 @@ public class Exercice {
     private String title;
     private String path;
     private Cours coursByIdC;
+    private int idC;
+    private Collection<Profile> profilesByIdE;
 
     @Id
     @Column(name = "idE", nullable = false)
@@ -72,5 +75,24 @@ public class Exercice {
 
     public void setCoursByIdC(Cours coursByIdC) {
         this.coursByIdC = coursByIdC;
+    }
+
+    @Basic
+    @Column(name = "idC", nullable = false)
+    public int getIdC() {
+        return idC;
+    }
+
+    public void setIdC(int idC) {
+        this.idC = idC;
+    }
+
+    @OneToMany(mappedBy = "exerciceByIdE")
+    public Collection<Profile> getProfilesByIdE() {
+        return profilesByIdE;
+    }
+
+    public void setProfilesByIdE(Collection<Profile> profilesByIdE) {
+        this.profilesByIdE = profilesByIdE;
     }
 }

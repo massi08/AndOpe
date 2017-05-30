@@ -1,9 +1,6 @@
 package Model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @Entity
@@ -12,6 +9,8 @@ public class Profile {
     private int idU;
     private int idE;
     private Integer status;
+    private User userByIdU;
+    private Exercice exerciceByIdE;
 
     @Id
     @Column(name = "idP", nullable = false)
@@ -75,5 +74,25 @@ public class Profile {
         result = 31 * result + idE;
         result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "idU", referencedColumnName = "idU", nullable = false)
+    public User getUserByIdU() {
+        return userByIdU;
+    }
+
+    public void setUserByIdU(User userByIdU) {
+        this.userByIdU = userByIdU;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "idE", referencedColumnName = "idE", nullable = false)
+    public Exercice getExerciceByIdE() {
+        return exerciceByIdE;
+    }
+
+    public void setExerciceByIdE(Exercice exerciceByIdE) {
+        this.exerciceByIdE = exerciceByIdE;
     }
 }

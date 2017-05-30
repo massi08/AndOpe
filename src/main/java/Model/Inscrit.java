@@ -10,6 +10,8 @@ public class Inscrit {
     private int idI;
     private User userByIdU;
     private Cours coursByIdC;
+    private int idU;
+    private int idC;
 
     @Id
     @Column(name = "idI", nullable = false)
@@ -56,5 +58,25 @@ public class Inscrit {
 
     public void setCoursByIdC(Cours coursByIdC) {
         this.coursByIdC = coursByIdC;
+    }
+
+    @Basic
+    @Column(name = "idU", nullable = false)
+    public int getIdU() {
+        return idU;
+    }
+
+    public void setIdU(int idU) {
+        this.idU = idU;
+    }
+
+    @Basic
+    @Column(name = "idC", nullable = false)
+    public int getIdC() {
+        return idC;
+    }
+
+    public void setIdC(int idC) {
+        this.idC = idC;
     }
 }
