@@ -1,9 +1,8 @@
-
 var API = {
-    get: function(url, body, onSuccess) {
+    get: function (url, body, onSuccess) {
         $.ajax({
             method: "GET",
-            url: url,
+            url: '/api/' + url,
             dataType: "json",
             data: body,
             success: function (data) {
@@ -19,7 +18,7 @@ var API = {
         console.log("post is being made ...")
         $.ajax({
             method: "POST",
-            url: url,
+            url: '/api/' + url,
             dataType: "json",
             data: body,
             success: function (data) {
