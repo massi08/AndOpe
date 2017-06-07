@@ -1,0 +1,14 @@
+@charset "UTF-8";
+@import "globals";
+
+.form-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.btn-row {
+  margin-top: 20px;
+  a {
+    float: right;
+  }
+}

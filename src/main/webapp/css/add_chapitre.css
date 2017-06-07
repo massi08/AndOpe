@@ -1,0 +1,8 @@
+.form-container {
+  width: 80%;
+  margin: 0 auto; }
+
+.btn-row {
+  margin-top: 20px; }
+  .btn-row a {
+    float: right; }

@@ -21,6 +21,7 @@ module.exports = function (grunt) {
                     "./css/manage_project.css": "./scss/manage_project.scss",
                     "./css/cours.css": "./scss/cours.scss",
                     "./css/exercice.css": "./scss/exercice.scss",
+                    "./css/add_chapitre.css": "./scss/add_chapitre.scss",
                 }
             }
         },
