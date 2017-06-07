@@ -1,9 +1,9 @@
 package Controllers;
 
 import Metier.ChapitreManager;
-import Metier.CoursManager;
+import Metier.ExerciceManager;
 import Model.Chapitre;
-import Model.Cours;
+import Model.Exercice;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/chapitre")
-public class ChapitreController {
+@RequestMapping("/api/exercice")
+public class ExerciceController {
 
     @Autowired
     private ApplicationContext ctx;
@@ -31,41 +31,41 @@ public class ChapitreController {
     private ChapitreManager chapitreManager;
 
     @Autowired
-    @Qualifier(value = "coursmanager")
-    private CoursManager coursManager;
+    @Qualifier(value = "exercicemanager")
+    private ExerciceManager exerciceManager;
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public ObjetReponse receiveGet(@RequestParam(value="title", required = false) String title,
                                    @RequestParam(value="idChapitre", required = false) String idChapitre,
-                                   @RequestParam(value="idCours", required = false) String idCours) {
-        Chapitre chapitre = null;
+                                   @RequestParam(value="idExercice", required = false) String idExercice) {
+        Exercice exercice = null;
         ObjectMapper mapper = new ObjectMapper();
         try {
             if(title != null && !title.equals("")) {
-                chapitre = chapitreManager.getChapitre(title);
-                return new ObjetReponse("success", "", mapper.writeValueAsString(chapitre));
+                exercice = exerciceManager.getExercice(title);
+                return new ObjetReponse("success", "", mapper.writeValueAsString(exercice));
+            }
+            else if(idExercice != null && !idExercice.equals("")){
+                int idE = Integer.valueOf(idExercice);
+                exercice = exerciceManager.getExercice(idE);
+                return new ObjetReponse("success", "", mapper.writeValueAsString(exercice));
             }
             else if(idChapitre != null && !idChapitre.equals("")){
                 int idC = Integer.valueOf(idChapitre);
-                chapitre = chapitreManager.getChapitre(idC);
-                return new ObjetReponse("success", "", mapper.writeValueAsString(chapitre));
-            }
-            else if(idCours != null && !idCours.equals("")){
-                int idC = Integer.valueOf(idCours);
-                List<Chapitre> allChapitre = chapitreManager.getAllChapitreByCoursId(idC);
-                List<String> allChapitreForJson = new ArrayList<>();
-                for (Chapitre c:allChapitre) {
-                    allChapitreForJson.add(mapper.writeValueAsString(c));
+                List<Exercice> allExercices = exerciceManager.getAllExercicesByCoursId(idC);
+                List<String> allExercicesForJson = new ArrayList<>();
+                for (Exercice e:allExercices) {
+                    allExercicesForJson.add(mapper.writeValueAsString(e));
                 }
                 Gson gson = new Gson();
-                return new ObjetReponse("success", "", gson.toJson(allChapitreForJson));
+                return new ObjetReponse("success", "", gson.toJson(allExercicesForJson));
             }
         }
         catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return new ObjetReponse("error", "", "Une erreur est survenue lors de la récupération du chapitre.");
+        return new ObjetReponse("error", "", "Une erreur est survenue lors de la récupération du exercice.");
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -75,23 +75,20 @@ public class ChapitreController {
                                     @RequestParam(value="idCours", required = true) String idCours,
                                     HttpSession session) {
         int coursId = Integer.valueOf(idCours);
-        Cours cours = coursManager.getCours(coursId);
-        if (cours == null){
+        Chapitre chapitre = chapitreManager.getChapitre(coursId);
+        if (chapitre == null){
             return new ObjetReponse("error", "", "Une erreur est survenue lors de la récupération du chapitre.");
         }
-        Chapitre chapitre = chapitreManager.newChapitre(title,path,cours);
-        System.out.println(chapitre);
-        System.out.println("broo");
-        if(chapitre != null) {
+        Exercice exercice = exerciceManager.newExercice(title,path,chapitre);
+        if(exercice != null) {
             ObjectMapper mapper = new ObjectMapper();
             try {
-                File file = new File("src/main/webapp/html_files/"+cours.getTitle()+"/"+path);
+                File file = new File("src/main/webapp/html_files/"+chapitre.getCoursByIdCours().getTitle()+"/exercices/"+exercice.getTitle());
                 FileWriter writer = new FileWriter(file);
-                writer.write("Hello World\n");
                 writer.write("Okay ");
                 writer.flush();
                 writer.close();
-                return new ObjetReponse("success", "", mapper.writeValueAsString(chapitre));
+                return new ObjetReponse("success", "", mapper.writeValueAsString(exercice));
             }
             catch (JsonProcessingException e) {
                 e.printStackTrace();
@@ -100,6 +97,6 @@ public class ChapitreController {
                 e.printStackTrace();
             }
         }
-        return new ObjetReponse("error", "", "Une erreur est survenue lors de la création du cours.");
+        return new ObjetReponse("error", "", "Une erreur est survenue lors de la création du chapitre.");
     }
 }

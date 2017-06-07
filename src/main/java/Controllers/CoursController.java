@@ -3,6 +3,9 @@ package Controllers;
 
 import Metier.CoursManager;
 import Model.Cours;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -10,6 +13,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -28,13 +36,29 @@ public class CoursController {
     public ObjetReponse receiveGet(@RequestParam(value="title", required = false) String title,
                                    @RequestParam(value="idCours", required = false) String idCours) {
         Cours cours = null;
-        if(title != null && !title.equals("")) {
-            cours = coursManager.getCours(title);
-            return new ObjetReponse("success", "", cours.getTitle());
-        }else if(idCours != null && !idCours.equals("")){
-            int idC = Integer.valueOf(idCours);
-            cours = coursManager.getCours(idC);
-            return new ObjetReponse("success", "", "Voici le cours intitulé " + cours.getTitle());
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            if(title != null && !title.equals("")) {
+                cours = coursManager.getCours(title);
+                return new ObjetReponse("success", "", mapper.writeValueAsString(cours));
+            }
+            else if(idCours != null && !idCours.equals("")){
+                int idC = Integer.valueOf(idCours);
+                cours = coursManager.getCours(idC);
+                return new ObjetReponse("success", "", mapper.writeValueAsString(cours));
+            }
+            else if(idCours == null && title == null){
+                List<Cours> allCours = coursManager.getAllCours();
+                List<String> allCoursForJson = new ArrayList<>();
+                for (Cours c:allCours) {
+                    allCoursForJson.add(mapper.writeValueAsString(c));
+                }
+                Gson gson = new Gson();
+                return new ObjetReponse("success", "", gson.toJson(allCoursForJson));
+            }
+        }
+        catch (JsonProcessingException e) {
+            e.printStackTrace();
         }
         return new ObjetReponse("error", "", "Une erreur est survenue lors de la récupération du cours.");
     }
@@ -44,13 +68,13 @@ public class CoursController {
     public ObjetReponse receivePost(@RequestParam(value="title", required = true) String title,
                                     @RequestParam(value="nbExercices", required = true, defaultValue = "0") int nbExercices,
                                     HttpSession session) {
-
-
         Cours cours = coursManager.newCours(title,nbExercices);
         if(cours != null) {
+            new File("src/main/webapp/html_files/"+title).mkdir();
+            new File("src/main/webapp/html_files/"+title+"/cours").mkdir();
+            new File("src/main/webapp/html_files/"+title+"/exercices").mkdir();
             return new ObjetReponse("success", "", "Le cours " + cours.getTitle() + " est bien crée.");
         }
-
         return new ObjetReponse("error", "", "Une erreur est survenue lors de la création du cours.");
     }
 }

@@ -15,10 +15,24 @@ public class ChapitreDao {
         this.em = em;
     }
 
-    public Chapitre createCours(String title, String path, Cours cours) {
+    public Chapitre createChapitre(String title, String path, Cours cours) {
         Chapitre chapitre = new Chapitre(title, path, cours);
         em.persist(chapitre);
         return chapitre;
+    }
+
+    public List<Chapitre> getAllChapitre() {
+        List<Chapitre> u = null;
+        Query query = em.createNamedQuery("Chapitre.findAll", Cours.class);
+        try {
+            u =  query.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        } catch (Exception e) {
+            throw new ExceptionDao(e);
+        }
+
+        return u;
     }
 
     public Chapitre getChapitreById(int id) {
@@ -35,7 +49,22 @@ public class ChapitreDao {
         return u;
     }
 
-    public List<Chapitre> getChapitreByCoursId(int id) {
+    public Chapitre getChapitre(String title) {
+        Chapitre u = null;
+        Query query = em.createNamedQuery("Chapitre.findByTitle", Chapitre.class).setParameter("title", title);
+        try {
+            u = (Chapitre) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } catch (Exception e) {
+            throw new ExceptionDao(e);
+        }
+
+        return u;
+    }
+
+
+    public List<Chapitre> getAllChapitreByCoursId(int id) {
         List<Chapitre> chapitres = null;
         Query query = em.createNamedQuery("Chapitre.findAllByCoursId", Chapitre.class).setParameter("coursId", id);
         try {

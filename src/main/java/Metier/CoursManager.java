@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Transactional
 public class CoursManager {
@@ -31,14 +32,24 @@ public class CoursManager {
         return cours;
     }
 
+    public List<Cours> getAllCours(){
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
+        List<Cours> cours = coursDao.getAllCours();
+
+        transaction.commit();
+        return cours;
+    }
+
     public Cours getCours(int coursId) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
-        Cours user = coursDao.getCoursById(coursId);
+        Cours cours = coursDao.getCoursById(coursId);
 
         transaction.commit();
-        return user;
+        return cours;
     }
 
     public Cours getCours(String title) {

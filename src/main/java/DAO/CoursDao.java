@@ -27,6 +27,20 @@ public class CoursDao {
         }
     }
 
+    public List<Cours> getAllCours() {
+        List<Cours> u = null;
+        Query query = em.createNamedQuery("Cours.findAll", Cours.class);
+        try {
+            u =  query.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        } catch (Exception e) {
+            throw new ExceptionDao(e);
+        }
+
+        return u;
+    }
+
     public Cours getCoursByTitle(String name) {
         Cours u = null;
         Query query = em.createNamedQuery("Cours.findByTitle", Cours.class).setParameter("title", name);

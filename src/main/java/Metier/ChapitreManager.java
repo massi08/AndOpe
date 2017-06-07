@@ -3,15 +3,14 @@ package Metier;
 
 import DAO.ChapitreDao;
 import DAO.CoursDao;
-import DAO.ExerciceDao;
 import Model.Chapitre;
 import Model.Cours;
-import Model.Exercice;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Transactional
 public class ChapitreManager {
@@ -28,16 +27,47 @@ public class ChapitreManager {
         this.chapitreDao = chapitreDao;
     }
 
-    public Chapitre newCours(String title, String path, Cours cours) {
+    public Chapitre newChapitre(String title, String path, Cours cours) {
 
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
-        Chapitre chapitre = this.chapitreDao.createCours(title, path, cours);
+        Chapitre chapitre = this.chapitreDao.createChapitre(title, path, cours);
         em.persist(cours);
         transaction.commit();
         return chapitre;
     }
+
+    public List<Chapitre> getAllChapitreByCoursId(int coursId){
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
+        List<Chapitre> chapitre = chapitreDao.getAllChapitreByCoursId(coursId);
+
+        transaction.commit();
+        return chapitre;
+    }
+
+    public Chapitre getChapitre(int chapitreId) {
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
+        Chapitre chapitre = chapitreDao.getChapitreById(chapitreId);
+
+        transaction.commit();
+        return chapitre;
+    }
+
+    public Chapitre getChapitre(String title) {
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
+        Chapitre chapitre = chapitreDao.getChapitre(title);
+
+        transaction.commit();
+        return chapitre;
+    }
+
 
     public Chapitre updateChapitreTitle(Chapitre chapitre, String title) {
 

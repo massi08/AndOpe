@@ -1,5 +1,8 @@
 package Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -7,17 +10,32 @@ import java.util.Collection;
 @Entity
 @NamedQueries({
         @NamedQuery(name="Exercice.findAll", query="SELECT e FROM Exercice e"),
-        @NamedQuery(name="Exercice.findByName", query="SELECT e FROM Exercice e WHERE e.title = :title"),
+        @NamedQuery(name="Exercice.findByTitle", query="SELECT e FROM Exercice e WHERE e.title = :title"),
         @NamedQuery(name="Exercice.findAllByChapitreId", query="SELECT e FROM Exercice e WHERE e.chapitreByIdC.idC = :chapitreId"),
         @NamedQuery(name="Exercice.findById", query="SELECT e FROM Exercice e WHERE e.idE = :exerciceId"),
 })
 @Table(name = "exercice")
 public class Exercice {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idE", nullable = false)
     private int idE;
+
+    @Basic
+    @Column(name = "title", nullable = true, length = 255)
     private String title;
+
+    @Basic
+    @Column(name = "path", nullable = false, length = 255)
     private String path;
-    private int idC;
+
+    @OneToMany(mappedBy = "exerciceByIdE")
     private Collection<Profile> profilesByIdE;
+
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "idC", referencedColumnName = "idC", nullable = false)
     private Chapitre chapitreByIdC;
 
     public Exercice(String title, String path, Chapitre chapitre) {
@@ -29,9 +47,7 @@ public class Exercice {
     public Exercice() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idE", nullable = false)
+
     public int getIdE() {
         return idE;
     }
@@ -40,8 +56,7 @@ public class Exercice {
         this.idE = idE;
     }
 
-    @Basic
-    @Column(name = "title", nullable = true, length = 255)
+
     public String getTitle() {
         return title;
     }
@@ -50,8 +65,7 @@ public class Exercice {
         this.title = title;
     }
 
-    @Basic
-    @Column(name = "path", nullable = false, length = 255)
+
     public String getPath() {
         return path;
     }
@@ -82,13 +96,6 @@ public class Exercice {
         return result;
     }
 
-
-
-    public void setIdC(int idC) {
-        this.idC = idC;
-    }
-
-    @OneToMany(mappedBy = "exerciceByIdE")
     public Collection<Profile> getProfilesByIdE() {
         return profilesByIdE;
     }
@@ -97,8 +104,6 @@ public class Exercice {
         this.profilesByIdE = profilesByIdE;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "idC", referencedColumnName = "idC", nullable = false)
     public Chapitre getChapitreByIdC() {
         return chapitreByIdC;
     }

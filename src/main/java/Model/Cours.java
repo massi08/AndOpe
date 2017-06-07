@@ -1,5 +1,8 @@
 package Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -12,12 +15,26 @@ import java.util.Collection;
 })
 @Table(name = "cours")
 public class Cours {
+
+    @Basic
+    @Column(name = "title", nullable = true, length = 255)
     private String title;
+
+    @Basic
+    @Column(name = "nbExercices", nullable = true)
     private Integer nbExercices;
-    private Collection<Exercice> exercicesByIdC;
-    private Collection<Inscrit> inscritsByIdC;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idCours", nullable = false)
     private int idCours;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "coursByIdCours")
     private Collection<Inscrit> inscritsByIdCours;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "coursByIdCours")
     private Collection<Chapitre> chapitresByIdCours;
 
     public Cours(String title, Integer nbExercices) {
@@ -29,8 +46,7 @@ public class Cours {
     }
 
 
-    @Basic
-    @Column(name = "title", nullable = true, length = 255)
+
     public String getTitle() {
         return title;
     }
@@ -39,9 +55,6 @@ public class Cours {
         this.title = title;
     }
 
-
-    @Basic
-    @Column(name = "nbExercices", nullable = true)
     public Integer getNbExercices() {
         return nbExercices;
     }
@@ -73,9 +86,7 @@ public class Cours {
     }
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idCours", nullable = false)
+
     public int getIdCours() {
         return idCours;
     }
@@ -84,7 +95,6 @@ public class Cours {
         this.idCours = idCours;
     }
 
-    @OneToMany(mappedBy = "coursByIdCours")
     public Collection<Inscrit> getInscritsByIdCours() {
         return inscritsByIdCours;
     }
@@ -93,7 +103,6 @@ public class Cours {
         this.inscritsByIdCours = inscritsByIdCours;
     }
 
-    @OneToMany(mappedBy = "coursByIdCours")
     public Collection<Chapitre> getChapitresByIdCours() {
         return chapitresByIdCours;
     }

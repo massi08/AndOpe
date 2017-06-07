@@ -7,6 +7,7 @@ import Model.Exercice;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * Created by fanuel on 31/05/17.
@@ -32,7 +33,37 @@ public class ExerciceManager {
         return exercice;
     }
 
-    public Exercice updateChapitreTitle(Exercice exercice, String title) {
+    public List<Exercice> getAllExercicesByCoursId(int coursId){
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
+        List<Exercice> exercice = exerciceDao.getExerciceByChapitreId(coursId);
+
+        transaction.commit();
+        return exercice;
+    }
+
+    public Exercice getExercice(int exerciceId) {
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
+        Exercice exercice = exerciceDao.getExerciceById(exerciceId);
+
+        transaction.commit();
+        return exercice;
+    }
+
+    public Exercice getExercice(String title) {
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
+        Exercice exercice = exerciceDao.getExercice(title);
+
+        transaction.commit();
+        return exercice;
+    }
+
+    public Exercice updateExerciceTitle(Exercice exercice, String title) {
 
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
@@ -43,7 +74,7 @@ public class ExerciceManager {
         return exercice;
     }
 
-    public Exercice updateChapitrePath(Exercice exercice, String path) {
+    public Exercice updateExercicePath(Exercice exercice, String path) {
 
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
@@ -54,7 +85,7 @@ public class ExerciceManager {
         return exercice;
     }
 
-    public boolean deleteChapitre(Exercice exercice) {
+    public boolean deleteExercice(Exercice exercice) {
 
         EntityTransaction transaction = em.getTransaction();
         boolean status = false;

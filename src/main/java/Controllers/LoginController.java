@@ -2,6 +2,8 @@ package Controllers;
 
 import Metier.UserManager;
 import Model.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -56,9 +58,14 @@ public class LoginController {
 
 
         User user = usermanager.getUser(pseudo);
-        if(user != null) {
-            session.setAttribute("pseudo", user.getPseudo());
-            return new ObjetReponse("success", "", "Bonjour " + user.getFirstname());
+        try {
+            if(user != null) {
+                ObjectMapper mapper = new ObjectMapper();
+                session.setAttribute("pseudo", user.getPseudo());
+                return new ObjetReponse("success", "", mapper.writeValueAsString(user));
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
         }
 
         return new ObjetReponse("error", "", "Pseudo ou mot de passe incorrect.");

@@ -23,6 +23,8 @@ public class ExerciceDao {
         return exercice;
     }
 
+
+
     public Exercice getExerciceById(int id) {
         Exercice u = null;
         Query query = em.createNamedQuery("Exercice.findById", Exercice.class).setParameter("exerciceId", id);
@@ -37,7 +39,21 @@ public class ExerciceDao {
         return u;
     }
 
-    public List<Exercice> getExerciceByCoursId(int id) {
+    public Exercice getExercice(String title) {
+        Exercice u = null;
+        Query query = em.createNamedQuery("Exercice.findByTitle", Exercice.class).setParameter("title", title);
+        try {
+            u = (Exercice) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } catch (Exception e) {
+            throw new ExceptionDao(e);
+        }
+
+        return u;
+    }
+
+    public List<Exercice> getExerciceByChapitreId(int id) {
         List<Exercice> exercices = null;
         Query query = em.createNamedQuery("Exercice.findAllByChapitreId", Exercice.class).setParameter("chapitreId", id);
         try {

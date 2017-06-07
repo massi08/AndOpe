@@ -1,5 +1,8 @@
 package Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -7,18 +10,34 @@ import java.util.Collection;
 @Entity
 @NamedQueries({
         @NamedQuery(name="Chapitre.findAll", query="SELECT e FROM Chapitre e"),
-        @NamedQuery(name="Chapitre.findByName", query="SELECT e FROM Chapitre e WHERE e.title = :title"),
+        @NamedQuery(name="Chapitre.findByTitle", query="SELECT e FROM Chapitre e WHERE e.title = :title"),
         @NamedQuery(name="Chapitre.findByCoursAndName", query="SELECT e FROM Chapitre e WHERE e.coursByIdCours.idCours = :coursId and e.title = :title"),
         @NamedQuery(name="Chapitre.findAllByCoursId", query="SELECT e FROM Chapitre e WHERE e.coursByIdCours.idCours = :coursId"),
         @NamedQuery(name="Chapitre.findById", query="SELECT e FROM Chapitre e WHERE e.idC = :chapitreId"),
 })
 @Table(name = "chapitre")
 public class Chapitre {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idC", nullable = false)
     private int idC;
+
+    @Basic
+    @Column(name = "title", nullable = true, length = 255)
     private String title;
+
+    @Basic
+    @Column(name = "path", nullable = false, length = 255)
     private String path;
-    private int idCours;
+
+    @OneToMany(mappedBy = "chapitreByIdC")
+    @JsonManagedReference
     private Collection<Exercice> exercicesByIdC;
+
+    @ManyToOne
+    @JoinColumn(name = "idCours", referencedColumnName = "idCours", nullable = false)
+    @JsonBackReference
     private Cours coursByIdCours;
 
     public Chapitre(String title, String path, Cours cours) {
@@ -30,9 +49,7 @@ public class Chapitre {
     public Chapitre() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idC", nullable = false)
+
     public int getIdC() {
         return idC;
     }
@@ -41,8 +58,7 @@ public class Chapitre {
         this.idC = idC;
     }
 
-    @Basic
-    @Column(name = "title", nullable = true, length = 255)
+
     public String getTitle() {
         return title;
     }
@@ -51,8 +67,7 @@ public class Chapitre {
         this.title = title;
     }
 
-    @Basic
-    @Column(name = "path", nullable = false, length = 255)
+
     public String getPath() {
         return path;
     }
@@ -62,11 +77,6 @@ public class Chapitre {
     }
 
 
-
-    public void setIdCours(int idCours) {
-        this.idCours = idCours;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,7 +85,6 @@ public class Chapitre {
         Chapitre chapitre = (Chapitre) o;
 
         if (idC != chapitre.idC) return false;
-        if (idCours != chapitre.idCours) return false;
         if (title != null ? !title.equals(chapitre.title) : chapitre.title != null) return false;
         if (path != null ? !path.equals(chapitre.path) : chapitre.path != null) return false;
 
@@ -88,11 +97,10 @@ public class Chapitre {
         int result = idC;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (path != null ? path.hashCode() : 0);
-        result = 31 * result + idCours;
         return result;
     }
 
-    @OneToMany(mappedBy = "chapitreByIdC")
+
     public Collection<Exercice> getExercicesByIdC() {
         return exercicesByIdC;
     }
@@ -101,8 +109,6 @@ public class Chapitre {
         this.exercicesByIdC = exercicesByIdC;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "idCours", referencedColumnName = "idCours", nullable = false)
     public Cours getCoursByIdCours() {
         return coursByIdCours;
     }
