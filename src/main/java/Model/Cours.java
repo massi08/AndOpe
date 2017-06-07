@@ -3,27 +3,31 @@ package Model;
 import javax.persistence.*;
 import java.util.Collection;
 
-/**
- * Created by fanuel on 30/05/17.
- */
+
 @Entity
+@NamedQueries({
+        @NamedQuery(name="Cours.findAll", query="SELECT c FROM Cours c"),
+        @NamedQuery(name="Cours.findByTitle", query="SELECT c FROM Cours c WHERE c.title = :title"),
+        @NamedQuery(name="Cours.findById", query="SELECT c FROM Cours c WHERE c.idCours = :coursId"),
+})
+@Table(name = "cours")
 public class Cours {
-    private int idC;
     private String title;
-    private String path;
     private Integer nbExercices;
     private Collection<Exercice> exercicesByIdC;
     private Collection<Inscrit> inscritsByIdC;
+    private int idCours;
+    private Collection<Inscrit> inscritsByIdCours;
+    private Collection<Chapitre> chapitresByIdCours;
 
-    @Id
-    @Column(name = "idC", nullable = false)
-    public int getIdC() {
-        return idC;
+    public Cours(String title, Integer nbExercices) {
+        this.title = title;
+        this.nbExercices = nbExercices;
     }
 
-    public void setIdC(int idC) {
-        this.idC = idC;
+    public Cours() {
     }
+
 
     @Basic
     @Column(name = "title", nullable = true, length = 255)
@@ -35,15 +39,6 @@ public class Cours {
         this.title = title;
     }
 
-    @Basic
-    @Column(name = "path", nullable = false, length = 255)
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
 
     @Basic
     @Column(name = "nbExercices", nullable = true)
@@ -62,9 +57,8 @@ public class Cours {
 
         Cours cours = (Cours) o;
 
-        if (idC != cours.idC) return false;
+        if (idCours != cours.idCours) return false;
         if (title != null ? !title.equals(cours.title) : cours.title != null) return false;
-        if (path != null ? !path.equals(cours.path) : cours.path != null) return false;
         if (nbExercices != null ? !nbExercices.equals(cours.nbExercices) : cours.nbExercices != null) return false;
 
         return true;
@@ -72,28 +66,39 @@ public class Cours {
 
     @Override
     public int hashCode() {
-        int result = idC;
+        int result = idCours;
         result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (path != null ? path.hashCode() : 0);
         result = 31 * result + (nbExercices != null ? nbExercices.hashCode() : 0);
         return result;
     }
 
-    @OneToMany(mappedBy = "coursByIdC")
-    public Collection<Exercice> getExercicesByIdC() {
-        return exercicesByIdC;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idCours", nullable = false)
+    public int getIdCours() {
+        return idCours;
     }
 
-    public void setExercicesByIdC(Collection<Exercice> exercicesByIdC) {
-        this.exercicesByIdC = exercicesByIdC;
+    public void setIdCours(int idCours) {
+        this.idCours = idCours;
     }
 
-    @OneToMany(mappedBy = "coursByIdC")
-    public Collection<Inscrit> getInscritsByIdC() {
-        return inscritsByIdC;
+    @OneToMany(mappedBy = "coursByIdCours")
+    public Collection<Inscrit> getInscritsByIdCours() {
+        return inscritsByIdCours;
     }
 
-    public void setInscritsByIdC(Collection<Inscrit> inscritsByIdC) {
-        this.inscritsByIdC = inscritsByIdC;
+    public void setInscritsByIdCours(Collection<Inscrit> inscritsByIdCours) {
+        this.inscritsByIdCours = inscritsByIdCours;
+    }
+
+    @OneToMany(mappedBy = "coursByIdCours")
+    public Collection<Chapitre> getChapitresByIdCours() {
+        return chapitresByIdCours;
+    }
+
+    public void setChapitresByIdCours(Collection<Chapitre> chapitresByIdCours) {
+        this.chapitresByIdCours = chapitresByIdCours;
     }
 }

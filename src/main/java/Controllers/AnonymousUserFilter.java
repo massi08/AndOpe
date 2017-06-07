@@ -34,7 +34,7 @@ public class AnonymousUserFilter implements Filter {
         String url = req.getRequestURL().toString();
         String contextPath = req.getContextPath();
         //System.out.println("Yoo");
-            /*if(!(uri.equals(contextPath + "/") || uri.contains("/login") || uri.contains("/register") || url.contains("/src"))) {
+            if(!(uri.equals(contextPath + "/") || uri.contains("/login") || uri.contains("/register") || url.contains("/src"))) {
 
                 String userName = (String) session.getAttribute("userName");
                 if(userName == null) {
@@ -45,7 +45,7 @@ public class AnonymousUserFilter implements Filter {
                         System.err.println(e);
                     }
                 }
-            }*/
+            }
 
             try {
                 filterChain.doFilter(servletRequest, servletResponse);

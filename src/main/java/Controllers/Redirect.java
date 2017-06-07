@@ -24,13 +24,13 @@ public class Redirect {
      * @return  ObjetReponse contenant une redirection, ou un message d'erreur.
      */
     @RequestMapping("/redirect")
-    public ModelAndView redirect(ServletRequest servletRequest, ServletResponse servletResponse) {
+    public ObjetReponse redirect(ServletRequest servletRequest, ServletResponse servletResponse) {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         String uri = req.getRequestURI();
 
         ((HttpServletResponse)servletResponse).setStatus(401);
         if(uri.contains("/api/")) {
-            return new ModelAndView("redirect", "", "La session a expiré.");
+            return new ObjetReponse("redirect", "", "La session a expiré.");
         }
         else {
             try {
@@ -41,6 +41,6 @@ public class Redirect {
             }
 
         }
-        return new ModelAndView("error", "", "redirection non gérée.");
+        return new ObjetReponse("error", "", "redirection non gérée.");
     }
 }

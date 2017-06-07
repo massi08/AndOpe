@@ -2,18 +2,32 @@ package Model;
 
 import javax.persistence.*;
 
-/**
- * Created by fanuel on 30/05/17.
- */
 @Entity
+@NamedQueries({
+        @NamedQuery(name="Inscrit.findAll", query="SELECT i FROM Inscrit i"),
+        @NamedQuery(name="Inscrit.findAllByUser", query="SELECT i FROM Inscrit i WHERE i.userByIdU.idU = :userId"),
+        @NamedQuery(name="Inscrit.findById", query="SELECT i FROM Inscrit i WHERE i.idI = :inscritId"),
+})
+@Table(name = "inscrit")
 public class Inscrit {
     private int idI;
     private User userByIdU;
     private Cours coursByIdC;
     private int idU;
-    private int idC;
+
+    public Inscrit(User idU, Cours idC) {
+        this.userByIdU = idU;
+        this.coursByIdC = idC;
+    }
+
+    private int idCours;
+    private Cours coursByIdCours;
+
+    public Inscrit() {
+    }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idI", nullable = false)
     public int getIdI() {
         return idI;
@@ -50,33 +64,27 @@ public class Inscrit {
         this.userByIdU = userByIdU;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "idC", referencedColumnName = "idC", nullable = false)
-    public Cours getCoursByIdC() {
-        return coursByIdC;
-    }
 
     public void setCoursByIdC(Cours coursByIdC) {
         this.coursByIdC = coursByIdC;
     }
 
-    @Basic
-    @Column(name = "idU", nullable = false)
-    public int getIdU() {
-        return idU;
-    }
 
     public void setIdU(int idU) {
         this.idU = idU;
     }
 
-    @Basic
-    @Column(name = "idC", nullable = false)
-    public int getIdC() {
-        return idC;
+    public void setIdCours(int idCours) {
+        this.idCours = idCours;
     }
 
-    public void setIdC(int idC) {
-        this.idC = idC;
+    @ManyToOne
+    @JoinColumn(name = "idCours", referencedColumnName = "idCours", nullable = false)
+    public Cours getCoursByIdCours() {
+        return coursByIdCours;
+    }
+
+    public void setCoursByIdCours(Cours coursByIdCours) {
+        this.coursByIdCours = coursByIdCours;
     }
 }

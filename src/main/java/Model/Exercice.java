@@ -3,19 +3,34 @@ package Model;
 import javax.persistence.*;
 import java.util.Collection;
 
-/**
- * Created by fanuel on 30/05/17.
- */
+
 @Entity
+@NamedQueries({
+        @NamedQuery(name="Exercice.findAll", query="SELECT e FROM Exercice e"),
+        @NamedQuery(name="Exercice.findByName", query="SELECT e FROM Exercice e WHERE e.title = :title"),
+        @NamedQuery(name="Exercice.findAllByChapitreId", query="SELECT e FROM Exercice e WHERE e.chapitreByIdC.idC = :chapitreId"),
+        @NamedQuery(name="Exercice.findById", query="SELECT e FROM Exercice e WHERE e.idE = :exerciceId"),
+})
+@Table(name = "exercice")
 public class Exercice {
     private int idE;
     private String title;
     private String path;
-    private Cours coursByIdC;
     private int idC;
     private Collection<Profile> profilesByIdE;
+    private Chapitre chapitreByIdC;
+
+    public Exercice(String title, String path, Chapitre chapitre) {
+        this.title = title;
+        this.path = path;
+        this.chapitreByIdC = chapitre;
+    }
+
+    public Exercice() {
+    }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idE", nullable = false)
     public int getIdE() {
         return idE;
@@ -67,21 +82,7 @@ public class Exercice {
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "idC", referencedColumnName = "idC", nullable = false)
-    public Cours getCoursByIdC() {
-        return coursByIdC;
-    }
 
-    public void setCoursByIdC(Cours coursByIdC) {
-        this.coursByIdC = coursByIdC;
-    }
-
-    @Basic
-    @Column(name = "idC", nullable = false)
-    public int getIdC() {
-        return idC;
-    }
 
     public void setIdC(int idC) {
         this.idC = idC;
@@ -94,5 +95,15 @@ public class Exercice {
 
     public void setProfilesByIdE(Collection<Profile> profilesByIdE) {
         this.profilesByIdE = profilesByIdE;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "idC", referencedColumnName = "idC", nullable = false)
+    public Chapitre getChapitreByIdC() {
+        return chapitreByIdC;
+    }
+
+    public void setChapitreByIdC(Chapitre chapitreByIdC) {
+        this.chapitreByIdC = chapitreByIdC;
     }
 }

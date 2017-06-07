@@ -4,6 +4,13 @@ import javax.persistence.*;
 
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name="Profile.findAll", query="SELECT p FROM Profile p"),
+        @NamedQuery(name="Profile.findById", query="SELECT p FROM Profile p WHERE p.idP = :profileId"),
+        @NamedQuery(name="Profile.findAllByUserId", query="SELECT p FROM Profile p WHERE p.userByIdU.idU = :userId"),
+        @NamedQuery(name="Profile.findByUserIdandExerciceId", query="SELECT p FROM Profile p WHERE p.userByIdU.idU = :userId and p.exerciceByIdE.idE = :exerciceId"),
+})
+@Table(name = "profile")
 public class Profile {
     private int idP;
     private int idU;
@@ -12,7 +19,17 @@ public class Profile {
     private User userByIdU;
     private Exercice exerciceByIdE;
 
+    public Profile(int status, User user, Exercice exercice){
+        this.status = status;
+        this.userByIdU = user;
+        this.exerciceByIdE = exercice;
+    }
+
+    public Profile() {
+    }
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idP", nullable = false)
     public int getIdP() {
         return idP;
@@ -22,21 +39,13 @@ public class Profile {
         this.idP = idP;
     }
 
-    @Basic
-    @Column(name = "idU", nullable = false)
-    public int getIdU() {
-        return idU;
-    }
+
 
     public void setIdU(int idU) {
         this.idU = idU;
     }
 
-    @Basic
-    @Column(name = "idE", nullable = false)
-    public int getIdE() {
-        return idE;
-    }
+
 
     public void setIdE(int idE) {
         this.idE = idE;

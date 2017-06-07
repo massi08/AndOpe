@@ -1,17 +1,22 @@
 package Model;
 
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @NamedQueries({
         @NamedQuery(name="User.findAll", query="SELECT u FROM User u"),
-        @NamedQuery(name="User.findByName", query="SELECT u FROM User u WHERE u.username = :userName"),
-        @NamedQuery(name="User.findById", query="SELECT u FROM User u WHERE u.userId = :userId"),
-        @NamedQuery(name="User.findByPseudoAndPassword", query="SELECT u FROM User u WHERE u.userName = :userName AND u.userPassword = :userPassword"),
+        @NamedQuery(name="User.findByPseudo", query="SELECT u FROM User u WHERE u.pseudo = :pseudo"),
+        @NamedQuery(name="User.findById", query="SELECT u FROM User u WHERE u.idU = :userId"),
+        @NamedQuery(name="User.findByPseudoAndPassword", query="SELECT u FROM User u WHERE u.pseudo = :pseudo AND u.password = :userPassword"),
 })
-
+@Table(name = "user")
 public class User {
     private int idU;
     private String firstname;
@@ -21,7 +26,23 @@ public class User {
     private String password;
     private Collection<Inscrit> inscritsByIdU;
     private Collection<Profile> profilesByIdU;
+    private String access;
 
+    public User() {
+        this.pseudo = "";
+        this.password = "";
+    }
+
+    public User(String pseudo, String password, String firstname, String lastname, String email) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.pseudo = pseudo;
+        this.email = email;
+        this.password = password;
+        this.access = "root";
+    }
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "idU", nullable = false)
     public int getIdU() {
@@ -78,9 +99,12 @@ public class User {
         return password;
     }
 
+
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -98,6 +122,8 @@ public class User {
 
         return true;
     }
+
+
 
     @Override
     public int hashCode() {

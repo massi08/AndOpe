@@ -13,6 +13,10 @@
 	   http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <context:component-scan base-package="Controllers" />
+    <context:component-scan base-package="BeansConfiguration" />
+    <context:component-scan base-package="Metier" />
+    <context:component-scan base-package="Model" />
+    <context:component-scan base-package="DAO" />
     <mvc:annotation-driven />
     <mvc:default-servlet-handler/>
 </beans>
