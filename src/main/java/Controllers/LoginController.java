@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -16,7 +17,6 @@ import javax.servlet.http.HttpSession;
 
 
 @RestController
-@RequestMapping("/api/login")
 public class LoginController {
 
     @Autowired
@@ -34,12 +34,11 @@ public class LoginController {
      * @param reponse   Réponse du serveur.
      * @return  ObjetReponse contenant un retour d'erreur.
      */
-    @RequestMapping(method = RequestMethod.GET)
-    @ResponseBody
-    public ObjetReponse receiveGet(HttpServletResponse reponse) {
+    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
+    public ModelAndView receiveGet(HttpServletResponse reponse) {
         System.out.println("get login");
         reponse.setStatus(405);
-        return new ObjetReponse("error", "", "la demande n'est pas prise en compte (GET sur login).");
+        return new ModelAndView("index","","");
     }
 
     /**
@@ -50,24 +49,24 @@ public class LoginController {
      * @param session   Session HTML de l'utilisateur.
      * @return  ObjetReponse indiquant la réussite ou l'échec de l'authentification.
      */
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/api/login", method = RequestMethod.POST)
     @ResponseBody
-    public ObjetReponse receivePost(@RequestParam(value="pseudo", required = true) String pseudo,
+    public ModelAndView receivePost(@RequestParam(value="pseudo", required = true) String pseudo,
                                     @RequestParam(value="password", required = true) String password,
                                     HttpSession session) {
 
 
-        User user = usermanager.getUser(pseudo);
+        User user = usermanager.checkUser(pseudo, password);
         try {
             if(user != null) {
                 ObjectMapper mapper = new ObjectMapper();
                 session.setAttribute("pseudo", user.getPseudo());
-                return new ObjetReponse("success", "", mapper.writeValueAsString(user));
+                return new ModelAndView("manage_project", "", mapper.writeValueAsString(user));
             }
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
 
-        return new ObjetReponse("error", "", "Pseudo ou mot de passe incorrect.");
+        return new ModelAndView("index", "", "Pseudo ou mot de passe incorrect.");
     }
 }

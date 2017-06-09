@@ -5,7 +5,7 @@ public class ObjetReponse {
     /**
      * Message d'erreur de la réponse objet
      */
-    private final String err = "err: ";
+    //private final String err = "err: ";
 
     /**
      * Statut de la réponse objet
@@ -61,13 +61,13 @@ public class ObjetReponse {
         if(s.equals("success") || s.equals("error") || s.equals("redirect")) {
             this.status = s;
             if(this.status.equals("error")) {
-                this.message = this.err;
+                this.message = "";
             }
         }
         else {
             this.status = "error";
             this.contenu = "";
-            this.message = this.err + "statut incorrect dans l'objet réponse";
+            this.message = "statut incorrect dans l'objet réponse";
         }
     }
 
@@ -102,7 +102,7 @@ public class ObjetReponse {
     public void setMessage(String s) {
         this.message = "";
         if(this.status.equals("error")) {
-            this.message = this.err;
+            this.message = "";
         }
         this.message += s;
     }

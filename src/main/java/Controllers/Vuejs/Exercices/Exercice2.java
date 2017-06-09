@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @RestController
@@ -21,13 +23,28 @@ public class Exercice2 {
 
     @PostMapping
     @ResponseBody
-    public ObjetReponse receivePost(@RequestParam(value="answer", required = true) int answer,
+    public ObjetReponse receivePost(@RequestParam(value="answer", required = true) String answer,
                                     HttpSession session) {
-        System.out.println("exo2");
-        if(answer == 2)
+        System.out.println(answer);
+        String line = "This order was placed for QT3000! OK?";
+        String pattern = "(^\\{\\{)([a-z]*)(\\}\\}$)";
+        //String pattern = "([a-z]*)";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(answer);
+        if (m.find()) {
+            for (int i=0; i<=m.groupCount(); i++) {
+                System.out.println("Found value: " + m.group(i) );
+                if(i==2){
+                    if(!m.group(i).equals("message")){
+                        return new ObjetReponse("success", "almost", "Vous y êtes preques. Vérifiez bien le contenu du chevron ;).");
+                    }
+                }
+            }
             return new ObjetReponse("success", "", "Bravo! Passez à l'exercice suivant.");
-        else
-            return new ObjetReponse("error", "", "Ceci n'est pas la bonne réponse");
+        }else {
+            return new ObjetReponse("error", "", "Vérifie bien la syntaxe pour le data-binding :)");
+        }
+
     }
 
 }

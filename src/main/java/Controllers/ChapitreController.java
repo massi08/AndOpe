@@ -85,7 +85,7 @@ public class ChapitreController {
         if(chapitre != null) {
             ObjectMapper mapper = new ObjectMapper();
             try {
-                File file = new File("src/main/webapp/html_files/"+cours.getTitle()+"/"+path);
+                File file = new File("src/main/webapp/html_files/"+cours.getTitle()+"/cours/"+path);
                 FileWriter writer = new FileWriter(file);
                 writer.write("Hello World\n");
                 writer.write("Okay ");

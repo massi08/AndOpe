@@ -72,10 +72,10 @@ public class ExerciceController {
     @ResponseBody
     public ObjetReponse receivePost(@RequestParam(value="title", required = true) String title,
                                     @RequestParam(value="path", required = true) String path,
-                                    @RequestParam(value="idCours", required = true) String idCours,
+                                    @RequestParam(value="idChapitre", required = true) String idChapitre,
                                     HttpSession session) {
-        int coursId = Integer.valueOf(idCours);
-        Chapitre chapitre = chapitreManager.getChapitre(coursId);
+        int chapitreId = Integer.valueOf(idChapitre);
+        Chapitre chapitre = chapitreManager.getChapitre(chapitreId);
         if (chapitre == null){
             return new ObjetReponse("error", "", "Une erreur est survenue lors de la récupération du chapitre.");
         }

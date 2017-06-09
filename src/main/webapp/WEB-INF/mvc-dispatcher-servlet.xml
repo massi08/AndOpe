@@ -17,23 +17,14 @@
     <context:component-scan base-package="DAO" />
     <mvc:annotation-driven/>
 
-    <!--<mvc:resources mapping="/" location="/" />
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix">
-            <value>/WEB-INF/pages/</value>
+            <value>/pages/</value>
         </property>
         <property name="suffix">
             <value>.jsp</value>
         </property>
     </bean>
-
-    <bean id="multipartResolver"
-                class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-
-        &lt;!&ndash; setting maximum upload size &ndash;&gt;
-        <property name="maxUploadSize" value="1000000000000000000" />
-
-    </bean>-->
 
 </beans>
 
