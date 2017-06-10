@@ -13,7 +13,6 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`idU`)
 );
-ALTER TABLE andope.user ADD ACCESS VARCHAR(255) NOT NULL;
 
 DROP TABLE IF EXISTS `Cours`;
 
@@ -23,6 +22,8 @@ CREATE TABLE `cours` (
   nbExercices INT DEFAULT 0 NULL,
   PRIMARY KEY (`idCours`)
 );
+ALTER TABLE andope.cours ADD image VARCHAR(255) NULL;
+ALTER TABLE andope.cours ADD description VARCHAR(255) NULL;
 
 DROP TABLE IF EXISTS `Chapitre`;
 

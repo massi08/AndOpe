@@ -37,6 +37,16 @@ public class Cours {
     @OneToMany(mappedBy = "coursByIdCours")
     private Collection<Chapitre> chapitresByIdCours;
 
+    @Basic
+    @Column(name = "image", nullable = true, length = 255)
+    private String image;
+
+    @Basic
+    @Column(name = "description", nullable = true, length = 255)
+    private String description;
+
+
+
     public Cours(String title, Integer nbExercices) {
         this.title = title;
         this.nbExercices = nbExercices;
@@ -44,7 +54,6 @@ public class Cours {
 
     public Cours() {
     }
-
 
 
     public String getTitle() {
@@ -85,8 +94,6 @@ public class Cours {
         return result;
     }
 
-
-
     public int getIdCours() {
         return idCours;
     }
@@ -109,5 +116,22 @@ public class Cours {
 
     public void setChapitresByIdCours(Collection<Chapitre> chapitresByIdCours) {
         this.chapitresByIdCours = chapitresByIdCours;
+    }
+
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

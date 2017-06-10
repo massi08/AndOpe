@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityManager;
@@ -36,9 +37,7 @@ public class LoginController {
      */
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public ModelAndView receiveGet(HttpServletResponse reponse) {
-        System.out.println("get login");
-        reponse.setStatus(405);
-        return new ModelAndView("index","","");
+        return new ModelAndView("index");
     }
 
     /**
@@ -51,21 +50,20 @@ public class LoginController {
      */
     @RequestMapping(value = "/api/login", method = RequestMethod.POST)
     @ResponseBody
+    @SessionScope
     public ModelAndView receivePost(@RequestParam(value="pseudo", required = true) String pseudo,
                                     @RequestParam(value="password", required = true) String password,
                                     HttpSession session) {
 
 
         User user = usermanager.checkUser(pseudo, password);
-        try {
-            if(user != null) {
-                ObjectMapper mapper = new ObjectMapper();
-                session.setAttribute("pseudo", user.getPseudo());
-                return new ModelAndView("manage_project", "", mapper.writeValueAsString(user));
-            }
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+
+        if(user != null) {
+            ObjectMapper mapper = new ObjectMapper();
+            session.setAttribute("pseudo", user.getPseudo());
+            return new ModelAndView("redirect:/cours");
         }
+
 
         return new ModelAndView("index", "", "Pseudo ou mot de passe incorrect.");
     }

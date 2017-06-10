@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,7 +22,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/cours")
+@RequestMapping("/cours")
 public class CoursController {
 
     @Autowired
@@ -33,34 +34,36 @@ public class CoursController {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public ObjetReponse receiveGet(@RequestParam(value="title", required = false) String title,
+    public ModelAndView receiveGet(@RequestParam(value="title", required = false) String title,
                                    @RequestParam(value="idCours", required = false) String idCours) {
         Cours cours = null;
         ObjectMapper mapper = new ObjectMapper();
         try {
             if(title != null && !title.equals("")) {
                 cours = coursManager.getCours(title);
-                return new ObjetReponse("success", "", mapper.writeValueAsString(cours));
+                return new ModelAndView("manage_project", "", mapper.writeValueAsString(cours));
             }
             else if(idCours != null && !idCours.equals("")){
                 int idC = Integer.valueOf(idCours);
                 cours = coursManager.getCours(idC);
-                return new ObjetReponse("success", "", mapper.writeValueAsString(cours));
+                return new ModelAndView("manage_project", "", mapper.writeValueAsString(cours));
             }
             else if(idCours == null && title == null){
+                ModelAndView modelAndView = new ModelAndView("manage_project");
                 List<Cours> allCours = coursManager.getAllCours();
                 List<String> allCoursForJson = new ArrayList<>();
                 for (Cours c:allCours) {
                     allCoursForJson.add(mapper.writeValueAsString(c));
                 }
                 Gson gson = new Gson();
-                return new ObjetReponse("success", "", gson.toJson(allCoursForJson));
+                modelAndView.addObject("cours", allCours);
+                return modelAndView;
             }
         }
         catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return new ObjetReponse("error", "", "Une erreur est survenue lors de la récupération du cours.");
+        return new ModelAndView("index", "", "Une erreur est survenue lors de la récupération du cours.");
     }
 
     @RequestMapping(method = RequestMethod.POST)

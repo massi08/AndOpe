@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/chapitre")
+@RequestMapping("/chapitre")
 public class ChapitreController {
 
     @Autowired
@@ -36,7 +37,7 @@ public class ChapitreController {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public ObjetReponse receiveGet(@RequestParam(value="title", required = false) String title,
+    public ModelAndView receiveGet(@RequestParam(value="title", required = false) String title,
                                    @RequestParam(value="idChapitre", required = false) String idChapitre,
                                    @RequestParam(value="idCours", required = false) String idCours) {
         Chapitre chapitre = null;
@@ -44,14 +45,15 @@ public class ChapitreController {
         try {
             if(title != null && !title.equals("")) {
                 chapitre = chapitreManager.getChapitre(title);
-                return new ObjetReponse("success", "", mapper.writeValueAsString(chapitre));
+                return new ModelAndView("chapitre", "", mapper.writeValueAsString(chapitre));
             }
             else if(idChapitre != null && !idChapitre.equals("")){
                 int idC = Integer.valueOf(idChapitre);
                 chapitre = chapitreManager.getChapitre(idC);
-                return new ObjetReponse("success", "", mapper.writeValueAsString(chapitre));
+                return new ModelAndView("chapitre", "", mapper.writeValueAsString(chapitre));
             }
             else if(idCours != null && !idCours.equals("")){
+                ModelAndView modelAndView = new ModelAndView("chapitre");
                 int idC = Integer.valueOf(idCours);
                 List<Chapitre> allChapitre = chapitreManager.getAllChapitreByCoursId(idC);
                 List<String> allChapitreForJson = new ArrayList<>();
@@ -59,13 +61,14 @@ public class ChapitreController {
                     allChapitreForJson.add(mapper.writeValueAsString(c));
                 }
                 Gson gson = new Gson();
-                return new ObjetReponse("success", "", gson.toJson(allChapitreForJson));
+                modelAndView.addObject("chapitre",allChapitre);
+                return modelAndView;
             }
         }
         catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return new ObjetReponse("error", "", "Une erreur est survenue lors de la récupération du chapitre.");
+        return new ModelAndView("manage_project");
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -85,7 +88,7 @@ public class ChapitreController {
         if(chapitre != null) {
             ObjectMapper mapper = new ObjectMapper();
             try {
-                File file = new File("src/main/webapp/html_files/"+cours.getTitle()+"/cours/"+path);
+                File file = new File("src/main/webapp/html_files/"+cours.getIdCours()+"/cours/"+path);
                 FileWriter writer = new FileWriter(file);
                 writer.write("Hello World\n");
                 writer.write("Okay ");
