@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c2" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@page session="true" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
@@ -39,7 +44,7 @@
       </div>
 
       <div class="inscription-form">
-        <form class="col s12">
+        <form:form class="col s12">
           <div class="row">
             <div class="input-field">
               <input type="text" required class="validate lastname">
@@ -85,7 +90,7 @@
           <div class="row connect-btn">
             <a class="waves-effect waves-light btn user-register"><i class="material-icons right">done_all</i>INSCRIPTION</a>
           </div>
-        </form>
+        <form:form/>
       </div>
     </div>
   </div>

@@ -25,12 +25,12 @@
       <img src="./img/Logo_IDE.png">
     </a>
     <ul class="right hide-on-med-and-down">
-      <li><a href="./inscription.html">S'inscrire</a></li>
+      <li><a href="./inscription.jsp">S'inscrire</a></li>
       <li class="active-tab"><a href="#">Se connecter</a></li>
     </ul>
 
     <ul id="nav-mobile" class="side-nav">
-      <li><a href="./inscription.html">S'inscrire</a></li>
+      <li><a href="./inscription.jsp">S'inscrire</a></li>
       <li class="active-tab"><a href="#">Se connecter</a></li>
     </ul>
     <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>

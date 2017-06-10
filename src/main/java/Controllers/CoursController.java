@@ -2,7 +2,9 @@ package Controllers;
 
 
 import Metier.CoursManager;
+import Metier.UserManager;
 import Model.Cours;
+import Model.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -32,10 +34,16 @@ public class CoursController {
     @Qualifier(value = "coursmanager")
     private CoursManager coursManager;
 
+    @Autowired
+    @Qualifier(value = "usermanager")
+    private UserManager usermanager;
+
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView receiveGet(@RequestParam(value="title", required = false) String title,
-                                   @RequestParam(value="idCours", required = false) String idCours) {
+                                   @RequestParam(value="idCours", required = false) String idCours,
+                                   HttpSession session) {
+        User user = usermanager.getUser((String) session.getAttribute("pseudo"));
         Cours cours = null;
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -51,12 +59,8 @@ public class CoursController {
             else if(idCours == null && title == null){
                 ModelAndView modelAndView = new ModelAndView("manage_project");
                 List<Cours> allCours = coursManager.getAllCours();
-                List<String> allCoursForJson = new ArrayList<>();
-                for (Cours c:allCours) {
-                    allCoursForJson.add(mapper.writeValueAsString(c));
-                }
-                Gson gson = new Gson();
                 modelAndView.addObject("cours", allCours);
+                modelAndView.addObject("user", user);
                 return modelAndView;
             }
         }
