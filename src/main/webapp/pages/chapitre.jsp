@@ -43,6 +43,10 @@
 <div class="container-full">
   <div class="projet-titre row">
     <h4 class="left-align h4-margin">Chapitres</h4>
+    <c:if test="${user.getPseudo().equals('root')}">
+      <a class="waves-effect waves-light btn" href="/addchapitres"><i
+           class="material-icons right">add</i> Ajouter un chapitre </a>
+    </c:if>
   </div>
 
   <div class="chapitres-container">
