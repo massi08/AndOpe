@@ -71,7 +71,7 @@
 
             <div class="row">
               <div class="input-field">
-                <input type="text" name="nbExercices" id="nbExercices" required class="validate">
+                <input type="number" name="nbExercices" id="nbExercices" required class="validate">
                 <label>Nombre d'exercices</label>
               </div>
             </div>

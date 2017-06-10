@@ -41,15 +41,16 @@
 </nav>
 
 <div class="container-full">
-  <div class="projet-titre row">
+  <div class="projet-titre">
     <h4 class="left-align h4-margin">Cours disponibles</h4>
+    <c:if test="${user.getPseudo().equals('root')}">
+      <a class="waves-effect waves-light btn" href="/addcours"><i
+           class="material-icons right">add</i> Ajouter un cours</a>
+    </c:if>
   </div>
 
   <div class="row row-cards">
     <div class="cards defaut-color">
-      <c:if test="${user.getPseudo().equals('root')}">
-        <a href="/addcours">Ajouter un cours</a>
-      </c:if>
       <c:forEach items="${cours}" var="item">
         <div class="card col s4 sticky-action cours">
           <div class="card-image waves-effect waves-block waves-light">
@@ -57,7 +58,7 @@
           </div>
           <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">${item.getTitle()}<i
-                  class="material-icons right">more_vert</i></span>
+               class="material-icons right">more_vert</i></span>
           </div>
 
           <div class="card-action">

@@ -1,6 +1,5 @@
 .projet-titre {
-  max-width: 949.75px;
-  margin: 0 auto; }
+  padding: 0 20px; }
   .projet-titre h4 {
     display: inline-block;
     margin: 50px 0 0 0; }
@@ -13,12 +12,14 @@
   margin: 50px 0 0 0; }
 
 .cours {
+  width: 31.5% !important;
   margin-left: 10px !important;
-  margin-right: 10px !important; }
+  margin-right: 10px; }
 
 .cards {
   width: auto;
-  display: inline-block;
+  display: flex;
+  flex-wrap: wrap;
   min-width: 1000px;
   text-align: center; }
   .cards .card-projects {
