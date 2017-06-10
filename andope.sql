@@ -23,7 +23,7 @@ CREATE TABLE `cours` (
   PRIMARY KEY (`idCours`)
 );
 ALTER TABLE andope.cours ADD image VARCHAR(255) NULL;
-ALTER TABLE andope.cours ADD description VARCHAR(255) NULL;
+ALTER TABLE andope.cours ADD description MEDIUMTEXT NULL;
 
 DROP TABLE IF EXISTS `Chapitre`;
 

@@ -24,17 +24,17 @@
       <img src="/img/Logo_IDE.png">
     </a>
     <ul class="right hide-on-med-and-down">
-      <li class="active-tab"><a href="./manage_project.jsp">Mes Projets</a></li>
+      <li class="active-tab"><a href="/cours">Mes Projets</a></li>
       <li><a href="./account.jsp">Mon Compte</a></li>
       <li><a href="./parameters.jsp">Paramètres</a></li>
-      <li><a href="./index.jsp">Déconnexion</a></li>
+      <li><a href="/api/logout">Déconnexion</a></li>
     </ul>
 
     <ul id="nav-mobile" class="side-nav">
       <li class="active-tab"><a href="./manage_project.jsp">Mes Projets</a></li>
       <li><a href="./account.jsp">Mon Compte</a></li>
       <li><a href="./parameters.jsp">Paramètres</a></li>
-      <li><a href="./index.jsp">Déconnexion</a></li>
+      <li><a href="/api/logout">Déconnexion</a></li>
     </ul>
     <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
   </div>
@@ -47,13 +47,13 @@
 
   <div class="row row-cards">
     <div class="cards defaut-color">
-      <%--<c:if test="${user.getPseudo} == 'root'">
-        You can add courses!!!
-      </c:if>--%>
+      <c:if test="${user.getPseudo().equals('root')}">
+        <a href="/addcours">Ajouter un cours</a>
+      </c:if>
       <c:forEach items="${cours}" var="item">
         <div class="card col s4 sticky-action cours">
           <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="/img/VueJs.jpg">
+            <img class="activator" src="${item.getImage()}">
           </div>
           <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">${item.getTitle()}<i
@@ -62,7 +62,7 @@
 
           <div class="card-action">
             <a href="/chapitre?idCours=${item.getIdCours()}">Cours</a>
-            <a href="/exercices">Exercices</a>
+            <a href="/exercice?idChapitre=${item.getIdCours()}">Exercices</a>
           </div>
 
           <div class="card-reveal">
@@ -88,7 +88,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
 <script type="text/javascript" src="/js/server_request.js"></script>
 <script type="text/javascript" src="/js/init.js"></script>
-<script type="text/javascript" src="/js/login.js"></script>
-<script type="text/javascript" src="/js/cours.js"></script>
 </body>
 </html>

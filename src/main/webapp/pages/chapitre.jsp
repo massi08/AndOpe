@@ -24,17 +24,17 @@
       <img src="../img/Logo_IDE.png">
     </a>
     <ul class="right hide-on-med-and-down">
-      <li class="active-tab"><a href="manage_project.html">Mes Projets</a></li>
+      <li class="active-tab"><a href="/cours">Mes Projets</a></li>
       <li><a href="./account.html">Mon Compte</a></li>
       <li><a href="./parameters.html">Paramètres</a></li>
-      <li><a href="index.html">Déconnexion</a></li>
+      <li><a href="/api/logout">Déconnexion</a></li>
     </ul>
 
     <ul id="nav-mobile" class="side-nav">
-      <li class="active-tab"><a href="manage_project.html">Mes Projets</a></li>
+      <li class="active-tab"><a href="/cours">Mes Projets</a></li>
       <li><a href="./account.html">Mon Compte</a></li>
       <li><a href="./parameters.html">Paramètres</a></li>
-      <li><a href="index.html">Déconnexion</a></li>
+      <li><a href="/api/logout">Déconnexion</a></li>
     </ul>
     <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
   </div>

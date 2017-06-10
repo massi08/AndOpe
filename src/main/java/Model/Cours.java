@@ -42,7 +42,7 @@ public class Cours {
     private String image;
 
     @Basic
-    @Column(name = "description", nullable = true, length = 255)
+    @Column(name = "description", columnDefinition = "mediumtext",nullable = true, length=46000)
     private String description;
 
 
@@ -57,7 +57,6 @@ public class Cours {
     public Cours() {
     }
 
-
     public String getTitle() {
         return title;
     }
@@ -65,6 +64,7 @@ public class Cours {
     public void setTitle(String title) {
         this.title = title;
     }
+
 
     public Integer getNbExercices() {
         return nbExercices;
@@ -121,6 +121,7 @@ public class Cours {
     }
 
 
+
     public String getImage() {
         return image;
     }
@@ -128,6 +129,7 @@ public class Cours {
     public void setImage(String image) {
         this.image = image;
     }
+
 
     public String getDescription() {
         return description;

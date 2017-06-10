@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
@@ -32,9 +33,9 @@ public class RegisterController {
      */
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public ObjetReponse receiveGet(HttpServletResponse reponse) {
+    public ModelAndView receiveGet(HttpServletResponse reponse) {
         reponse.setStatus(405);
-        return new ObjetReponse("error", "", "la demande n'a pas été prise en compte (GET sur register)");
+        return new ModelAndView("inscription");
     }
 
     /**
@@ -46,7 +47,7 @@ public class RegisterController {
      */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public ObjetReponse receivePost(@RequestParam(value="pseudo", required = true) String pseudo,
+    public ModelAndView receivePost(@RequestParam(value="pseudo", required = true) String pseudo,
                                     @RequestParam(value="password", required = true) String password,
                                     @RequestParam(value = "firstname", required = false, defaultValue = "") String firstname,
                                     @RequestParam(value = "lastname", required = false, defaultValue = "") String lastname,
@@ -54,12 +55,12 @@ public class RegisterController {
         if(pseudo.length() <= 45 && password.length() <= 45) {
             Security security = new Security();
             if(userManager.newUser(pseudo, password, firstname, lastname, email) != null) {
-                return new ObjetReponse("success", "", "Votre a été bien crée.");
+                return new ModelAndView("redirect:/index");
             } else {
-                return new ObjetReponse("error", "", "erreur à la création compte.");
+                return new ModelAndView("redirect:/inscription");
             }
         } else {
-            return new ObjetReponse("error", "", "Pseudo ou mot de passe trop long.");
+            return new ModelAndView("redirect:/inscription");
         }
     }
 }

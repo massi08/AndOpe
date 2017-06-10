@@ -24,12 +24,12 @@
     </a>
     <ul class="right hide-on-med-and-down">
       <li class="active-tab"><a href="#">S'inscrire</a></li>
-      <li><a href="./index.jsp">Se connecter</a></li>
+      <li><a href="/index">Se connecter</a></li>
     </ul>
 
     <ul id="nav-mobile" class="side-nav">
       <li class="active-tab"><a href="#">S'inscrire</a></li>
-      <li><a href="./index.jsp">Se connecter</a></li>
+      <li><a href="/index">Se connecter</a></li>
     </ul>
     <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
   </div>
@@ -44,57 +44,57 @@
       </div>
 
       <div class="inscription-form">
-        <form:form class="col s12">
+        <form class="col s12" method="post" action="/api/register">
           <div class="row">
             <div class="input-field">
-              <input type="text" required class="validate lastname">
+              <input type="text" required name="lastname" class="validate ">
               <label>Nom</label>
             </div>
           </div>
 
           <div class="row">
             <div class="input-field">
-              <input type="text" required class="validate firstname">
+              <input type="text" required name="firstname" class="validate ">
               <label>Prenom</label>
             </div>
           </div>
 
           <div class="row">
             <div class="input-field">
-              <input type="text" required class="validate pseudo">
+              <input type="text" required name="pseudo" class="validate ">
               <label>Pseudo</label>
             </div>
           </div>
 
           <div class="row">
             <div class="input-field">
-              <input type="email" required class="validate email">
+              <input type="email" required name="email" class="validate ">
               <label>Email</label>
             </div>
           </div>
 
           <div class="row">
             <div class="input-field">
-              <input type="password" required class="validate password">
+              <input type="password" required name="password" class="validate ">
               <label>Mot de passe</label>
             </div>
           </div>
 
           <div class="row">
             <div class="input-field">
-              <input type="password"  required class="validate confirm_password">
+              <input type="password"  required name="confirm_password" class="validate ">
               <label>Confirmation du mot de passe</label>
             </div>
           </div>
 
           <div class="row connect-btn">
-            <a class="waves-effect waves-light btn user-register"><i class="material-icons right">done_all</i>INSCRIPTION</a>
+            <button type="submit" class="waves-effect waves-light btn user-register"><i class="material-icons right">done_all</i>INSCRIPTION</button>
           </div>
-        <form:form/>
+        </form>
       </div>
+
     </div>
   </div>
-
 </div>
 
 <%@include file="footer.jsp" %>
@@ -103,7 +103,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
 <script type="text/javascript" src="/js/server_request.js"></script>
 <script type="text/javascript" src="/js/init.js"></script>
-<script type="text/javascript" src="/js/login.js"></script>
-<script type="text/javascript" src="/js/password_verification.js"></script>
 </body>
 </html>

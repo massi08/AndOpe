@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/exercice")
+@RequestMapping("/exercice")
 public class ExerciceController {
 
     @Autowired
@@ -36,7 +37,7 @@ public class ExerciceController {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public ObjetReponse receiveGet(@RequestParam(value="title", required = false) String title,
+    public ModelAndView receiveGet(@RequestParam(value="title", required = false) String title,
                                    @RequestParam(value="idChapitre", required = false) String idChapitre,
                                    @RequestParam(value="idExercice", required = false) String idExercice) {
         Exercice exercice = null;
@@ -44,12 +45,12 @@ public class ExerciceController {
         try {
             if(title != null && !title.equals("")) {
                 exercice = exerciceManager.getExercice(title);
-                return new ObjetReponse("success", "", mapper.writeValueAsString(exercice));
+                return new ModelAndView("success", "", mapper.writeValueAsString(exercice));
             }
             else if(idExercice != null && !idExercice.equals("")){
                 int idE = Integer.valueOf(idExercice);
                 exercice = exerciceManager.getExercice(idE);
-                return new ObjetReponse("success", "", mapper.writeValueAsString(exercice));
+                return new ModelAndView("success", "", mapper.writeValueAsString(exercice));
             }
             else if(idChapitre != null && !idChapitre.equals("")){
                 int idC = Integer.valueOf(idChapitre);
@@ -59,13 +60,13 @@ public class ExerciceController {
                     allExercicesForJson.add(mapper.writeValueAsString(e));
                 }
                 Gson gson = new Gson();
-                return new ObjetReponse("success", "", gson.toJson(allExercicesForJson));
+                return new ModelAndView("redirect:/", "", gson.toJson(allExercicesForJson));
             }
         }
         catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return new ObjetReponse("error", "", "Une erreur est survenue lors de la récupération du exercice.");
+        return new ModelAndView("error", "", "Une erreur est survenue lors de la récupération du exercice.");
     }
 
     @RequestMapping(method = RequestMethod.POST)

@@ -24,7 +24,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/cours")
+
 public class CoursController {
 
     @Autowired
@@ -38,7 +38,17 @@ public class CoursController {
     @Qualifier(value = "usermanager")
     private UserManager usermanager;
 
-    @RequestMapping(method = RequestMethod.GET)
+
+    @RequestMapping(value = "/addcours", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView receiveGetAddCours(HttpSession session) {
+        User user = usermanager.getUser((String) session.getAttribute("pseudo"));
+        ModelAndView modelAndView = new ModelAndView("ajout_cours");
+        modelAndView.addObject("user", user);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/cours", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView receiveGet(@RequestParam(value="title", required = false) String title,
                                    @RequestParam(value="idCours", required = false) String idCours,
@@ -70,20 +80,23 @@ public class CoursController {
         return new ModelAndView("index", "", "Une erreur est survenue lors de la récupération du cours.");
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/cours", method = RequestMethod.POST)
     @ResponseBody
-    public ObjetReponse receivePost(@RequestParam(value="title", required = true) String title,
+    public ModelAndView receivePost(@RequestParam(value="title", required = true) String title,
                                     @RequestParam(value="image", required = true) String image,
                                     @RequestParam(value="description", required = true) String description,
                                     @RequestParam(value="nbExercices", required = true, defaultValue = "0") int nbExercices,
                                     HttpSession session) {
+        User user = usermanager.getUser((String) session.getAttribute("pseudo"));
         Cours cours = coursManager.newCours(title, image, description, nbExercices);
         if(cours != null) {
+            ModelAndView modelAndView = new ModelAndView("redirect:/cours");
+            modelAndView.addObject("user", user);
             new File("src/main/webapp/html_files/"+cours.getIdCours()).mkdir();
             new File("src/main/webapp/html_files/"+cours.getIdCours()+"/cours").mkdir();
             new File("src/main/webapp/html_files/"+cours.getIdCours()+"/exercices").mkdir();
-            return new ObjetReponse("success", "", "Le cours " + cours.getTitle() + " est bien crée.");
+            return modelAndView;
         }
-        return new ObjetReponse("error", "", "Une erreur est survenue lors de la création du cours.");
+        return new ModelAndView("redirect:/addcours");
     }
 }

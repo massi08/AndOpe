@@ -70,6 +70,24 @@ public class LoginController {
         }
 
 
-        return new ModelAndView("index", "", "Pseudo ou mot de passe incorrect.");
+        return new ModelAndView("redirect:/index");
+    }
+
+    @PostMapping(value = "/api/logout")
+    @ResponseBody
+    @SessionScope
+    public ModelAndView receivePostLogout(HttpSession session) {
+
+        session.removeAttribute("pseudo");
+        return new ModelAndView("redirect:/index");
+    }
+
+    @GetMapping(value = "/api/logout")
+    @ResponseBody
+    @SessionScope
+    public ModelAndView receiveGetLogout(HttpSession session) {
+
+        session.removeAttribute("pseudo");
+        return new ModelAndView("redirect:/index");
     }
 }

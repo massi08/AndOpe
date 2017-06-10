@@ -25,12 +25,12 @@
       <img src="./img/Logo_IDE.png">
     </a>
     <ul class="right hide-on-med-and-down">
-      <li><a href="./inscription.jsp">S'inscrire</a></li>
+      <li><a href="/inscription">S'inscrire</a></li>
       <li class="active-tab"><a href="#">Se connecter</a></li>
     </ul>
 
     <ul id="nav-mobile" class="side-nav">
-      <li><a href="./inscription.jsp">S'inscrire</a></li>
+      <li><a href="/inscription">S'inscrire</a></li>
       <li class="active-tab"><a href="#">Se connecter</a></li>
     </ul>
     <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -47,7 +47,7 @@
       </div>
 
       <div class="inscription-form">
-        <form:form action="/api/login" class="col s12">
+        <form:form action="/api/login" class="col s12" method="post">
           <div class="row">
             <div class="input-field">
               <i class="material-icons prefix">account_circle</i>
@@ -83,7 +83,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
 <script type="text/javascript" src="/js/server_request.js"></script>
 <script type="text/javascript" src="/js/init.js"></script>
-<script type="text/javascript" src="/js/login.js"></script>
 </body>
 </html>
         

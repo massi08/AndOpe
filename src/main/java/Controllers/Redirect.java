@@ -29,7 +29,7 @@ public class Redirect {
         String uri = req.getRequestURI();
 
         ((HttpServletResponse)servletResponse).setStatus(401);
-        if(uri.contains("/api/")) {
+        if(uri.contains("/")) {
             return new ObjetReponse("redirect", "", "La session a expiré.");
         }
         else {

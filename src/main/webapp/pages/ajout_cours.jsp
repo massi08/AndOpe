@@ -24,17 +24,17 @@
       <img src="../img/Logo_IDE.png">
     </a>
     <ul class="right hide-on-med-and-down">
-      <li class="active-tab"><a href="manage_project.html">Mes Projets</a></li>
+      <li class="active-tab"><a href="/cours">Mes Projets</a></li>
       <li><a href="./account.html">Mon Compte</a></li>
       <li><a href="./parameters.html">Paramètres</a></li>
-      <li><a href="index.html">Déconnexion</a></li>
+      <li><a href="/api/logout">Déconnexion</a></li>
     </ul>
 
     <ul id="nav-mobile" class="side-nav">
-      <li class="active-tab"><a href="manage_project.html">Mes Projets</a></li>
+      <li class="active-tab"><a href="/cours">Mes Projets</a></li>
       <li><a href="./account.html">Mon Compte</a></li>
       <li><a href="./parameters.html">Paramètres</a></li>
-      <li><a href="index.html">Déconnexion</a></li>
+      <li><a href="/api/logout">Déconnexion</a></li>
     </ul>
     <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
   </div>
@@ -46,43 +46,44 @@
   </div>
 
   <div class="form-container">
-    <div class="chapitres-container">
-        <div class="row">
-          <div class="input-field">
-            <input type="text" id="url" name="image" required class="validate">
-            <label>Url de l'image</label>
-          </div>
-        </div>
+    <form action="/cours" method="post">
+        <div class="chapitres-container">
+            <div class="row">
+              <div class="input-field">
+                <input type="text" id="url" name="image" required class="validate">
+                <label>Url de l'image</label>
+              </div>
+            </div>
 
-        <div class="row">
-          <div class="input-field">
-            <input type="text" id="title" name="title" required class="validate">
-            <label>Titre</label>
-          </div>
-        </div>
+            <div class="row">
+              <div class="input-field">
+                <input type="text" id="title" name="title" required class="validate">
+                <label>Titre</label>
+              </div>
+            </div>
 
-        <div class="row">
-          <div class="input-field">
-            <textarea name="description" id="description" class="materialize-textarea"></textarea>
-            <label for="textarea1">Description</label>
-          </div>
-        </div>
+            <div class="row">
+              <div class="input-field">
+                <textarea name="description" id="description" class="materialize-textarea"></textarea>
+                <label for="description">Description</label>
+              </div>
+            </div>
 
-        <div class="row">
-          <div class="input-field">
-            <input type="text" name="nbExercices" id="nbExercices" required class="validate">
-            <label>Nombre d'exercices</label>
-          </div>
-        </div>
+            <div class="row">
+              <div class="input-field">
+                <input type="text" name="nbExercices" id="nbExercices" required class="validate">
+                <label>Nombre d'exercices</label>
+              </div>
+            </div>
 
-        <div class="row btn-row">
-          <button type="submit" class="waves-effect waves-light btn" id="create-course"><i
-               class="material-icons right">done_all</i>Créer
-            cours
-          </button>
+            <div class="row btn-row">
+              <button type="submit" class="waves-effect waves-light btn" id="create-course"><i
+                   class="material-icons right">done_all</i>Créer
+                cours
+              </button>
+            </div>
         </div>
-    </div>
-
+    </form>
   </div>
 
 </div>
@@ -93,6 +94,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
 <script type="text/javascript" src="../js/server_request.js"></script>
 <script type="text/javascript" src="../js/init.js"></script>
-<script type="text/javascript" src="../js/add_cours.js"></script>
+<%--<script type="text/javascript" src="../js/add_cours.js"></script>--%>
 </body>
 </html>
