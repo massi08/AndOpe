@@ -74,6 +74,14 @@ nav ul li a {
   height: 100%;
   margin: 0; }
 
+.input-field textarea:focus {
+  border-bottom: 1px solid #6159a6 !important;
+  -webkit-box-shadow: 0 1px 0 0 #6159a6 !important;
+  -moz-box-shadow: 0 1px 0 0 #6159a6 !important;
+  box-shadow: 0 1px 0 0 #6159a6 !important; }
+  .input-field textarea:focus + label {
+    color: #6159a6 !important; }
+
 .input-field input[type]:not([type=search]):not([type=url]):not([type=hidden]):focus {
   border-bottom: 1px solid #6159a6;
   box-shadow: 0 1px 0 0 #6159a6; }

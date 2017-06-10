@@ -6,7 +6,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
-    <base href="${pageContext.request.contextPath}">
+  <base href="${pageContext.request.contextPath}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
   <link href=" <c:url value = "/css/style.css" />" type="text/css" rel="stylesheet"/>
   <link href="../css/connexion.css" type="text/css" rel="stylesheet"/>
@@ -25,7 +25,7 @@
       <img src="./img/Logo_IDE.png">
     </a>
     <ul class="right hide-on-med-and-down">
-      <li><a href="./inscription.html">S'inscrire</a></li>
+      <li><a href="./inscription.jsp">S'inscrire</a></li>
       <li class="active-tab"><a href="#">Se connecter</a></li>
     </ul>
 
@@ -51,28 +51,28 @@
           <div class="row">
             <div class="input-field">
               <i class="material-icons prefix">account_circle</i>
-              <%--<form:input path="pseudo" size="30" id="icon_prefix" class="validate"/>--%>
-              <input id="icon_prefix" type="text"  name="pseudo" class="validate pseudo" >
+                <%--<form:input path="pseudo" size="30" id="icon_prefix" class="validate"/>--%>
+              <input id="icon_prefix" type="text" name="pseudo" class="validate pseudo">
               <label for="icon_prefix">Pseudo</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field">
               <i class="material-icons prefix">lock</i>
-              <%--<form:input id="icon_password" class="validate" path="password" type="password" size="30"/>--%>
-              <input id="icon_password" type="password" name="password" class="validate password" >
+                <%--<form:input id="icon_password" class="validate" path="password" type="password" size="30"/>--%>
+              <input id="icon_password" type="password" name="password" class="validate password">
               <label for="icon_password">Mot de passe</label>
             </div>
           </div>
           <div class="row connect-btn">
-            <%--<a href="#" class="waves-effect waves-light btn" id="login"><i
-                 class="material-icons right">send</i>CONNEXION</a>--%>
+              <%--<a href="#" class="waves-effect waves-light btn" id="login"><i
+                   class="material-icons right">send</i>CONNEXION</a>--%>
             <button class="waves-effect waves-light btn">
               <i class="material-icons right" name="submit" type="submit">send</i>
               CONNEXION
             </button>
           </div>
-          </form:form>
+        </form:form>
       </div>
     </div>
   </div>

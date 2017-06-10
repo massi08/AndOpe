@@ -22,6 +22,7 @@ module.exports = function (grunt) {
                     "./css/cours.css": "./scss/cours.scss",
                     "./css/exercice.css": "./scss/exercice.scss",
                     "./css/add_chapitre.css": "./scss/add_chapitre.scss",
+                     "./css/ajout_cours.css": "./scss/ajout_cours.scss",
                 }
             }
         },
@@ -33,18 +34,19 @@ module.exports = function (grunt) {
                         "css/*.css",
                         "*.html",
                         "html_files/**",
-                        "js/**"
+                        "js/**",
+                        "pages/**"
                     ]
                 },
                 options: {
+                    port: "1234",
                     watchTask: true,
-                    server: {
-                        baseDir: "./"
+                    proxy: {
+                        target: "localhost:8080",
                     }
                 }
             }
-        }
-    });
+        }});
 
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');

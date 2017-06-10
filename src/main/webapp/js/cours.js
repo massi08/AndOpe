@@ -1,6 +1,6 @@
 $(document).ready(function () {
     console.log("cours.js loading ...")
-    API.get('/cours',
+    API.get('cours',
         {},
         function (response) {
             var message = JSON.parse(response.message)

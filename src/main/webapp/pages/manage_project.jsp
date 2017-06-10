@@ -49,7 +49,7 @@
     <div class="cards defaut-color">
 
       <c:forEach items="${cours}" var="item">
-        <div class="card col s4 sticky-action">
+        <div class="card col s4 sticky-action cours">
           <div class="card-image waves-effect waves-block waves-light">
             <img class="activator" src="/img/VueJs.jpg">
           </div>

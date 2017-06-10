@@ -29,10 +29,10 @@
                 <version>2.6</version>
                 <configuration>
                     <warSourceExcludes>
-                        static_website/node_modules/**, static_website/scss/**, static_website/projects/**
+                        node_modules/**, scss/**, projects/**
                     </warSourceExcludes>
                     <packagingExcludes>
-                        static_website/node_modules/**, static_website/scss/**, static_website/projects/**
+                        node_modules/**, scss/**, projects/**
                     </packagingExcludes>
                 </configuration>
             </plugin>

@@ -55,7 +55,7 @@ public class CoursController {
                 for (Cours c:allCours) {
                     allCoursForJson.add(mapper.writeValueAsString(c));
                 }
-                Gson gson = new Gson();
+                System.out.println("TOOOO" + allCours);
                 modelAndView.addObject("cours", allCours);
                 return modelAndView;
             }

@@ -12,6 +12,10 @@
   text-align: center;
   margin: 50px 0 0 0; }
 
+.cours {
+  margin-left: 10px !important;
+  margin-right: 10px !important; }
+
 .cards {
   width: auto;
   display: inline-block;
