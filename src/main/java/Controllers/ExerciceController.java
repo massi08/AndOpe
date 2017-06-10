@@ -83,7 +83,8 @@ public class ExerciceController {
         if(exercice != null) {
             ObjectMapper mapper = new ObjectMapper();
             try {
-                File file = new File("src/main/webapp/html_files/"+chapitre.getCoursByIdCours().getTitle()+"/exercices/"+exercice.getTitle());
+                new File("src/main/webapp/html_files/"+chapitre.getCoursByIdCours().getIdCours()+"/exercices/"+exercice.getIdE()).mkdir();
+                File file = new File("src/main/webapp/html_files/"+chapitre.getCoursByIdCours().getIdCours()+"/exercices/"+exercice.getIdE()+"/"+exercice.getPath());
                 FileWriter writer = new FileWriter(file);
                 writer.write("Okay ");
                 writer.flush();

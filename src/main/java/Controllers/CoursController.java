@@ -69,13 +69,15 @@ public class CoursController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public ObjetReponse receivePost(@RequestParam(value="title", required = true) String title,
+                                    @RequestParam(value="image", required = true) String image,
+                                    @RequestParam(value="description", required = true) String description,
                                     @RequestParam(value="nbExercices", required = true, defaultValue = "0") int nbExercices,
                                     HttpSession session) {
-        Cours cours = coursManager.newCours(title,nbExercices);
+        Cours cours = coursManager.newCours(title, image, description, nbExercices);
         if(cours != null) {
-            new File("src/main/webapp/html_files/"+title).mkdir();
-            new File("src/main/webapp/html_files/"+title+"/cours").mkdir();
-            new File("src/main/webapp/html_files/"+title+"/exercices").mkdir();
+            new File("src/main/webapp/html_files/"+cours.getIdCours()).mkdir();
+            new File("src/main/webapp/html_files/"+cours.getIdCours()+"/cours").mkdir();
+            new File("src/main/webapp/html_files/"+cours.getIdCours()+"/exercices").mkdir();
             return new ObjetReponse("success", "", "Le cours " + cours.getTitle() + " est bien crée.");
         }
         return new ObjetReponse("error", "", "Une erreur est survenue lors de la création du cours.");

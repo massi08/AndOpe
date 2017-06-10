@@ -15,10 +15,10 @@ public class CoursDao {
         this.em = em;
     }
 
-    public Cours createCours(String title, int nbExercices) {
+    public Cours createCours(String title, String image, String description, int nbExercices) {
         Cours cours = getCoursByTitle(title);
         if (cours == null) {
-            cours = new Cours(title,nbExercices);
+            cours = new Cours(title, image, description,nbExercices);
             em.persist(cours);
             return cours;
         }
@@ -76,6 +76,16 @@ public class CoursDao {
 
     public Cours updateCoursName(Cours cours, String name){
         cours.setTitle(name);
+        return cours;
+    }
+
+    public Cours updateCoursImage(Cours cours, String image){
+        cours.setImage(image);
+        return cours;
+    }
+
+    public Cours updateCoursDescription(Cours cours, String description){
+        cours.setDescription(description);
         return cours;
     }
 

@@ -21,12 +21,12 @@ public class CoursManager {
         this.coursDao = new CoursDao(em);
     }
 
-    public Cours newCours(String title, int nbExercice) {
+    public Cours newCours(String title, String image, String description, int nbExercice) {
 
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
-        Cours cours = this.coursDao.createCours(title, nbExercice);
+        Cours cours = this.coursDao.createCours(title, image, description, nbExercice);
         em.persist(cours);
         transaction.commit();
         return cours;
@@ -68,6 +68,28 @@ public class CoursManager {
         transaction.begin();
 
         cours = this.coursDao.updateCoursName(cours, title);
+
+        transaction.commit();
+        return cours;
+    }
+
+    public Cours updateCoursImage(Cours cours, String image) {
+
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
+        cours = this.coursDao.updateCoursImage(cours, image);
+
+        transaction.commit();
+        return cours;
+    }
+
+    public Cours updateCoursDescription(Cours cours, String description) {
+
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
+        cours = this.coursDao.updateCoursDescription(cours, description);
 
         transaction.commit();
         return cours;

@@ -47,8 +47,10 @@ public class Cours {
 
 
 
-    public Cours(String title, Integer nbExercices) {
+    public Cours(String title, String image, String description, Integer nbExercices) {
         this.title = title;
+        this.image = image;
+        this.description = description;
         this.nbExercices = nbExercices;
     }
 
