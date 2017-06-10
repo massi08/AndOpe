@@ -2,8 +2,10 @@ package Controllers;
 
 import Metier.ChapitreManager;
 import Metier.CoursManager;
+import Metier.UserManager;
 import Model.Chapitre;
 import Model.Cours;
+import Model.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -35,11 +37,17 @@ public class ChapitreController {
     @Qualifier(value = "coursmanager")
     private CoursManager coursManager;
 
+    @Autowired
+    @Qualifier(value = "usermanager")
+    private UserManager usermanager;
+
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView receiveGet(@RequestParam(value="title", required = false) String title,
                                    @RequestParam(value="idChapitre", required = false) String idChapitre,
-                                   @RequestParam(value="idCours", required = false) String idCours) {
+                                   @RequestParam(value="idCours", required = false) String idCours,
+                                   HttpSession session) {
+        User user = usermanager.getUser((String) session.getAttribute("pseudo"));
         Chapitre chapitre = null;
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -62,6 +70,7 @@ public class ChapitreController {
                 }
                 Gson gson = new Gson();
                 modelAndView.addObject("chapitre",allChapitre);
+                modelAndView.addObject("user", user);
                 return modelAndView;
             }
         }

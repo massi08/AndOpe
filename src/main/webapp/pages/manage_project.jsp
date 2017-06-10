@@ -47,7 +47,9 @@
 
   <div class="row row-cards">
     <div class="cards defaut-color">
-
+      <%--<c:if test="${user.getPseudo} == 'root'">
+        You can add courses!!!
+      </c:if>--%>
       <c:forEach items="${cours}" var="item">
         <div class="card col s4 sticky-action cours">
           <div class="card-image waves-effect waves-block waves-light">

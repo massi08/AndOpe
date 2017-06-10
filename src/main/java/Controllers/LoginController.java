@@ -40,6 +40,11 @@ public class LoginController {
         return new ModelAndView("index");
     }
 
+    @RequestMapping(value = {"/inscription"}, method = RequestMethod.GET)
+    public ModelAndView receiveGetInscription(HttpServletResponse reponse) {
+        return new ModelAndView("inscription");
+    }
+
     /**
      * Gère la connexion utilisateur en vérifiant son existence et la correspondance de son mot de passe.
      *
