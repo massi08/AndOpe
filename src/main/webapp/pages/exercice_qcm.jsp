@@ -32,9 +32,7 @@
   </div>
 
   <div class="card exo-card">
-    <h4>
-      Choisissez la bonne réponse
-    </h4>
+    <h4>Choisissez la bonne réponse</h4>
 
     <h5>Quel est l'outil permettant de binder les données aux templates?</h5>
     <form action="#">

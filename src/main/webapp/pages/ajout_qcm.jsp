@@ -56,10 +56,10 @@
           </div>
         </div>
         <p>
-          <input name="group<%=i%>" type="radio" id="<%=i%>"/>
-          <label for="<%=i%>">Faux</label>
-          <input name="group<%=i%>" type="radio" id="<%=i%>_vrai"/>
-          <label for="<%=i%>_vrai">Vrai</label>
+          <select name="answer_<%=i%>">
+            <option value="1">Vrai</option>
+            <option value="0">Faux</option>
+          </select>
         </p>
         <% } %>
 

@@ -36,10 +36,10 @@ public class AnonymousUserFilter implements Filter {
         //System.out.println("Yoo");
             if(!(uri.equals(contextPath + "/") || uri.contains("/login") || uri.contains("/register") || url.contains("/src"))) {
 
-                String userName = (String) session.getAttribute("userName");
+                String userName = (String) session.getAttribute("pseudo");
                 if(userName == null) {
                     try {
-                        servletRequest.getRequestDispatcher("/redirect").forward(servletRequest, servletResponse);
+                        servletRequest.getRequestDispatcher("/").forward(servletRequest, servletResponse);
                     }
                     catch (Exception e) {
                         System.err.println(e);

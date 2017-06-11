@@ -175,12 +175,11 @@ public class ExerciceController {
         return new ObjetReponse("error","","couldn't fetch");
     */}
 
-    public String qcmOption(String option){
+    public String qcmOption(String option, int pos){
         String result = "";
-        int lengthOption = option.length();
-        char pos = option.charAt(lengthOption - 1);
+
         result += "<p>\n" +
-                "        <input name=\"group1\" type=\"radio\" id=\""+ String.valueOf(pos) +"\"/>\n" +
+                "        <input name=\"group1\" type=\"radio\" id=\""+ pos +"\"/>\n" +
                 "        <label for=\"1\">" + option + "</label>\n" +
                 "      </p>\n";
         return result;
@@ -197,7 +196,7 @@ public class ExerciceController {
                     "      </div>\n";
         }
         else {
-            result += "<div class=\"card-panel red\" id=\"m"+ String.valueOf(pos) +"\">\n" +
+            result += "<div class=\"card-panel red\" id=\"m"+ pos +"\">\n" +
                     "        <span class=\"white-text\">\n" +
                     "          <i class=\"material-icons\">close</i>\n" +
                     "          Réponse correcte =)\n" +
@@ -239,12 +238,14 @@ public class ExerciceController {
             try {
                 File file = new File("src/main/webapp/html_files/"+chapitre.getCoursByIdCours().getIdCours()+"/exercices/"+exercice.getIdE()+".jsp");
                 FileWriter writer = new FileWriter(file);
+                writer.write("<%@ page language=\"java\" pageEncoding=\"UTF-8\" %>");
+                writer.write("<h4>Choisissez la bonne réponse</h4>");
                 writer.write("<h5>" + title + "</h5>\n");
                 writer.write("<form action=\"#\">\n");
-                writer.write(qcmOption(option_1));
-                writer.write(qcmOption(option_2));
-                writer.write(qcmOption(option_3));
-                writer.write(qcmOption(option_4));
+                writer.write(qcmOption(option_1, 1));
+                writer.write(qcmOption(option_2 ,2));
+                writer.write(qcmOption(option_3, 3));
+                writer.write(qcmOption(option_4, 4));
                 writer.write("</form><div class=\"answers\">\n");
                 writer.write(qcmAnswer(answer_1,1));
                 writer.write(qcmAnswer(answer_2,2));
@@ -253,7 +254,7 @@ public class ExerciceController {
                 writer.write("</div>\n");
                 writer.flush();
                 writer.close();
-                modelAndView.setViewName("exercices");
+                modelAndView.setViewName("redirect:/exercice/cours/" + chapitre.getCoursByIdCours().getIdCours());
                 return modelAndView;
             }
             catch (JsonProcessingException e) {
@@ -263,6 +264,24 @@ public class ExerciceController {
                 e.printStackTrace();
             }
         }
+        modelAndView.setViewName("exercice");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/exercice/cours/{idCours}/{idExercice}", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView receiveGetExercice(@PathVariable String idCours,
+                                           @PathVariable String idExercice,
+                                           HttpSession session) {
+        int idC = Integer.valueOf(idCours);
+        int idE = Integer.valueOf(idExercice);
+        ModelAndView modelAndView = new ModelAndView();
+        User user = usermanager.getUser((String) session.getAttribute("pseudo"));
+        Cours cours = coursManager.getCours(idC);
+        Exercice exercice = exerciceManager.getExercice(idE);
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("cours", cours);
+        modelAndView.addObject("exercice", exercice);
         modelAndView.setViewName("exercice");
         return modelAndView;
     }
