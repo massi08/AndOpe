@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+  <link href="/css/style.css" type="text/css" rel="stylesheet"/>
+  <link href="/css/cours.css" type="text/css" rel="stylesheet"/>
+  <link href="/css/exercice.css" type="text/css" rel="stylesheet"/>
+  <!--Let browser know website is optimized for mobile-->
+  <link rel="icon" type="image/png" href="/img/favicon.png"/>
+  <title> Code </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+
+<nav class="white" role="navigation">
+  <div class="nav-wrapper container">
+    <a id="logo-container" href="/" class="brand-logo">
+      <img src="/img/Logo_IDE.png">
+    </a>
+    <ul class="right hide-on-med-and-down">
+      <li class="active-tab"><a href="/manage_project.html">Mes Projets</a></li>
+      <li><a href="/account.html">Mon Compte</a></li>
+      <li><a href="/parameters.html">Paramètres</a></li>
+      <li><a href="/index.html">Déconnexion</a></li>
+    </ul>
+
+    <ul id="nav-mobile" class="side-nav">
+      <li class="active-tab"><a href="/manage_project.html">Mes Projets</a></li>
+      <li><a href="/account.html">Mon Compte</a></li>
+      <li><a href="/parameters.html">Paramètres</a></li>
+      <li><a href="/index.html">Déconnexion</a></li>
+    </ul>
+    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+  </div>
+</nav>
+
+<div class="container-full valign-wrapper">
+
+  <div class="navigation-wrapper">
+    <a class="precedent waves-effect waves-purple btn-flat" href="./exercice1.html"><i class="material-icons left">chevron_left</i> Exercice précedant</a>
+    <a class="next waves-effect waves-purple btn-flat" href="#"> <i class="material-icons right">chevron_right</i> Exercice suivant </a>
+  </div>
+
+  <div class="projet-titre row">
+    <h3 class="left-align h4-margin">Exercice 2</h3>
+  </div>
+
+  <div class="card exo-card">
+    <h4>
+      Ecrivez la bonne réponse.
+    </h4>
+    <h5>Supposons que nous avons la vue ci-dessous </h5>
+    <pre>
+var app6 = new Vue({
+    el: '#app-6',
+    data: {
+        message: 'Hello Vue!'
+    }
+})</pre>
+    <br>
+    <h5>Inserer le v-model avec la syntaxe moustache</h5>
+    <pre>
+&lt;div id="app-6">
+    &lt;p> <input type="text" class="user-input"> &lt;/p>
+    &lt;input v-model="message">
+&lt;/div></pre>
+
+    <h5>
+      Résultat
+    </h5>
+
+    <p>
+      <span class="user-input">Hello Vue!</span>
+    </p>
+    <input type="text" class="user-input" value="Hello Vue!">
+    <div class="validate-button">
+      <a class="waves-effect waves-light btn btn-submit" id="exo2">Submit</a>
+      <div class="preloader-wrapper big active btn-reload">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="page-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <p class="grey-text text-lighten-4">Projet de Logiciels Educatifs.
+          Andope vous permet d'apprendre les nouveaux frameworks front-end web de manière intuitive grace à son
+          système de
+          guidage.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+      © AndOpe, Tous droits résérvés
+      <a class="grey-text text-lighten-4 right" href="http://www.univ-lyon1.fr/">Université Lyon I</a>
+    </div>
+  </div>
+</footer>
+
+  <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+  <script type="text/javascript" src="/js/init.js"></script>
+  <script type="text/javascript" src="/js/server_request.js"></script>
+  <script type="text/javascript" src="./../js/vuejs.js"></script>
+</body>
+</html>

@@ -1,10 +1,16 @@
 package Controllers.Vuejs.Exercices;
 
 import Controllers.ObjetReponse;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,9 +21,8 @@ public class Exercice3 {
 
     @GetMapping
     @ResponseBody
-    public ObjetReponse receiveGet(HttpServletResponse reponse) {
-        reponse.setStatus(405);
-        return new ObjetReponse("error", "", "la demande n'est pas prise en compte (GET sur exercice).");
+    public ModelAndView receiveGet(HttpServletResponse reponse) {
+        return new ModelAndView("exercice3");
     }
 
     @PostMapping
@@ -26,16 +31,21 @@ public class Exercice3 {
                                     HttpSession session) {
         System.out.println(answer);
         //String pattern = "(var\\ +(app)\\ +=\\ +new\\ +(Vue)\\ *\\(\\ *\\{\n*\\ +)";
-        String createVuePattern = "(?m)(^var\\ +([a-z]+)\\ +=\\ +new\\ +(Vue)\\ *\\(\\ *\\{)";
-        String vueElementPattern = "(?m)(\\ *el\\ *:\\ *\'([a-z]+)\',)";
-        String vueDataPattern = "(?m)(\\ *data\\ *:\\ *\\{\\s+)";
+        String createVuePattern = "(?m)(^\\s*var\\s+([a-zA-Z0-9_-]+)\\s+=\\s+new\\s+(Vue)\\s*\\(\\s*\\{(.|\\n|\\s)*\\}(\\n|\\s)*\\))";
+        String vueElementPattern = "(?m)(\\n*\\s*el\\s*:\\s*\'([a-z0-9_.#-]+)\',?)";
+        //String vueDataPattern = "(?m)(\\s*data\\s*:\\s*\\{\\n*(\\s*([a-zA-Z0-9:#,']|\\s*)*\\n)*\\s*\\})";
+        String vueDataPattern = "(\\s*data\\s*:\\s*\\{((\\n|\\s|[a-zA-Z0-9:!#,'])*)\\})";
+        //data: \{\n*(\s*([a-zA-Z0-9:#,']|\s*)*\n)*\s*\}
+        String insideDataPattern = "\\n*\\s*([a-zA-Z0-9]*)\\s*:\\s*\'([a-zA-Z0-9:!#, ]*)\'";
         Pattern vueR = Pattern.compile(createVuePattern);
         Pattern elementR = Pattern.compile(vueElementPattern);
         Pattern dataR = Pattern.compile(vueDataPattern);
+        Pattern insideDataR = Pattern.compile(insideDataPattern, Pattern.MULTILINE);
         Matcher m = vueR.matcher(answer);
         Matcher mElement = elementR.matcher(answer);
         Matcher mData = dataR.matcher(answer);
         if (mElement.find()){
+            System.out.println("el trouve");
             for (int i=0; i<=mElement.groupCount(); i++) {
                 if(i==2){
                     if (!mElement.group(i).equals("app")){
@@ -46,17 +56,22 @@ public class Exercice3 {
         }else {
             return new ObjetReponse("error", "", "Vérifie bien la syntaxe pour la création d'un element d'une Vue :)");
         }
+        HashMap<String,String> data = new HashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
         if(mData.find()){
             for (int i=0; i<=mData.groupCount(); i++) {
                 if(i==2){
-                    if (!mData.group(i).equals("app")){
-                        return new ObjetReponse("success", "almost", "Vérifiez bien si le nom de l'élément de la vue correspond à celui qui est demandé.");
+                    String []all = mData.group(i).split(",");
+                    for (String s:all) {
+                        Matcher md = insideDataR.matcher(s);
+                        if(md.find()){
+                            data.put(md.group(1),md.group(2));
+                        }
                     }
                 }
-                System.out.println(i + " found: " + mData.group(i));
             }
         }else {
-            return new ObjetReponse("error", "", "Vérifie bien la syntaxe pour la création d'un element d'une Vue :)");
+            return new ObjetReponse("error", "", "Vérifie bien la syntaxe pour la création d'un data d'une Vue :)");
         }
         if (m.find()) {
             for (int i = 0 ; i<=m.groupCount(); i++) {
@@ -66,10 +81,14 @@ public class Exercice3 {
                     }
                 }
             }
-            return new ObjetReponse("success", "", "Bravo! Passez à l'exercice suivant.");
+            try {
+                return new ObjetReponse("success", "", mapper.writeValueAsString(data));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
         }else {
             return new ObjetReponse("error", "", "Vérifie bien la syntaxe pour la création d'une Vue :)");
         }
-
+        return new ObjetReponse("error", "", "Vérifie bien la syntaxe pour la création d'une Vue :)");
     }
 }
