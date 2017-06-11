@@ -18,30 +18,10 @@
 
 <body>
 
-<nav class="white" role="navigation">
-  <div class="nav-wrapper container">
-    <a id="logo-container" href="#" class="brand-logo">
-      <img src="../img/Logo_IDE.png">
-    </a>
-    <ul class="right hide-on-med-and-down">
-      <li class="active-tab"><a href="/cours">Mes Projets</a></li>
-      <li><a href="./account.html">Mon Compte</a></li>
-      <li><a href="./parameters.html">Paramètres</a></li>
-      <li><a href="/api/logout">Déconnexion</a></li>
-    </ul>
-
-    <ul id="nav-mobile" class="side-nav">
-      <li class="active-tab"><a href="/cours">Mes Projets</a></li>
-      <li><a href="./account.html">Mon Compte</a></li>
-      <li><a href="./parameters.html">Paramètres</a></li>
-      <li><a href="/api/logout">Déconnexion</a></li>
-    </ul>
-    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-  </div>
-</nav>
+<%@include file="header.jsp" %>
 
 <div class="container-full">
-  <div class="projet-titre row">
+  <div class="projet-titre">
     <h4 class="left-align h4-margin">Chapitres</h4>
     <c:if test="${user.getPseudo().equals('root')}">
       <a class="waves-effect waves-light btn" href="/addchapitres"><i

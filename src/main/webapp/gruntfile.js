@@ -25,6 +25,8 @@ module.exports = function (grunt) {
                      "./css/ajout_cours.css": "./scss/ajout_cours.scss",
                     "./css/ajout_qcm.css": "./scss/ajout_qcm.scss",
                     "./css/ajout_drag.css": "./scss/ajout_drag.scss",
+                    "./css/exercice_drag.css": "./scss/exercice_drag.scss",
+                    "./css/exercice_qcm.css": "./scss/exercice_qcm.scss",
                 }
             }
         },

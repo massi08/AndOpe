@@ -1,0 +1,12 @@
+.answers {
+  margin: 10px 0; }
+  .answers .card-panel {
+    display: none; }
+    .answers .card-panel.show {
+      display: block; }
+  .answers span {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row; }
+    .answers span i {
+      margin-right: 20px; }

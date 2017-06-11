@@ -1,0 +1,24 @@
+@charset "UTF-8";
+@import "globals";
+
+.answers {
+  margin: 10px 0;
+
+  .card-panel {
+    display: none;
+
+    &.show {
+      display: block;
+    }
+  }
+
+  span {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row;
+
+    i {
+      margin-right: 20px;
+    }
+  }
+}
