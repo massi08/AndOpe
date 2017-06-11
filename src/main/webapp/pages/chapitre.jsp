@@ -32,7 +32,7 @@
   <div class="chapitres-container">
     <c:forEach items="${chapitres}" var="item">
       <div class="card">
-        <a href="/html_files/${item.getCoursByIdCours().getIdCours()}/cours/${item.getPath()}"> ${item.getTitle()} </a>
+        <a href="/html_files/${item.getCoursByIdCours().getIdCours()}/cours/${item.getIdC()}.jsp"> ${item.getTitle()} </a>
       </div>
     </c:forEach>
   </div>

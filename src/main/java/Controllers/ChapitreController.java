@@ -109,7 +109,6 @@ public class ChapitreController {
     @RequestMapping(value = "/chapitre", method = RequestMethod.POST)
     @ResponseBody
     public ObjetReponse receivePost(@RequestParam(value="title", required = true) String title,
-                                    @RequestParam(value="path", required = true) String path,
                                     @RequestParam(value="idCours", required = true) String idCours,
                                     @RequestParam(value="cours", required = true) String coursContent,
                                     HttpSession session) {
@@ -118,13 +117,11 @@ public class ChapitreController {
         if (cours == null){
             return new ObjetReponse("error", "", "Une erreur est survenue lors de la récupération du chapitre.");
         }
-        Chapitre chapitre = chapitreManager.newChapitre(title,path,cours);
-        System.out.println(chapitre);
-        System.out.println("broo");
+        Chapitre chapitre = chapitreManager.newChapitre(title,"id",cours);
         if(chapitre != null) {
             ObjectMapper mapper = new ObjectMapper();
             try {
-                File file = new File("src/main/webapp/html_files/"+cours.getIdCours()+"/cours/"+path);
+                File file = new File("src/main/webapp/html_files/"+cours.getIdCours()+"/cours/"+chapitre.getIdC()+".jsp");
                 FileWriter writer = new FileWriter(file);
                 writer.write(coursContent);
                 writer.flush();
