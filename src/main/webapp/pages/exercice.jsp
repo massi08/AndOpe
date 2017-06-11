@@ -29,7 +29,7 @@
     <h3 class="left-align h4-margin">Exercice ${exercice.getIdE()}</h3>
   </div>
 
-  <div class="card exo-card">
+  <div class="card exo-card cours-card">
     <jsp:include page="/html_files/${exercice.getChapitreByIdC().getCoursByIdCours().getIdCours()}/exercices/${exercice.getIdE()}.jsp"/>
   </div>
 

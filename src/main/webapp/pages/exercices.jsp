@@ -18,16 +18,17 @@
 
 <body>
 
-<%@include file="nav.jsp" %>
+<%@include file="header.jsp" %>
 
 <div class="container-full">
-  <div class="projet-titre row">
+  <div class="projet-titre">
     <h4 class="left-align h4-margin">Exercices</h4>
+    <c:if test="${user.getPseudo().equals('root')}">
+      <a class="waves-effect waves-light btn" href="/addexercice/cours/${cours.getIdCours()}/"><i
+           class="material-icons right">add</i> Ajouter un exercice </a>
+    </c:if>
   </div>
-  <c:if test="${user.getPseudo().equals('root')}">
-    <a class="waves-effect waves-light btn" href="/addexercice/cours/${cours.getIdCours()}/"><i
-            class="material-icons right">add</i> Ajouter un exercice </a>
-  </c:if>
+
   <div class="chapitres-container">
     <c:forEach items="${exercices}" var="item">
       <div class="card">
