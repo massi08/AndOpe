@@ -27,7 +27,7 @@
   </div>
 
   <div class="form-container">
-    <form action="/cours" method="post">
+    <form action="/addexercice/qcm" method="post">
       <div class="chapitres-container">
         <div class="row">
           <div class="input-field">
@@ -35,7 +35,7 @@
             <label>Question</label>
           </div>
         </div>
-        <select name="chapitreId">
+        <select name="idChapitre">
           <c:forEach items="${chapitres}" var="item">
             <option value="${item.getIdC()}">${item.getTitle()}</option>
           </c:forEach>
@@ -59,7 +59,7 @@
         <div class="switch">
           <label>
             Faux
-            <input type="checkbox">
+            <input type="checkbox" name="answer_<%=i%>" id="answer_<%=i%>">
             <span class="lever"></span>
             Correct
           </label>
@@ -67,7 +67,7 @@
         <% } %>
 
         <div class="row btn-row">
-          <button type="submit" class="waves-effect waves-light btn" id="create-course"><i
+          <button type="submit" class="waves-effect waves-light btn"><i
                class="material-icons right">done_all</i>Créer QCM
           </button>
         </div>

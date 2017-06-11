@@ -18,7 +18,9 @@ $(function () {
                 cours,
                 idCours
             };
-            API.post("/chapitre",cours,window.location = "/chapitre/cours/" + idCours)
+            API.post("/chapitre",cours,function() {
+                window.location = "/chapitre/cours/" + idCours
+            })
             console.log(cours);
         } else {
             Materialize.toast('Veuillez remplir tous les champs', 4000);

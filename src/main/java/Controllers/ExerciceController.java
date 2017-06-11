@@ -175,6 +175,98 @@ public class ExerciceController {
         return new ObjetReponse("error","","couldn't fetch");
     */}
 
+    public String qcmOption(String option){
+        String result = "";
+        int lengthOption = option.length();
+        char pos = option.charAt(lengthOption - 1);
+        result += "<p>\n" +
+                "        <input name=\"group1\" type=\"radio\" id=\""+ String.valueOf(pos) +"\"/>\n" +
+                "        <label for=\"1\">" + option + "</label>\n" +
+                "      </p>\n";
+        return result;
+    }
+
+    public String qcmAnswer(String answer, int pos){
+        String result = "";
+        if(answer.equals("1")){
+            result += "<div class=\"card-panel teal\" id=\"m" + pos +"\" >\n" +
+                    "        <span class=\"white-text\">\n" +
+                    "        <i class=\"material-icons\">done</i>\n" +
+                    "          Réponse correcte =)\n" +
+                    "        </span>\n" +
+                    "      </div>\n";
+        }
+        else {
+            result += "<div class=\"card-panel red\" id=\"m"+ String.valueOf(pos) +"\">\n" +
+                    "        <span class=\"white-text\">\n" +
+                    "          <i class=\"material-icons\">close</i>\n" +
+                    "          Réponse correcte =)\n" +
+                    "        </span>\n" +
+                    "      </div>\n";
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/addexercice/qcm", method = RequestMethod.POST)
+    @ResponseBody
+    public ModelAndView addQcm(@RequestParam(value="question", required = true) String title,
+                               @RequestParam(value="idChapitre", required = true) String idChapitre,
+                               @RequestParam(value="option_1", required = true) String option_1,
+                               @RequestParam(value="option_2", required = true) String option_2,
+                               @RequestParam(value="option_3", required = true) String option_3,
+                               @RequestParam(value="option_4", required = true) String option_4,
+                               @RequestParam(value="message_1", required = true) String message_1,
+                               @RequestParam(value="message_2", required = true) String message_2,
+                               @RequestParam(value="message_3", required = true) String message_3,
+                               @RequestParam(value="message_4", required = true) String message_4,
+                               @RequestParam(value="answer_1", required = true) String answer_1,
+                               @RequestParam(value="answer_2", required = true) String answer_2,
+                               @RequestParam(value="answer_3", required = true) String answer_3,
+                               @RequestParam(value="answer_4", required = true) String answer_4,
+                               HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView();
+        User user = usermanager.getUser((String) session.getAttribute("pseudo"));
+        modelAndView.addObject("user", user);
+        int chapitreId = Integer.valueOf(idChapitre);
+        Chapitre chapitre = chapitreManager.getChapitre(chapitreId);
+        if (chapitre == null){
+            modelAndView.setViewName("exercice");
+            return modelAndView;
+        }
+        Exercice exercice = exerciceManager.newExercice(chapitre.getTitle(),idChapitre,chapitre);
+        if(exercice != null) {
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                File file = new File("src/main/webapp/html_files/"+chapitre.getCoursByIdCours().getIdCours()+"/exercices/"+exercice.getIdE()+".jsp");
+                FileWriter writer = new FileWriter(file);
+                writer.write("<h5>" + title + "</h5>\n");
+                writer.write("<form action=\"#\">\n");
+                writer.write(qcmOption(option_1));
+                writer.write(qcmOption(option_2));
+                writer.write(qcmOption(option_3));
+                writer.write(qcmOption(option_4));
+                writer.write("</form><div class=\"answers\">\n");
+                writer.write(qcmAnswer(answer_1,1));
+                writer.write(qcmAnswer(answer_2,2));
+                writer.write(qcmAnswer(answer_3,3));
+                writer.write(qcmAnswer(answer_4,4));
+                writer.write("</div>\n");
+                writer.flush();
+                writer.close();
+                modelAndView.setViewName("exercices");
+                return modelAndView;
+            }
+            catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        modelAndView.setViewName("exercice");
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/exercice", method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView receivePost(@RequestParam(value="title", required = true) String title,
@@ -190,7 +282,7 @@ public class ExerciceController {
             modelAndView.setViewName("exercice");
             return modelAndView;
         }
-        Exercice exercice = exerciceManager.newExercice(title,path,chapitre);
+        Exercice exercice = exerciceManager.newExercice(chapitre.getTitle(),path,chapitre);
         if(exercice != null) {
             ObjectMapper mapper = new ObjectMapper();
             try {

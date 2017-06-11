@@ -2,7 +2,7 @@ var API = {
     get: function (url, body, onSuccess) {
         $.ajax({
             method: "GET",
-            url: '/api/' + url,
+            url: url,
             dataType: "json",
             data: body,
             success: function (data) {
