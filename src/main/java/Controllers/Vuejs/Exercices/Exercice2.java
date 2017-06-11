@@ -26,9 +26,7 @@ public class Exercice2 {
     public ObjetReponse receivePost(@RequestParam(value="answer", required = true) String answer,
                                     HttpSession session) {
         System.out.println(answer);
-        String line = "This order was placed for QT3000! OK?";
         String pattern = "(^\\{\\{)([a-z]*)(\\}\\}$)";
-        //String pattern = "([a-z]*)";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(answer);
         if (m.find()) {
@@ -40,7 +38,7 @@ public class Exercice2 {
                     }
                 }
             }
-            return new ObjetReponse("success", "", "Bravo! Passez à l'exercice suivant.");
+            return new ObjetReponse("success", "done", "Bravo! Passez à l'exercice suivant.");
         }else {
             return new ObjetReponse("error", "", "Vérifie bien la syntaxe pour le data-binding :)");
         }

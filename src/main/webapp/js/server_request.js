@@ -26,10 +26,6 @@ var API = {
             dataType: "json",
             data: body,
             success: function (data) {
-                if(data.status === 'error'){
-                    console.log(data.message)
-                    return
-                }
                 onSuccess(data);
             },
         }).fail(function (err) {

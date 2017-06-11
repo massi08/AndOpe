@@ -63,12 +63,23 @@ public class ExerciceManager {
         return exercice;
     }
 
+    public Exercice updateExerciceStatus(Exercice exercice, int done) {
+
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
+        exercice = this.exerciceDao.updateExerciceStatus(exercice, done);
+
+        transaction.commit();
+        return exercice;
+    }
+
     public Exercice updateExerciceTitle(Exercice exercice, String title) {
 
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
-        exercice = this.exerciceDao.updateChapitreName(exercice, title);
+        exercice = this.exerciceDao.updateExerciceName(exercice, title);
 
         transaction.commit();
         return exercice;
@@ -79,7 +90,7 @@ public class ExerciceManager {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
-        exercice = this.exerciceDao.updateChapitrePath(exercice, path);
+        exercice = this.exerciceDao.updateExercicePath(exercice, path);
 
         transaction.commit();
         return exercice;
@@ -91,7 +102,7 @@ public class ExerciceManager {
         boolean status = false;
         transaction.begin();
 
-        status = this.exerciceDao.removeChapitre(exercice.getChapitreByIdC().getIdC());
+        status = this.exerciceDao.removeExercice(exercice.getChapitreByIdC().getIdC());
 
         transaction.commit();
         return status;

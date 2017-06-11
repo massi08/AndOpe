@@ -11,7 +11,7 @@
   <link href="/css/ajout_cours.css" type="text/css" rel="stylesheet"/>
   <link href="/css/ajout_qcm.css" type="text/css" rel="stylesheet"/>
   <!--Let browser know website is optimized for mobile-->
-  <link rel="icon" type="image/png" href="../img/favicon.png"/>
+  <link rel="icon" type="image/png" href="/img/favicon.png"/>
   <title> Code </title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
@@ -29,6 +29,12 @@
   <div class="form-container">
     <form action="/addexercice/qcm" method="post">
       <div class="chapitres-container">
+        <div class="row">
+          <div class="input-field">
+            <input type="text" id="title" name="title" required class="validate">
+            <label>Titre</label>
+          </div>
+        </div>
         <div class="row">
           <div class="input-field">
             <input type="text" id="question" name="question" required class="validate">

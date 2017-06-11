@@ -48,7 +48,7 @@ public class Exercice3 {
             System.out.println("el trouve");
             for (int i=0; i<=mElement.groupCount(); i++) {
                 if(i==2){
-                    if (!mElement.group(i).equals("app")){
+                    if (!mElement.group(i).equals("#app")){
                         return new ObjetReponse("success", "almost", "Vérifiez bien si le nom de l'élément de la vue correspond à celui qui est demandé.");
                     }
                 }
@@ -62,11 +62,21 @@ public class Exercice3 {
             for (int i=0; i<=mData.groupCount(); i++) {
                 if(i==2){
                     String []all = mData.group(i).split(",");
+                    int nbCounter = 0;
                     for (String s:all) {
                         Matcher md = insideDataR.matcher(s);
                         if(md.find()){
+                            for (int j = 0 ; j<=md.groupCount(); j++) {
+                                System.out.println(j + " --> " + md.group(j));
+                                if(j == 1 && md.group(j).equals("firstname")  || md.group(j).equals("lastname")) {
+                                    nbCounter++;
+                                }
+                            }
                             data.put(md.group(1),md.group(2));
                         }
+                    }
+                    if(nbCounter < 2){
+                        return new ObjetReponse("success", "almost", "Rajouter bien les données firstname et lastname");
                     }
                 }
             }
@@ -82,7 +92,7 @@ public class Exercice3 {
                 }
             }
             try {
-                return new ObjetReponse("success", "", mapper.writeValueAsString(data));
+                return new ObjetReponse("success", "done", mapper.writeValueAsString(data));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }

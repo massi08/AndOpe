@@ -67,20 +67,25 @@ public class ExerciceDao {
         return exercices;
     }
 
-    public Exercice updateChapitreName(Exercice exercice, String name){
+    public Exercice updateExerciceStatus(Exercice exercice, int done){
+        exercice.setFinished(done);
+        return exercice;
+    }
+
+    public Exercice updateExerciceName(Exercice exercice, String name){
         exercice.setTitle(name);
         return exercice;
     }
 
-    public Exercice updateChapitrePath(Exercice exercice, String path){
+    public Exercice updateExercicePath(Exercice exercice, String path){
         exercice.setPath(path);
         return exercice;
     }
 
-    public boolean removeChapitre(int chapitreId){
-        Exercice chapitre = getExerciceById(chapitreId);
-        if(chapitre != null){
-            em.remove(chapitre);
+    public boolean removeExercice(int exerciceId){
+        Exercice exercice = getExerciceById(exerciceId);
+        if(exercice != null){
+            em.remove(exercice);
             return true;
         }
         return false;

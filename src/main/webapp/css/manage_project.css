@@ -22,6 +22,8 @@
   flex-wrap: wrap;
   min-width: 1000px;
   text-align: center; }
+  .cards .card-image {
+    height: 150px; }
   .cards .card-projects {
     width: 32% !important;
     float: none;

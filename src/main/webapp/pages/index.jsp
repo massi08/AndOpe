@@ -9,9 +9,9 @@
   <base href="${pageContext.request.contextPath}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
   <link href=" <c:url value = "/css/style.css" />" type="text/css" rel="stylesheet"/>
-  <link href="../css/connexion.css" type="text/css" rel="stylesheet"/>
+  <link href="/css/connexion.css" type="text/css" rel="stylesheet"/>
   <!--Let browser know website is optimized for mobile-->
-  <link rel="icon" type="image/png" href="./img/favicon.png"/>
+  <link rel="icon" type="image/png" href="/img/favicon.png"/>
   <title> Connexion </title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>

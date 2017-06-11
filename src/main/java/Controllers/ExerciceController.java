@@ -110,6 +110,44 @@ public class ExerciceController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/exercice/{idCours}", method = RequestMethod.GET)
+    @ResponseBody
+    public ObjetReponse receiveGetExoByCours(@PathVariable String idCours,
+                                          HttpSession session) {
+        ObjectMapper mapper = new ObjectMapper();
+        if(idCours != null && !idCours.equals("")){
+            int idC = Integer.valueOf(idCours);
+            List<Chapitre> allChapitre = chapitreManager.getAllChapitreByCoursId(idC);
+            List<Exercice> allExercices = new ArrayList<>();
+            for (Chapitre chapitre:allChapitre) {
+                allExercices.addAll(exerciceManager.getAllExercicesByChapitreId(chapitre.getIdC()));
+            }
+            try {
+                String exercices = mapper.writeValueAsString(allExercices);
+                return new ObjetReponse("success","",exercices);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return new ObjetReponse("error","","");
+    }
+
+    @RequestMapping(value = "/exercice/done/{idExercice}", method = RequestMethod.POST)
+    @ResponseBody
+    public ObjetReponse receivePostExoDone(@PathVariable String idExercice,
+                                             HttpSession session) {
+        System.out.println(idExercice);
+        if(idExercice != null && !idExercice.equals("")){
+            int idE = Integer.valueOf(idExercice);
+            Exercice exercice = exerciceManager.getExercice(idE);
+            exerciceManager.updateExerciceStatus(exercice,1);
+            new ObjetReponse("success", "", "");
+        }
+
+        return new ObjetReponse("error","","wyy");
+    }
+
     @RequestMapping(value = "/addexercice/cours/{idCours}", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView receiveGetAddExercice(@PathVariable String idCours,
@@ -250,7 +288,8 @@ public class ExerciceController {
 
     @RequestMapping(value = "/addexercice/qcm", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView addQcm(@RequestParam(value="question", required = true) String title,
+    public ModelAndView addQcm(@RequestParam(value="title", required = true) String title,
+                               @RequestParam(value="question", required = true) String question,
                                @RequestParam(value="idChapitre", required = true) String idChapitre,
                                @RequestParam(value="option_1", required = true) String option_1,
                                @RequestParam(value="option_2", required = true) String option_2,
@@ -274,14 +313,14 @@ public class ExerciceController {
             modelAndView.setViewName("exercice");
             return modelAndView;
         }
-        Exercice exercice = exerciceManager.newExercice(chapitre.getTitle(),idChapitre,chapitre);
+        Exercice exercice = exerciceManager.newExercice(title,idChapitre,chapitre);
         if(exercice != null) {
             try {
                 File file = new File("src/main/webapp/html_files/"+chapitre.getCoursByIdCours().getIdCours()+"/exercices/"+exercice.getIdE()+".jsp");
                 FileWriter writer = new FileWriter(file);
                 writer.write("<%@ page language=\"java\" pageEncoding=\"UTF-8\" %>");
                 writer.write("<h4>Choisissez la bonne réponse</h4>");
-                writer.write("<h5>" + title + "</h5>\n");
+                writer.write("<h5>" + question + "</h5>\n");
                 writer.write("<form action=\"#\">\n");
                 writer.write(qcmOption(option_1, 1));
                 writer.write(qcmOption(option_2 ,2));
@@ -407,6 +446,7 @@ public class ExerciceController {
     public ModelAndView receiveGetExercice(@PathVariable String idCours,
                                            @PathVariable String idExercice,
                                            HttpSession session) {
+        System.out.println(idCours);
         int idC = Integer.valueOf(idCours);
         int idE = Integer.valueOf(idExercice);
         ModelAndView modelAndView = new ModelAndView();
@@ -437,7 +477,9 @@ public class ExerciceController {
         }
         Exercice exercice = exerciceManager.newExercice(chapitre.getTitle(),path,chapitre);
         if(exercice != null) {
-            ObjectMapper mapper = new ObjectMapper();
+            Cours cours = chapitre.getCoursByIdCours();
+            int nbExo = cours.getNbExercices();
+            cours.setNbExercices(nbExo + 1);
             try {
                 File file = new File("src/main/webapp/html_files/"+chapitre.getCoursByIdCours().getIdCours()+"/exercices/"+exercice.getPath());
                 FileWriter writer = new FileWriter(file);

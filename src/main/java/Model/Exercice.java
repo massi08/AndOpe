@@ -38,6 +38,10 @@ public class Exercice {
     @JoinColumn(name = "idC", referencedColumnName = "idC", nullable = false)
     private Chapitre chapitreByIdC;
 
+    @Basic
+    @Column(name = "finished", nullable = true)
+    private Integer finished;
+
     public Exercice(String title, String path, Chapitre chapitre) {
         this.title = title;
         this.path = path;
@@ -47,7 +51,6 @@ public class Exercice {
     public Exercice() {
     }
 
-
     public int getIdE() {
         return idE;
     }
@@ -56,7 +59,6 @@ public class Exercice {
         this.idE = idE;
     }
 
-
     public String getTitle() {
         return title;
     }
@@ -64,7 +66,6 @@ public class Exercice {
     public void setTitle(String title) {
         this.title = title;
     }
-
 
     public String getPath() {
         return path;
@@ -110,5 +111,13 @@ public class Exercice {
 
     public void setChapitreByIdC(Chapitre chapitreByIdC) {
         this.chapitreByIdC = chapitreByIdC;
+    }
+
+    public Integer getFinished() {
+        return finished;
+    }
+
+    public void setFinished(Integer finished) {
+        this.finished = finished;
     }
 }
