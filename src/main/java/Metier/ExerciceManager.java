@@ -33,11 +33,11 @@ public class ExerciceManager {
         return exercice;
     }
 
-    public List<Exercice> getAllExercicesByCoursId(int coursId){
+    public List<Exercice> getAllExercicesByChapitreId(int chapitreId){
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
-        List<Exercice> exercice = exerciceDao.getExerciceByChapitreId(coursId);
+        List<Exercice> exercice = exerciceDao.getExerciceByChapitreId(chapitreId);
 
         transaction.commit();
         return exercice;

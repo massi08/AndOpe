@@ -7,8 +7,8 @@
 <html>
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
-  <link href="../css/style.css" type="text/css" rel="stylesheet"/>
-  <link href="../css/ajout_cours.css" type="text/css" rel="stylesheet"/>
+  <link href="/css/style.css" type="text/css" rel="stylesheet"/>
+  <link href="/css/ajout_cours.css" type="text/css" rel="stylesheet"/>
   <!--Let browser know website is optimized for mobile-->
   <link rel="icon" type="image/png" href="../img/favicon.png"/>
   <title> Code </title>
@@ -70,10 +70,10 @@
 
 <%@include file="footer.jsp" %>
 
-<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
-<script type="text/javascript" src="../js/server_request.js"></script>
-<script type="text/javascript" src="../js/init.js"></script>
+<script type="text/javascript" src="/js/server_request.js"></script>
+<script type="text/javascript" src="/js/init.js"></script>
 <%--<script type="text/javascript" src="../js/add_cours.js"></script>--%>
 </body>
 </html>

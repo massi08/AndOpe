@@ -22,7 +22,7 @@ var API = {
         console.log("post is being made ...")
         $.ajax({
             method: "POST",
-            url: '/api/' + url,
+            url: url,
             dataType: "json",
             data: body,
             success: function (data) {

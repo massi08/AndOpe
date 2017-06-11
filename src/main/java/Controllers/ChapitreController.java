@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/chapitre")
 public class ChapitreController {
 
     @Autowired
@@ -41,7 +40,7 @@ public class ChapitreController {
     @Qualifier(value = "usermanager")
     private UserManager usermanager;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/chapitre", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView receiveGet(@RequestParam(value="title", required = false) String title,
                                    @RequestParam(value="idChapitre", required = false) String idChapitre,
@@ -68,7 +67,6 @@ public class ChapitreController {
                 for (Chapitre c:allChapitre) {
                     allChapitreForJson.add(mapper.writeValueAsString(c));
                 }
-                Gson gson = new Gson();
                 modelAndView.addObject("chapitre",allChapitre);
                 modelAndView.addObject("user", user);
                 return modelAndView;
@@ -80,11 +78,40 @@ public class ChapitreController {
         return new ModelAndView("manage_project");
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @GetMapping("/chapitre/cours/{idCours}")
+    @ResponseBody
+    public ModelAndView receiveGetChapitre(@PathVariable String idCours,
+                                           HttpSession session){
+        int idC = Integer.valueOf(idCours);
+        ModelAndView modelAndView = new ModelAndView("chapitre");
+        User user = usermanager.getUser((String) session.getAttribute("pseudo"));
+        Cours cours = coursManager.getCours(idC);
+        List<Chapitre> allChapitre = chapitreManager.getAllChapitreByCoursId(idC);
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("cours", cours);
+        modelAndView.addObject("chapitres",allChapitre);
+        return modelAndView;
+    }
+
+    @GetMapping("/addchapitre/cours/{idCours}")
+    @ResponseBody
+    public ModelAndView receiveGetAddChapitre(@PathVariable String idCours,
+                                              HttpSession session){
+        int idC = Integer.valueOf(idCours);
+        ModelAndView modelAndView = new ModelAndView("add_chapitre");
+        User user = usermanager.getUser((String) session.getAttribute("pseudo"));
+        Cours cours = coursManager.getCours(idC);
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("cours", cours);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/chapitre", method = RequestMethod.POST)
     @ResponseBody
     public ObjetReponse receivePost(@RequestParam(value="title", required = true) String title,
                                     @RequestParam(value="path", required = true) String path,
                                     @RequestParam(value="idCours", required = true) String idCours,
+                                    @RequestParam(value="cours", required = true) String coursContent,
                                     HttpSession session) {
         int coursId = Integer.valueOf(idCours);
         Cours cours = coursManager.getCours(coursId);
@@ -99,8 +126,7 @@ public class ChapitreController {
             try {
                 File file = new File("src/main/webapp/html_files/"+cours.getIdCours()+"/cours/"+path);
                 FileWriter writer = new FileWriter(file);
-                writer.write("Hello World\n");
-                writer.write("Okay ");
+                writer.write(coursContent);
                 writer.flush();
                 writer.close();
                 return new ObjetReponse("success", "", mapper.writeValueAsString(chapitre));

@@ -42,8 +42,8 @@
           </div>
 
           <div class="card-action">
-            <a href="/chapitre?idCours=${item.getIdCours()}">Cours</a>
-            <a href="/exercice?idChapitre=${item.getIdCours()}">Exercices</a>
+            <a href="/chapitre/cours/${item.getIdCours()}">Cours</a>
+            <a href="/exercice/cours/${item.getIdCours()}">Exercices</a>
           </div>
 
           <div class="card-reveal">
