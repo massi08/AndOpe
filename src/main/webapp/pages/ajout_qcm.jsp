@@ -55,15 +55,12 @@
             <label for="description">Message</label>
           </div>
         </div>
-
-        <div class="switch">
-          <label>
-            Faux
-            <input type="checkbox" name="answer_<%=i%>" id="answer_<%=i%>">
-            <span class="lever"></span>
-            Correct
-          </label>
-        </div>
+        <p>
+          <input name="group<%=i%>" type="radio" id="<%=i%>"/>
+          <label for="<%=i%>">Faux</label>
+          <input name="group<%=i%>" type="radio" id="<%=i%>_vrai"/>
+          <label for="<%=i%>_vrai">Vrai</label>
+        </p>
         <% } %>
 
         <div class="row btn-row">

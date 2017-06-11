@@ -10,7 +10,7 @@ $(function () {
         var path = window.location.pathname;
         var splittedPath = path.split("/");
         var splitLength = splittedPath.length
-        var idCours = splittedPath[splitLength-1]
+        var idCours = splittedPath[splitLength - 1]
         console.log(idCours);
         if (title.trim() !== '' && cours.trim !== '') {
             var cours = {
@@ -18,9 +18,9 @@ $(function () {
                 cours,
                 idCours
             };
-            API.post("/chapitre",cours,function() {
+            API.post("/chapitre", cours, function() {
                 window.location = "/chapitre/cours/" + idCours
-            })
+            });
             console.log(cours);
         } else {
             Materialize.toast('Veuillez remplir tous les champs', 4000);

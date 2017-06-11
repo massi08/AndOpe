@@ -57,7 +57,7 @@
     </form>
 
     <div class="answers">
-      <div class="card-panel teal correct" id="m1">
+      <div class="card-panel teal" id="m1">
         <span class="white-text">
         <i class="material-icons">done</i>
           Réponse correcte =)
