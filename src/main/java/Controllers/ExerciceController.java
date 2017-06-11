@@ -349,14 +349,14 @@ public class ExerciceController {
                 writer.write("<h4>Réarangez ces éléments dans l'ordre</h4>\n");
                 writer.write("<h5>" + question + "</h5>\n");
                 writer.write("<ul id=\"sortable\">\n");
-                writer.write(dragOption(option_1, 1));
-                writer.write(dragOption(option_2 ,2));
-                writer.write(dragOption(option_3, 3));
-                writer.write(dragOption(option_4, 4));
-                writer.write(dragOption(option_5, 5));
-                writer.write(dragOption(option_6, 6));
                 writer.write(dragOption(option_7, 7));
+                writer.write(dragOption(option_4, 4));
+                writer.write(dragOption(option_1, 1));
+                writer.write(dragOption(option_5, 5));
                 writer.write(dragOption(option_8, 8));
+                writer.write(dragOption(option_2 ,2));
+                writer.write(dragOption(option_6, 6));
+                writer.write(dragOption(option_3, 3));
                 writer.write("</ul>\n" +
                         "\n" +
                         "    <div class=\"validate-button\">\n" +

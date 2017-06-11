@@ -21,7 +21,7 @@
 
 <div class="container-full valign-wrapper">
   <div class="card cours-card">
-    <jsp:include page="/html_files/${exercice.getChapitreByIdC().getCoursByIdCours().getIdCours()}/cours/${exercice.getIdE()}.jsp"/>
+    <jsp:include page="/html_files/${cours.getIdCours()}/cours/${chapitre.getIdC()}.jsp"/>
   </div>
 </div>
 

@@ -78,6 +78,24 @@ public class ChapitreController {
         return new ModelAndView("manage_project");
     }
 
+    @RequestMapping(value = "/chapitre/contenu/{idCours}/{idChapitre}", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView receiveGetAddExerciceDrag(@PathVariable String idCours,
+                                                  @PathVariable String idChapitre,
+                                                  HttpSession session) {
+        int idC = Integer.valueOf(idCours);
+        int idCh = Integer.valueOf(idChapitre);
+        ModelAndView modelAndView = new ModelAndView();
+        User user = usermanager.getUser((String) session.getAttribute("pseudo"));
+        Cours cours = coursManager.getCours(idC);
+        Chapitre chapitre = chapitreManager.getChapitre(idCh);
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("cours", cours);
+        modelAndView.addObject("chapitre", chapitre);
+        modelAndView.setViewName("cours");
+        return modelAndView;
+    }
+
     @GetMapping("/chapitre/cours/{idCours}")
     @ResponseBody
     public ModelAndView receiveGetChapitre(@PathVariable String idCours,
