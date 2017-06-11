@@ -1,2 +1,10 @@
 @charset "UTF-8";
 @import "globals";
+
+li {
+  text-align: center;
+
+  .chip {
+    font-size: 18px;
+  }
+}

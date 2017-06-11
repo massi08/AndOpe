@@ -7,6 +7,7 @@
   .answers span {
     display: flex;
     align-items: flex-end;
-    flex-direction: row; }
+    flex-direction: row;
+    color: white !important; }
     .answers span i {
       margin-right: 20px; }

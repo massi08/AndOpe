@@ -79,6 +79,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
 <script type="text/javascript" src="../js/server_request.js"></script>
 <script type="text/javascript" src="../js/init.js"></script>
-<%--<script type="text/javascript" src="../js/add_cours.js"></script>--%>
 </body>
 </html>
