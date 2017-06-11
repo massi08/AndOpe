@@ -123,6 +123,15 @@ nav {
       }
     }
 
+    input[type="radio"]:checked + label:before,
+    input[type="radio"]:checked + label:after {
+      border: 2px solid $input-color !important;
+    }
+
+    input[type="radio"]:checked + label:after {
+      background-color: $input-color !important;
+    }
+
     &.valid {
       border-bottom: 1px solid $input-color;
       box-shadow: 0 1px 0 0 $input-color;

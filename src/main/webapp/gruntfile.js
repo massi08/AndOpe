@@ -23,6 +23,8 @@ module.exports = function (grunt) {
                     "./css/exercice.css": "./scss/exercice.scss",
                     "./css/add_chapitre.css": "./scss/add_chapitre.scss",
                      "./css/ajout_cours.css": "./scss/ajout_cours.scss",
+                    "./css/ajout_qcm.css": "./scss/ajout_qcm.scss",
+                    "./css/ajout_drag.css": "./scss/ajout_drag.scss",
                 }
             }
         },
