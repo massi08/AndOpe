@@ -41,7 +41,8 @@
           </c:forEach>
         </select>
         <% for (int i = 1; i <= 4; i++) { %>
-        <h5>Option n°<%=i%></h5>
+        <h5>Option n°<%=i%>
+        </h5>
         <div class="row">
           <div class="input-field">
             <input type="text" id="option_<%=i%>" name="option_<%=i%>" required class="validate">
@@ -55,15 +56,12 @@
             <label for="description">Message</label>
           </div>
         </div>
-
-        <div class="switch">
-          <label>
-            Faux
-            <input type="checkbox">
-            <span class="lever"></span>
-            Correct
-          </label>
-        </div>
+        <p>
+          <input name="group<%=i%>" type="radio" id="<%=i%>"/>
+          <label for="<%=i%>">Faux</label>
+          <input name="group<%=i%>" type="radio" id="<%=i%>_vrai"/>
+          <label for="<%=i%>_vrai">Vrai</label>
+        </p>
         <% } %>
 
         <div class="row btn-row">

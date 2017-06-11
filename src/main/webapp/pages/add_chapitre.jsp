@@ -28,7 +28,7 @@
 
 <body>
 
-<%@include file="nav.jsp" %>
+<%@include file="header.jsp" %>
 
 <div class="container-full">
   <div class="projet-titre row">
