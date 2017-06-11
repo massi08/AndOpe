@@ -222,18 +222,18 @@ public class ExerciceController {
 
         result += "<p>\n" +
                 "        <input name=\"group1\" type=\"radio\" id=\""+ pos +"\"/>\n" +
-                "        <label for=\"1\">" + option + "</label>\n" +
+                "        <label for=\"" + pos + "\">" + option + "</label>\n" +
                 "      </p>\n";
         return result;
     }
 
-    public String qcmAnswer(String answer, int pos){
+    public String qcmAnswer(String answer, int pos, String message){
         String result = "";
         if(answer.equals("1")){
             result += "<div class=\"card-panel teal\" id=\"m" + pos +"\" >\n" +
                     "        <span class=\"white-text\">\n" +
                     "        <i class=\"material-icons\">done</i>\n" +
-                    "          Réponse correcte =)\n" +
+                                message +
                     "        </span>\n" +
                     "      </div>\n";
         }
@@ -241,7 +241,7 @@ public class ExerciceController {
             result += "<div class=\"card-panel red\" id=\"m"+ pos +"\">\n" +
                     "        <span class=\"white-text\">\n" +
                     "          <i class=\"material-icons\">close</i>\n" +
-                    "          Réponse correcte =)\n" +
+                                message +
                     "        </span>\n" +
                     "      </div>\n";
         }
@@ -288,10 +288,10 @@ public class ExerciceController {
                 writer.write(qcmOption(option_3, 3));
                 writer.write(qcmOption(option_4, 4));
                 writer.write("</form><div class=\"answers\">\n");
-                writer.write(qcmAnswer(answer_1,1));
-                writer.write(qcmAnswer(answer_2,2));
-                writer.write(qcmAnswer(answer_3,3));
-                writer.write(qcmAnswer(answer_4,4));
+                writer.write(qcmAnswer(answer_1,1, message_1));
+                writer.write(qcmAnswer(answer_2,2, message_2));
+                writer.write(qcmAnswer(answer_3,3, message_3));
+                writer.write(qcmAnswer(answer_4,4, message_4));
                 writer.write("</div>\n");
                 writer.flush();
                 writer.close();
