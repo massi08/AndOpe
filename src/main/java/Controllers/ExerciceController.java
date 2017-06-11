@@ -11,17 +11,22 @@ import Model.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
+import org.json.simple.parser.JSONParser;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -175,6 +180,43 @@ public class ExerciceController {
         return new ObjetReponse("error","","couldn't fetch");
     */}
 
+    @RequestMapping(value = "/exercice/drag/{idCours}/{idExercice}", method = RequestMethod.GET)
+    @ResponseBody
+    public ObjetReponse receiveGetAnswerDrag(@PathVariable String idCours,
+                                             @PathVariable String idExercice,
+                                             HttpSession session) {
+        int idC = Integer.valueOf(idCours);
+        int idE = Integer.valueOf(idExercice);
+        ObjetReponse objetReponse = new ObjetReponse();
+        User user = usermanager.getUser((String) session.getAttribute("pseudo"));
+        Cours cours = coursManager.getCours(idC);
+        Exercice exercice = exerciceManager.getExercice(idE);
+        JSONParser parser = new JSONParser();
+        ObjectMapper mapper = new ObjectMapper();
+        Gson gson = new Gson();
+        try {
+            Object obj = parser.parse(new FileReader("src/main/webapp/html_files/"+cours.getIdCours()+"/exercices/"+exercice.getIdE()+".json"));
+            JSONObject jsonObject =  (JSONObject) obj;
+            return new ObjetReponse("success","",gson.toJson(jsonObject));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return new ObjetReponse("error","","couldn't fetch");
+    }
+
+    public String dragOption(String option, int pos){
+        String result = "";
+
+        result += "     <li class=\"default\" id=\"" + pos + "\">\n" +
+                "        <div class=\"chip\">" + option + "</div>\n" +
+                "      </li>\n";
+        return result;
+    }
+
     public String qcmOption(String option, int pos){
         String result = "";
 
@@ -234,7 +276,6 @@ public class ExerciceController {
         }
         Exercice exercice = exerciceManager.newExercice(chapitre.getTitle(),idChapitre,chapitre);
         if(exercice != null) {
-            ObjectMapper mapper = new ObjectMapper();
             try {
                 File file = new File("src/main/webapp/html_files/"+chapitre.getCoursByIdCours().getIdCours()+"/exercices/"+exercice.getIdE()+".jsp");
                 FileWriter writer = new FileWriter(file);
@@ -254,6 +295,99 @@ public class ExerciceController {
                 writer.write("</div>\n");
                 writer.flush();
                 writer.close();
+                modelAndView.setViewName("redirect:/exercice/cours/" + chapitre.getCoursByIdCours().getIdCours());
+                return modelAndView;
+            }
+            catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        modelAndView.setViewName("exercice");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/addexercice/drag", method = RequestMethod.POST)
+    @ResponseBody
+    public ModelAndView addDrag(@RequestParam(value="question", required = true) String question,
+                                @RequestParam(value="title", required = true) String title,
+                                @RequestParam(value="idChapitre", required = true) String idChapitre,
+                                @RequestParam(value="option_1", required = true) String option_1,
+                                @RequestParam(value="option_2", required = true) String option_2,
+                                @RequestParam(value="option_3", required = true) String option_3,
+                                @RequestParam(value="option_4", required = true) String option_4,
+                                @RequestParam(value="option_5", required = true) String option_5,
+                                @RequestParam(value="option_6", required = true) String option_6,
+                                @RequestParam(value="option_7", required = true) String option_7,
+                                @RequestParam(value="option_8", required = true) String option_8,
+                                @RequestParam(value="message_1", required = true) String message_1,
+                                @RequestParam(value="message_2", required = true) String message_2,
+                                @RequestParam(value="message_3", required = true) String message_3,
+                                @RequestParam(value="message_4", required = true) String message_4,
+                                @RequestParam(value="message_5", required = true) String message_5,
+                                @RequestParam(value="message_6", required = true) String message_6,
+                                @RequestParam(value="message_7", required = true) String message_7,
+                                @RequestParam(value="message_8", required = true) String message_8,
+                               HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView();
+        User user = usermanager.getUser((String) session.getAttribute("pseudo"));
+        modelAndView.addObject("user", user);
+        int chapitreId = Integer.valueOf(idChapitre);
+        Chapitre chapitre = chapitreManager.getChapitre(chapitreId);
+        if (chapitre == null){
+            modelAndView.setViewName("exercice");
+            return modelAndView;
+        }
+        Exercice exercice = exerciceManager.newExercice(title,idChapitre,chapitre);
+        if(exercice != null) {
+            try {
+                File file = new File("src/main/webapp/html_files/"+chapitre.getCoursByIdCours().getIdCours()+"/exercices/"+exercice.getIdE()+".jsp");
+                FileWriter writer = new FileWriter(file);
+                writer.write("<%@ page language=\"java\" pageEncoding=\"UTF-8\" %>\n");
+                writer.write("<h4>Réarangez ces éléments dans l'ordre</h4>\n");
+                writer.write("<h5>" + question + "</h5>\n");
+                writer.write("<ul id=\"sortable\">\n");
+                writer.write(dragOption(option_1, 1));
+                writer.write(dragOption(option_2 ,2));
+                writer.write(dragOption(option_3, 3));
+                writer.write(dragOption(option_4, 4));
+                writer.write(dragOption(option_5, 5));
+                writer.write(dragOption(option_6, 6));
+                writer.write(dragOption(option_7, 7));
+                writer.write(dragOption(option_8, 8));
+                writer.write("</ul>\n" +
+                        "\n" +
+                        "    <div class=\"validate-button\">\n" +
+                        "      <a class=\"waves-effect waves-light btn btn-submit\" id=\"submit-drag\">Submit</a>\n" +
+                        "    </div>\n");
+                writer.write("<div class=\"answers\">\n" +
+                        "      <div class=\"card-panel teal correct\" id=\"m1\">\n" +
+                        "        <span class=\"white-text\">\n" +
+                        "        <i class=\"material-icons\">sentiment_very_satisfied</i>\n" +
+                        "          <span>Réponse correcte =)</span>\n" +
+                        "        </span>\n" +
+                        "      </div>\n" +
+                        "\n" +
+                        "      <div class=\"card-panel red\" id=\"m1\">\n" +
+                        "        <span class=\"white-text\">\n" +
+                        "        <i class=\"material-icons\">sentiment_very_dissatisfied</i>\n" +
+                        "        <span></span>\n" +
+                        "        </span>\n" +
+                        "      </div>\n" +
+                        "    </div>\n");
+                writer.flush();
+                writer.close();
+                File fileJson = new File("src/main/webapp/html_files/"+chapitre.getCoursByIdCours().getIdCours()+"/exercices/"+exercice.getIdE()+".json");
+                FileWriter writerJson = new FileWriter(fileJson);
+                ArrayList<String> answers = new ArrayList<>();
+                answers.addAll(Arrays.asList(message_1,message_2,message_3,message_4,message_5,message_6,message_7,message_8));
+                JSONArray jsonArray = new JSONArray();
+                jsonArray.toJSONString(answers);
+                writerJson.write("{\"answer\":" + jsonArray.toJSONString(answers) + "}");
+                writerJson.flush();
+                writerJson.close();
                 modelAndView.setViewName("redirect:/exercice/cours/" + chapitre.getCoursByIdCours().getIdCours());
                 return modelAndView;
             }

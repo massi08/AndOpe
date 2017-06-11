@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="c2" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c2" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page session="true" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -27,11 +27,11 @@
   </div>
 
   <div class="form-container">
-    <form action="/cours" method="post">
+    <form action="/addexercice/drag" method="post">
       <div class="chapitres-container">
         <div class="row">
           <div class="input-field">
-            <input type="text" id="question" name="question" required class="validate">
+            <input type="text" id="title" name="title" required class="validate">
             <label>Titre</label>
           </div>
 
@@ -40,7 +40,11 @@
             <label>Question</label>
           </div>
         </div>
-
+        <select name="idChapitre">
+          <c:forEach items="${chapitres}" var="item">
+            <option value="${item.getIdC()}">${item.getTitle()}</option>
+          </c:forEach>
+        </select>
         <% for (int i = 1; i <= 8; i++) { %>
         <h5>Elément n°<%=i%>
         </h5>

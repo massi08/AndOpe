@@ -11,6 +11,7 @@
   <link href="/css/cours.css" type="text/css" rel="stylesheet"/>
   <link href="/css/exercice.css" type="text/css" rel="stylesheet"/>
   <link href="/css/exercice_qcm.css" type="text/css" rel="stylesheet"/>
+  <link href="/css/exercice_drag.css" type="text/css" rel="stylesheet"/>
   <!--Let browser know website is optimized for mobile-->
   <link rel="icon" type="image/png" href="/img/favicon.png"/>
   <title> Code </title>
@@ -38,10 +39,12 @@
 <%@include file="footer.jsp" %>
 
 <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
 <script type="text/javascript" src="/js/server_request.js"></script>
 <script type="text/javascript" src="/js/init.js"></script>
 <script type="text/javascript" src="/js/login.js"></script>
 <script type="text/javascript" src="/js/exercice_qcm.js"></script>
+<script type="text/javascript" src="/js/exercice_drag.js"></script>
 </body>
 </html>
