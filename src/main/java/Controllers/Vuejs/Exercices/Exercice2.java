@@ -34,7 +34,7 @@ public class Exercice2 {
                 System.out.println("Found value: " + m.group(i) );
                 if(i==2){
                     if(!m.group(i).equals("message")){
-                        return new ObjetReponse("success", "almost", "Vous y êtes preques. Vérifiez bien le contenu du chevron ;).");
+                        return new ObjetReponse("success", "almost", "Vous y êtes preques. Vérifiez bien le contenu entre chevron ;).");
                     }
                 }
             }
