@@ -96,7 +96,8 @@ public class ExerciceController {
         User user = usermanager.getUser((String) session.getAttribute("pseudo"));
         modelAndView.addObject("user", user);
         modelAndView.setViewName("exercices");
-
+        if(user == null)
+            return new ModelAndView("redirect:/index");
         if(idCours != null && !idCours.equals("")){
             int idC = Integer.valueOf(idCours);
             Cours cours = coursManager.getCours(idC);

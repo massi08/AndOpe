@@ -4,6 +4,8 @@ $(function () {
     var splitLength = splittedPath.length
     var idExercice = splittedPath[splitLength - 1]
     var idCours = splittedPath[splitLength - 2]
+    var nbErrorExo2 = 0
+    var nbErrorExo3 = 0
     $(".precedent-exercice").click(function () {
         window.location = "/exercice/cours/" + idCours;
     })
@@ -30,17 +32,25 @@ $(function () {
                 })
             }
             else if(data.contenu === "almost"){
-                API.post("/exercice/getchapitre/" + idExercice,{},function (chap) {
-                    console.log(chap)
-                    $(".card-panel.orange span").html(data.message);
+                API.get("/exercice/getchapitre/" + idExercice,{},function (chap) {
+                    if(nbErrorExo2>2)
+                        $(".card-panel.orange span").html(data.message + "<a href=\"/chapitre/contenu/"+idCours+"/" + chap.contenu + "\"> Vous pouvez consultez le cours içi.</a>");
+                    else
+                        $(".card-panel.orange span").html(data.message)
                     $("#m3").addClass("show");
                 })
                 console.log(data.message)
 
             }else {
-                $(".card-panel.red span").html(data.message);
-                $("#m1").addClass("show");
+                API.get("/exercice/getchapitre/" + idExercice,{},function (chap) {
+                    if(nbErrorExo2 > 2)
+                        $(".card-panel.red span").html(data.message + "<a href=\"/chapitre/contenu/"+idCours+"/" + chap.contenu + "\"> Vous pouvez consultez le cours içi.</a>");
+                    else
+                        $(".card-panel.red span").html(data.message);
+                    $("#m1").addClass("show");
+                })
             }
+            nbErrorExo2++;
         })
 
     });
@@ -74,16 +84,25 @@ $(function () {
                 API.post("/exercice/done/"+idExercice,{},function () {
 
                 })
-
             }
             else if(data.contenu === "almost"){
-                console.log(data.message)
-                $(".card-panel.orange span").html(data.message);
-                $("#m3").addClass("show");
+                API.get("/exercice/getchapitre/" + idExercice,{},function (chap) {
+                    if(nbErrorExo3 > 2)
+                        $(".card-panel.orange span").html(data.message + "<a href=\"/chapitre/contenu/"+idCours+"/" + chap.contenu + "\"> Vous pouvez consultez le cours içi.</a>");
+                    else
+                        $(".card-panel.orange span").html(data.message)
+                    $("#m3").addClass("show");
+                })
             }else {
-                $(".card-panel.red span").html(data.message);
-                $("#m1").addClass("show");
+                API.get("/exercice/getchapitre/" + idExercice,{},function (chap) {
+                    if(nbErrorExo3 > 2)
+                        $(".card-panel.red span").html(data.message + "<a href=\"/chapitre/contenu/"+idCours+"/" + chap.contenu + "\"> Vous pouvez consultez le cours içi.</a>");
+                    else
+                        $(".card-panel.red span").html(data.message);
+                    $("#m1").addClass("show");
+                })
             }
+            nbErrorExo3++;
         })
 
     });
