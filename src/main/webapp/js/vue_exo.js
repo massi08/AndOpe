@@ -1,5 +1,9 @@
 $(function () {
-
+    var path = window.location.pathname;
+    var splittedPath = path.split("/");
+    var splitLength = splittedPath.length
+    var idExercice = splittedPath[splitLength - 1]
+    var idCours = splittedPath[splitLength - 2]
     $(".precedent-exercice").click(function () {
         window.location = "/exercice/cours/" + idCours;
     })
@@ -7,11 +11,6 @@ $(function () {
     $("#vue-exo2").click(function () {
         $(".card-panel").removeClass("show");
         var answer = $('.user-input').val()
-        var path = window.location.pathname;
-        var splittedPath = path.split("/");
-        var splitLength = splittedPath.length
-        var idExercice = splittedPath[splitLength - 1]
-        var idCours = splittedPath[splitLength - 2]
         if(answer == null || answer.trim()===''){
             return;
         }
@@ -28,9 +27,7 @@ $(function () {
                 $("button").css("display","none")
                 $('.after-answer').css("display","block")
                 API.post("/exercice/done/"+idExercice,{},function () {
-                    setTimeout(function () {
-                        window.location = "/exercice/cours/" + idCours
-                    }, 3000)
+
                 })
 
             }
@@ -72,9 +69,7 @@ $(function () {
                 $("button").css("display","none")
                 $('.after-answer').css("display","block")
                 API.post("/exercice/done/"+idExercice,{},function () {
-                    setTimeout(function () {
-                        window.location = "/exercice/cours/" + idCours
-                    }, 3000)
+
                 })
 
             }

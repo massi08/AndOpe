@@ -22,9 +22,7 @@ $(function () {
             }
             $(".card-panel.teal").addClass("show");
             API.post("/exercice/done/"+idExercice,{},function () {
-                setTimeout(function () {
-                    window.location = "/exercice/cours/" + idCours
-                }, 3000)
+
             })
         })
 
