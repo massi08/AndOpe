@@ -31,7 +31,7 @@
 
   <div class="row row-cards">
     <div class="cards defaut-color">
-      <c:forEach items="${cours}" var="item">
+      <c:forEach items="${cours}" var="item" varStatus="myIndex">
         <div class="card col s4 sticky-action cours">
           <div class="card-image waves-effect waves-block waves-light">
             <c:choose>
@@ -49,7 +49,7 @@
           </div>
 
           <div class="card-action loader-container">
-            <div id="container"></div>
+            <div id="container_${myIndex.index}"></div>
           </div>
 
           <div class="card-action">

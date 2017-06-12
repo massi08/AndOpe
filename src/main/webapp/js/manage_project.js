@@ -23,6 +23,9 @@ var config = {
     }
 };
 
-var bar = new ProgressBar.Line('#container', config);
-
-bar.animate(0.5);
+var barTab = [];
+var size = 1;
+for (var i = 0; i < 2; i++) {
+    barTab[i] = new ProgressBar.Line('#container' + '_' + i, config);
+    barTab[i].animate(0.5);
+}
