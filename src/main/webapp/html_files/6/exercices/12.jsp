@@ -3,28 +3,28 @@
 <h5>Dans quel ordre</h5>
 <ul id="sortable">
      <li class="default" id="7">
-        <div class="chip">g</div>
+        <div class="chip">beforeDestroy()</div>
       </li>
      <li class="default" id="4">
-        <div class="chip">d</div>
+        <div class="chip">mounted()</div>
       </li>
      <li class="default" id="1">
-        <div class="chip">a</div>
+        <div class="chip">beforeCreate()</div>
       </li>
      <li class="default" id="5">
-        <div class="chip">e</div>
+        <div class="chip">beforeUpdate()</div>
       </li>
      <li class="default" id="8">
-        <div class="chip">h</div>
+        <div class="chip">destroyed()</div>
       </li>
      <li class="default" id="2">
-        <div class="chip">b</div>
+        <div class="chip">created()</div>
       </li>
      <li class="default" id="6">
-        <div class="chip">f</div>
+        <div class="chip">updated()</div>
       </li>
      <li class="default" id="3">
-        <div class="chip">c</div>
+        <div class="chip">beforeMount()</div>
       </li>
 </ul>
 
