@@ -13,7 +13,7 @@ var bar = new ProgressBar.Line(container, {
       color: '#999',
       position: 'absolute',
       right: '0',
-      top: '30px',
+      top: '20px',
       padding: 0,
       margin: 0,
       transform: null

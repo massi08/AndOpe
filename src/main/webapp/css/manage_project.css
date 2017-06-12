@@ -22,6 +22,11 @@
   flex-wrap: wrap;
   min-width: 1000px;
   text-align: center; }
+  .cards .loader-container {
+    margin-bottom: 10px;
+    border: none;
+    padding-top: 0;
+    padding-bottom: 15px; }
   .cards .card-projects {
     width: 32% !important;
     float: none;

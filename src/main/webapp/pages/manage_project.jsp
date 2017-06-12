@@ -48,7 +48,7 @@
                class="material-icons right">more_vert</i></span>
           </div>
 
-          <div class="card-action ">
+          <div class="card-action loader-container">
             <div id="container"></div>
           </div>
 
