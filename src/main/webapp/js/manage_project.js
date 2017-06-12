@@ -4,7 +4,7 @@ var bar = new ProgressBar.Line(container, {
   duration: 1400,
   color: '#6159a6',
   trailColor: '#eee',
-  trailWidth: 1,
+  trailWidth: 2,
   svgStyle: {width: '100%', height: '100%'},
   text: {
     style: {
@@ -20,11 +20,9 @@ var bar = new ProgressBar.Line(container, {
     },
     autoStyleContainer: false
   },
-  from: {color: '#FFEA82'},
-  to: {color: '#ED6A5A'},
   step: (state, bar) => {
     bar.setText(Math.round(bar.value() * 100) + ' %');
   }
 });
 
-bar.animate(1.0);
+bar.animate(0.5);
