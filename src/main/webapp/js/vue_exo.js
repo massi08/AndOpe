@@ -21,7 +21,6 @@ $(function () {
             console.log(data.contenu)
             if(data.contenu === "done")
             {
-
                 $(".card-panel.teal span").html(data.message);
                 $("#m2").addClass("show");
                 $("button").css("display","none")
@@ -29,12 +28,15 @@ $(function () {
                 API.post("/exercice/done/"+idExercice,{},function () {
 
                 })
-
             }
             else if(data.contenu === "almost"){
+                API.post("/exercice/getchapitre/" + idExercice,{},function (chap) {
+                    console.log(chap)
+                    $(".card-panel.orange span").html(data.message);
+                    $("#m3").addClass("show");
+                })
                 console.log(data.message)
-                $(".card-panel.orange span").html(data.message);
-                $("#m3").addClass("show");
+
             }else {
                 $(".card-panel.red span").html(data.message);
                 $("#m1").addClass("show");

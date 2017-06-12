@@ -34,9 +34,9 @@ public class Exercice3 {
         String createVuePattern = "(?m)(^\\s*var\\s+([a-zA-Z0-9_-]+)\\s+=\\s+new\\s+(Vue)\\s*\\(\\s*\\{(.|\\n|\\s)*\\}(\\n|\\s)*\\))";
         String vueElementPattern = "(?m)(\\n*\\s*el\\s*:\\s*\'([a-z0-9_.#-]+)\',?)";
         //String vueDataPattern = "(?m)(\\s*data\\s*:\\s*\\{\\n*(\\s*([a-zA-Z0-9:#,']|\\s*)*\\n)*\\s*\\})";
-        String vueDataPattern = "(\\s*data\\s*:\\s*\\{((\\n|\\s|[a-zA-Z0-9:!#,'])*)\\})";
+        String vueDataPattern = "(\\s*data\\s*:\\s*\\{((\\n|\\s|[a-zA-Z0-9:!#,'\"])*)\\})";
         //data: \{\n*(\s*([a-zA-Z0-9:#,']|\s*)*\n)*\s*\}
-        String insideDataPattern = "\\n*\\s*([a-zA-Z0-9]*)\\s*:\\s*\'([a-zA-Z0-9:!#, ]*)\'";
+        String insideDataPattern = "\\n*\\s*([a-zA-Z0-9]*)\\s*:\\s*(\'|\")([a-zA-Z0-9:!#, ]*)(\'|\")";
         Pattern vueR = Pattern.compile(createVuePattern);
         Pattern elementR = Pattern.compile(vueElementPattern);
         Pattern dataR = Pattern.compile(vueDataPattern);

@@ -474,6 +474,16 @@ public class ExerciceController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/exercice/getchapitre/{idExercice}", method = RequestMethod.GET)
+    @ResponseBody
+    public ObjetReponse receiveGetExercice(@PathVariable String idExercice,
+                                           HttpSession session) {
+
+        int idE = Integer.valueOf(idExercice);
+        Exercice exercice = exerciceManager.getExercice(idE);
+        return new ObjetReponse("success",exercice.getChapitreByIdC().getIdC(), "");
+    }
+
     @RequestMapping(value = "/exercice", method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView receivePost(@RequestParam(value="title", required = true) String title,
