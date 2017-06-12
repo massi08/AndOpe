@@ -479,7 +479,7 @@ public class ExerciceController {
         if(exercice != null) {
             Cours cours = chapitre.getCoursByIdCours();
             int nbExo = cours.getNbExercices();
-            cours.setNbExercices(nbExo + 1);
+            cours = coursManager.updateCoursExerciceNumber(cours,nbExo+1);
             try {
                 File file = new File("src/main/webapp/html_files/"+chapitre.getCoursByIdCours().getIdCours()+"/exercices/"+exercice.getPath());
                 FileWriter writer = new FileWriter(file);

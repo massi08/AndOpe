@@ -48,6 +48,7 @@ CREATE TABLE `exercice` (
   KEY `exercice_cours_idC_fk` (`idC`),
   CONSTRAINT `exercice_cours_idC_fk` FOREIGN KEY (`idC`) REFERENCES `chapitre` (`idC`)
 );
+ALTER TABLE andope.exercice ADD finished int(11);
 
 DROP TABLE IF EXISTS `inscrit`;
 
