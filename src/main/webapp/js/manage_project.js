@@ -26,8 +26,7 @@ var config = {
 };
 
 var barTab = [];
-var size = 1;
 for (var i = 0; i < allcours.length; i++) {
-    barTab[i] = new ProgressBar.Line('#container' + '_' + allcours[i], config);
+    barTab[i] = new ProgressBar.Line('#container_' + allcours[i], config);
     barTab[i].animate(stats[i]);
 }

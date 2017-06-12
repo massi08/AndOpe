@@ -2,6 +2,7 @@
 <h4>
     Ecrivez la bonne réponse.
 </h4>
+<h5> Voici un exemple de composant </h5>
 <pre>
 var app6 = new Vue({
     el: '#app-6',
@@ -10,9 +11,9 @@ var app6 = new Vue({
     }
 })</pre>
 <br>
-<h5>Creer un composant "app" qui sera inseré dans un id "app" avec des données "firstname" et "lastname".</h5>
-<textarea id="answer" style="height: 150px;">
-</textarea>
+<h5>Créez maintenant un composant "app" qui aura comme id "app" avec les données "firstname" et "lastname".</h5>
+<pre id="answer" contenteditable="true">
+</pre>
 <button class="waves-effect waves-light btn btn-submit" id="vue-exo3">Submit</button>
 <div class="answers">
     <div class="card-panel red" id="m1">

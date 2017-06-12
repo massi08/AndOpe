@@ -10,7 +10,7 @@ $(function () {
 
     $("#vue-exo2").click(function () {
         $(".card-panel").removeClass("show");
-        var answer = $('.user-input').val()
+        var answer = $('.user-input').val();
         if(answer == null || answer.trim()===''){
             return;
         }
@@ -47,7 +47,8 @@ $(function () {
 
     $("#vue-exo3").click(function () {
         $(".card-panel").removeClass("show");
-        var answer = $('#answer').val()
+        var answer = $('#answer')[0].innerText;
+        console.log("iciii", answer);
         var path = window.location.pathname;
         var splittedPath = path.split("/");
         var splitLength = splittedPath.length
