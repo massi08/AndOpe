@@ -8,7 +8,7 @@
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
   <link href="/css/style.css" type="text/css" rel="stylesheet"/>
-  <link href="<c2:url value = "/css/manage_project.css" />" type="text/css" rel="stylesheet"/>
+  <link href="/css/manage_project.css" type="text/css" rel="stylesheet"/>
   <!--Let browser know website is optimized for mobile-->
   <link rel="icon" type="image/png" href="/img/favicon.png"/>
   <title> Code </title>
@@ -48,10 +48,15 @@
                class="material-icons right">more_vert</i></span>
           </div>
 
+          <div class="card-action ">
+            <div id="container"></div>
+          </div>
+
           <div class="card-action">
             <a href="/chapitre/cours/${item.getIdCours()}">Cours</a>
             <a href="/exercice/cours/${item.getIdCours()}">Exercices</a>
           </div>
+
 
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">${item.getTitle()}<i class="material-icons right">close</i></span>
@@ -71,5 +76,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
 <script type="text/javascript" src="/js/server_request.js"></script>
 <script type="text/javascript" src="/js/init.js"></script>
+<script type="text/javascript" src="/js/progressbar.min.js"></script>
+<script type="text/javascript" src="/js/manage_project.js"></script>
+
 </body>
 </html>
