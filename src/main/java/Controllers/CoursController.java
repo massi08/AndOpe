@@ -2,9 +2,13 @@ package Controllers;
 
 
 import Metier.CoursManager;
+import Metier.ProfileManager;
+import Metier.UserChapitreManager;
 import Metier.UserManager;
 import Model.Cours;
+import Model.Profile;
 import Model.User;
+import Model.Userchapitre;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -20,6 +24,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -38,6 +43,13 @@ public class CoursController {
     @Qualifier(value = "usermanager")
     private UserManager usermanager;
 
+    @Autowired
+    @Qualifier(value = "userchapitremanager")
+    private UserChapitreManager userChapitreManager;
+
+    @Autowired
+    @Qualifier(value = "profilemanager")
+    private ProfileManager profileManager;
 
     @RequestMapping(value = "/addcours", method = RequestMethod.GET)
     @ResponseBody
@@ -54,6 +66,8 @@ public class CoursController {
                                    @RequestParam(value="idCours", required = false) String idCours,
                                    HttpSession session) {
         User user = usermanager.getUser((String) session.getAttribute("pseudo"));
+        if(user == null)
+            return new ModelAndView("redirect:/index");
         Cours cours = null;
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -69,8 +83,21 @@ public class CoursController {
             else if(idCours == null && title == null){
                 ModelAndView modelAndView = new ModelAndView("manage_project");
                 List<Cours> allCours = coursManager.getAllCours();
+                List<Double> stats = new ArrayList<>();
+                List<Integer> coursIds = new ArrayList<>();
+                for (Cours c:allCours) {
+                    List<Profile> allExoDone = profileManager.getAllUserchapitreByUserAndCours(user,c);
+                    List<Userchapitre> allChapitreDone = userChapitreManager.getAllUserchapitreByUserAndCours(user,c);
+                    if(c.getNbChapitre() !=0 && c.getNbExercices() != 0)
+                        stats.add((allExoDone.size()+allChapitreDone.size())/Double.valueOf(c.getNbExercices()+c.getNbChapitre()));
+                    else
+                        stats.add(0.0);
+                    coursIds.add(c.getIdCours());
+                }
                 modelAndView.addObject("cours", allCours);
                 modelAndView.addObject("user", user);
+                modelAndView.addObject("stats", stats);
+                modelAndView.addObject("coursids", coursIds);
                 return modelAndView;
             }
         }

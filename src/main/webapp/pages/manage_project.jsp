@@ -49,7 +49,7 @@
           </div>
 
           <div class="card-action loader-container">
-            <div id="container_${myIndex.index}"></div>
+            <div id="container_${item.getIdCours()}"></div>
           </div>
 
           <div class="card-action">
@@ -71,7 +71,10 @@
 </div>
 
 <%@include file="footer.jsp" %>
-
+<script>
+  _stats = "${stats}";
+  _cours = "${coursids}";
+</script>
 <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
 <script type="text/javascript" src="/js/server_request.js"></script>

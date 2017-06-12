@@ -1,3 +1,5 @@
+var allcours = JSON.parse(_cours);
+var stats = JSON.parse(_stats);
 var config = {
     strokeWidth: 2,
     easing: 'easeInOut',
@@ -25,7 +27,7 @@ var config = {
 
 var barTab = [];
 var size = 1;
-for (var i = 0; i < 2; i++) {
-    barTab[i] = new ProgressBar.Line('#container' + '_' + i, config);
-    barTab[i].animate(0.5);
+for (var i = 0; i < allcours.length; i++) {
+    barTab[i] = new ProgressBar.Line('#container' + '_' + allcours[i], config);
+    barTab[i].animate(stats[i]);
 }

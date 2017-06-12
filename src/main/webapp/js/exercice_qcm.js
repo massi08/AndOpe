@@ -10,7 +10,7 @@ $('input[type="radio"]').click(function () {
 
     if($("#m" + id + " i").html() === "done"){
         API.post("/exercice/done/"+idExercice,{},function () {
-            
+
         })
     }
 });
