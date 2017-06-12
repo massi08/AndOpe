@@ -1,4 +1,4 @@
-var bar = new ProgressBar.Line(container, {
+var bar = new ProgressBar.Line('#container', {
   strokeWidth: 2,
   easing: 'easeInOut',
   duration: 1400,
