@@ -7,6 +7,10 @@
   .card-panel {
     display: none;
 
+    &.red {
+      background-color: #FB9080 !important;
+    }
+
     &.show {
       display: block;
     }
