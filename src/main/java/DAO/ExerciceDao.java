@@ -67,6 +67,20 @@ public class ExerciceDao {
         return exercices;
     }
 
+    public List<Exercice> getExerciceByFinished(int finished) {
+        List<Exercice> exercices = null;
+        Query query = em.createNamedQuery("Exercice.findAllByFinished", Exercice.class).setParameter("finished", finished);
+        try {
+            exercices = query.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        } catch (Exception e) {
+            throw new ExceptionDao(e);
+        }
+
+        return exercices;
+    }
+
     public Exercice updateExerciceStatus(Exercice exercice, int done){
         exercice.setFinished(done);
         return exercice;

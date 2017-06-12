@@ -69,6 +69,16 @@ public class CoursDao {
         return u;
     }
 
+    public Cours updateCoursChapitreNumber(Cours cours, int nbChapitre){
+        cours.setNbChapitre(nbChapitre);
+        return cours;
+    }
+
+    public Cours updateCoursStatus(Cours cours, int status){
+        cours.setFinished(status);
+        return cours;
+    }
+
     public Cours updateCoursExerciceNumber(Cours cours, int nbExercice){
         cours.setNbExercices(nbExercice);
         return cours;

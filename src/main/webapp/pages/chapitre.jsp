@@ -32,6 +32,11 @@
   <div class="chapitres-container">
     <c:forEach items="${chapitres}" var="item">
       <div class="card">
+        <c:forEach items="${userchapitres}" var="userchapitre">
+          <c:if test="${item.getIdC() == userchapitre.getChapitreByIdC().getIdC()}">
+            <i class="material-icons right" style="color: green">done</i>
+          </c:if>
+        </c:forEach>
         <a href="/chapitre/contenu/${item.getCoursByIdCours().getIdCours()}/${item.getIdC()}"> ${item.getTitle()} </a>
       </div>
     </c:forEach>

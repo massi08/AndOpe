@@ -24,11 +24,10 @@
 <body>
 <%@include file="header.jsp" %>
 <div class="container-full">
-  <div class="navigation-wrapper">
-    <a class="precedent waves-effect waves-purple btn-flat" href="./exercice1.html"><i class="material-icons left">chevron_left</i> Exercice précedant</a>
-    <a class="next waves-effect waves-purple btn-flat" href="#"> <i class="material-icons right">chevron_right</i> Exercice suivant </a>
-  </div>
 
+  <div class="navigation-wrapper">
+    <a class="precedent-exercice precedent waves-effect waves-purple btn-flat" href="#"><i class="material-icons left">chevron_left</i> Retour</a>
+  </div>
   <div class="projet-titre row">
     <h3 class="left-align h4-margin">Exercice ${exercice.getIdE()}</h3>
   </div>

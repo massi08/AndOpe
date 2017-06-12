@@ -1,5 +1,7 @@
 package DAO;
+import Model.Exercice;
 import Model.Profile;
+import Model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -14,7 +16,13 @@ public class ProfileDao {
         this.em = em;
     }
 
-    public Profile getInscritById(int id) {
+    public Profile createProfile(User user, Exercice exercice) {
+        Profile profile = new Profile(user, exercice);
+        em.persist(profile);
+        return profile;
+    }
+
+    public Profile getProfileById(int id) {
         Profile u = null;
         Query query = em.createNamedQuery("Profile.findById", Profile.class).setParameter("profileId", id);
         try {
@@ -28,7 +36,7 @@ public class ProfileDao {
         return u;
     }
 
-    public Profile getInscritByUserIdExerciceId(int userId, int exerciceId) {
+    public Profile getProfileByUserIdExerciceId(int userId, int exerciceId) {
         Profile u = null;
         Query query = em.createNamedQuery("Profile.findByUserIdandExerciceId", Profile.class).setParameter("userId", userId).setParameter("exerciceId", exerciceId);
         try {
@@ -42,7 +50,21 @@ public class ProfileDao {
         return u;
     }
 
-    public List<Profile> getInscritByUserId(int id) {
+    public List<Profile> getProfileByUserAndCours(int userId, int coursId) {
+        List<Profile> u = null;
+        Query query = em.createNamedQuery("Profile.findByUserandCours", Profile.class).setParameter("userId", userId).setParameter("coursId", coursId);
+        try {
+            u = query.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        } catch (Exception e) {
+            throw new ExceptionDao(e);
+        }
+
+        return u;
+    }
+
+    public List<Profile> getProfileByUserId(int id) {
         List<Profile> u = null;
         Query query = em.createNamedQuery("Profile.findAllByUserId", Profile.class).setParameter("userId", id);
         try {

@@ -12,6 +12,7 @@ import java.util.Collection;
         @NamedQuery(name="Exercice.findAll", query="SELECT e FROM Exercice e"),
         @NamedQuery(name="Exercice.findByTitle", query="SELECT e FROM Exercice e WHERE e.title = :title"),
         @NamedQuery(name="Exercice.findAllByChapitreId", query="SELECT e FROM Exercice e WHERE e.chapitreByIdC.idC = :chapitreId"),
+        @NamedQuery(name="Exercice.findAllByFinished", query="SELECT e FROM Exercice e WHERE e.finished = :finished"),
         @NamedQuery(name="Exercice.findById", query="SELECT e FROM Exercice e WHERE e.idE = :exerciceId"),
 })
 @Table(name = "exercice")

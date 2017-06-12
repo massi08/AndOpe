@@ -30,12 +30,14 @@
   </div>
 
   <div class="chapitres-container">
-    <c:forEach items="${exercices}" var="item">
+    <c:forEach items="${exercices}" var="item" >
 
       <div class="card">
-        <c:if test="${item.getFinished() == 1}">
-          <i class="material-icons right" style="color: green">done</i>
-        </c:if>
+        <c:forEach items="${profiles}" var="profile">
+          <c:if test="${item.getIdE() == profile.getExerciceByIdE().getIdE()}">
+            <i class="material-icons right" style="color: green">done</i>
+          </c:if>
+        </c:forEach>
         <a href="/exercice/cours/${item.getChapitreByIdC().getCoursByIdCours().getIdCours()}/${item.getIdE()}"> ${item.getTitle()} </a>
       </div>
     </c:forEach>

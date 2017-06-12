@@ -19,6 +19,9 @@
 
 <%@include file="header.jsp" %>
 
+<div class="navigation-wrapper">
+  <a class="precedent-chapitre precedent waves-effect waves-purple btn-flat" href="#"><i class="material-icons left">chevron_left</i> Retour</a>
+</div>
 <div class="container-full valign-wrapper">
   <div class="card cours-card">
     <jsp:include page="/html_files/${cours.getIdCours()}/cours/${chapitre.getIdC()}.jsp"/>
@@ -32,5 +35,6 @@
 <script type="text/javascript" src="/js/init.js"></script>
 <script type="text/javascript" src="/js/server_request.js"></script>
 <script type="text/javascript" src="/js/exercice_qcm.js"></script>
+<script type="text/javascript" src="/js/chapitredone.js"></script>
 </body>
 </html>

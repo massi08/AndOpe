@@ -2,6 +2,7 @@ package Metier;
 
 import DAO.ExerciceDao;
 import Model.Chapitre;
+import Model.Cours;
 import Model.Exercice;
 
 import javax.persistence.EntityManager;
@@ -43,6 +44,16 @@ public class ExerciceManager {
         return exercice;
     }
 
+    public List<Exercice> getAllExercicesByFinished(int finished){
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
+        List<Exercice> exercice = exerciceDao.getExerciceByFinished(finished);
+
+        transaction.commit();
+        return exercice;
+    }
+
     public Exercice getExercice(int exerciceId) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
@@ -71,6 +82,13 @@ public class ExerciceManager {
         exercice = this.exerciceDao.updateExerciceStatus(exercice, done);
 
         transaction.commit();
+        transaction.begin();
+
+        Cours cours = exercice.getChapitreByIdC().getCoursByIdCours();
+        List<Exercice> exercices = this.getAllExercicesByFinished(1);
+        if(exercices.size() == cours.getNbExercices()) {
+            //cours
+        }
         return exercice;
     }
 

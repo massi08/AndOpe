@@ -12,15 +12,12 @@ import javax.persistence.*;
 public class Inscrit {
     private int idI;
     private User userByIdU;
-    private Cours coursByIdC;
-    private int idU;
 
     public Inscrit(User idU, Cours idC) {
         this.userByIdU = idU;
-        this.coursByIdC = idC;
+        this.coursByIdCours = idC;
     }
 
-    private int idCours;
     private Cours coursByIdCours;
 
     public Inscrit() {
@@ -62,20 +59,6 @@ public class Inscrit {
 
     public void setUserByIdU(User userByIdU) {
         this.userByIdU = userByIdU;
-    }
-
-
-    public void setCoursByIdC(Cours coursByIdC) {
-        this.coursByIdC = coursByIdC;
-    }
-
-
-    public void setIdU(int idU) {
-        this.idU = idU;
-    }
-
-    public void setIdCours(int idCours) {
-        this.idCours = idCours;
     }
 
     @ManyToOne

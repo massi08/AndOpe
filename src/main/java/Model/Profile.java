@@ -9,6 +9,7 @@ import javax.persistence.*;
         @NamedQuery(name="Profile.findById", query="SELECT p FROM Profile p WHERE p.idP = :profileId"),
         @NamedQuery(name="Profile.findAllByUserId", query="SELECT p FROM Profile p WHERE p.userByIdU.idU = :userId"),
         @NamedQuery(name="Profile.findByUserIdandExerciceId", query="SELECT p FROM Profile p WHERE p.userByIdU.idU = :userId and p.exerciceByIdE.idE = :exerciceId"),
+        @NamedQuery(name="Profile.findByUserandCours", query="SELECT p FROM Profile p WHERE p.userByIdU.idU = :userId and p.coursByIdCours.idCours = :coursId"),
 })
 @Table(name = "profile")
 public class Profile {
@@ -18,11 +19,13 @@ public class Profile {
     private Integer status;
     private User userByIdU;
     private Exercice exerciceByIdE;
+    private Cours coursByIdCours;
 
-    public Profile(int status, User user, Exercice exercice){
-        this.status = status;
+    public Profile(User user, Exercice exercice){
+        this.status = 0;
         this.userByIdU = user;
         this.exerciceByIdE = exercice;
+        this.coursByIdCours = exercice.getChapitreByIdC().getCoursByIdCours();
     }
 
     public Profile() {
@@ -103,5 +106,15 @@ public class Profile {
 
     public void setExerciceByIdE(Exercice exerciceByIdE) {
         this.exerciceByIdE = exerciceByIdE;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "idCours")
+    public Cours getCoursByIdCours() {
+        return coursByIdCours;
+    }
+
+    public void setCoursByIdCours(Cours coursByIdCours) {
+        this.coursByIdCours = coursByIdCours;
     }
 }

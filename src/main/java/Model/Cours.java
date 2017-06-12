@@ -37,6 +37,14 @@ public class Cours {
     @OneToMany(mappedBy = "coursByIdCours")
     private Collection<Chapitre> chapitresByIdCours;
 
+    @OneToMany(mappedBy = "coursByIdCours")
+    @JsonManagedReference
+    private Collection<Userchapitre> userchapitresByIdC;
+
+    @OneToMany(mappedBy = "coursByIdCours")
+    @JsonManagedReference
+    private Collection<Userchapitre> profilesByIdC;
+
     @Basic
     @Column(name = "image", nullable = true, length = 255)
     private String image;
@@ -45,13 +53,21 @@ public class Cours {
     @Column(name = "description", columnDefinition = "mediumtext",nullable = true, length=46000)
     private String description;
 
+    @Basic
+    @Column(name = "finished", nullable = false)
+    private int finished;
 
+    @Basic
+    @Column(name = "nbChapitre", nullable = false)
+    private int nbChapitre;
 
     public Cours(String title, String image, String description, Integer nbExercices) {
         this.title = title;
         this.image = image;
         this.description = description;
-        this.nbExercices = nbExercices;
+        this.nbExercices = 0;
+        this.finished = 0;
+        this.nbChapitre = 0;
     }
 
     public Cours() {
@@ -64,7 +80,6 @@ public class Cours {
     public void setTitle(String title) {
         this.title = title;
     }
-
 
     public Integer getNbExercices() {
         return nbExercices;
@@ -120,8 +135,6 @@ public class Cours {
         this.chapitresByIdCours = chapitresByIdCours;
     }
 
-
-
     public String getImage() {
         return image;
     }
@@ -130,12 +143,43 @@ public class Cours {
         this.image = image;
     }
 
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getFinished() {
+        return finished;
+    }
+
+    public void setFinished(int finished) {
+        this.finished = finished;
+    }
+
+    public Collection<Userchapitre> getUserchapitresByIdC() {
+        return userchapitresByIdC;
+    }
+
+    public void setUserchapitresByIdC(Collection<Userchapitre> userchapitresByIdC) {
+        this.userchapitresByIdC = userchapitresByIdC;
+    }
+
+    public Collection<Userchapitre> getProfilesByIdC() {
+        return profilesByIdC;
+    }
+
+    public void setProfilesByIdC(Collection<Userchapitre> profilesByIdC) {
+        this.profilesByIdC = profilesByIdC;
+    }
+
+    public int getNbChapitre() {
+        return nbChapitre;
+    }
+
+    public void setNbChapitre(int nbChapitre) {
+        this.nbChapitre = nbChapitre;
     }
 }

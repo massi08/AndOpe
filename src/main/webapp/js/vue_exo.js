@@ -1,4 +1,9 @@
 $(function () {
+
+    $(".precedent-exercice").click(function () {
+        window.location = "/exercice/cours/" + idCours;
+    })
+
     $("#vue-exo2").click(function () {
         $(".card-panel").removeClass("show");
         var answer = $('.user-input').val()

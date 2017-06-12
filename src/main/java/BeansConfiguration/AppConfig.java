@@ -28,7 +28,6 @@ public class AppConfig {
     @Scope("singleton")
     public EntityManagerFactory EntityManagerfactory(){ return Persistence.createEntityManagerFactory("andope") ;}
 
-
     @Bean
     @Qualifier(value = "coursmanager")
     @Scope("singleton")
@@ -62,6 +61,20 @@ public class AppConfig {
     @Scope("singleton")
     public ChapitreManager chapitreManager(){
         return new ChapitreManager(entitymanager(), coursDao(), chapitreDao());
+    }
+
+    @Bean
+    @Qualifier(value = "userchapitremanager")
+    @Scope("singleton")
+    public UserChapitreManager userChapitreManager(){
+        return new UserChapitreManager(entitymanager(), userChapitreDao(), userDAO(), chapitreDao());
+    }
+
+    @Bean
+    @Qualifier(value = "profilemanager")
+    @Scope("singleton")
+    public ProfileManager profileManager(){
+        return new ProfileManager(entitymanager(), profileDao(), userDAO(), exerciceDao());
     }
 
 
@@ -134,6 +147,12 @@ public class AppConfig {
     @Scope("singleton")
     public UserDao userDAO() {
         return new UserDao(entitymanager());
+    }
+
+    @Bean
+    @Scope("singleton")
+    public UserChapitreDao userChapitreDao() {
+        return new UserChapitreDao(entitymanager());
     }
 
 }

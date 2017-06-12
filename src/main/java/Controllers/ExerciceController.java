@@ -1,13 +1,7 @@
 package Controllers;
 
-import Metier.ChapitreManager;
-import Metier.CoursManager;
-import Metier.ExerciceManager;
-import Metier.UserManager;
-import Model.Chapitre;
-import Model.Cours;
-import Model.Exercice;
-import Model.User;
+import Metier.*;
+import Model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -51,6 +45,14 @@ public class ExerciceController {
     @Autowired
     @Qualifier(value = "exercicemanager")
     private ExerciceManager exerciceManager;
+
+    @Autowired
+    @Qualifier(value = "inscriptionmanager")
+    private InscriptionManager inscriptionManager;
+
+    @Autowired
+    @Qualifier(value = "profilemanager")
+    private ProfileManager profileManager;
 
     @RequestMapping(value = "/exercice", method = RequestMethod.GET)
     @ResponseBody
@@ -103,8 +105,10 @@ public class ExerciceController {
             for (Chapitre chapitre:allChapitre) {
                 allExercices.addAll(exerciceManager.getAllExercicesByChapitreId(chapitre.getIdC()));
             }
+            List<Profile> allProfiles = profileManager.getAllUserchapitreByUserAndCours(user,cours);
             modelAndView.addObject("exercices", allExercices);
             modelAndView.addObject("cours", cours);
+            modelAndView.addObject("profiles", allProfiles);
         }
 
         return modelAndView;
@@ -137,15 +141,25 @@ public class ExerciceController {
     @ResponseBody
     public ObjetReponse receivePostExoDone(@PathVariable String idExercice,
                                              HttpSession session) {
+        User user = usermanager.getUser((String) session.getAttribute("pseudo"));
+        if(user == null){
+            return new ObjetReponse("error","","User not connected");
+        }
         System.out.println(idExercice);
         if(idExercice != null && !idExercice.equals("")){
             int idE = Integer.valueOf(idExercice);
             Exercice exercice = exerciceManager.getExercice(idE);
-            exerciceManager.updateExerciceStatus(exercice,1);
-            new ObjetReponse("success", "", "");
+            if(profileManager.getProfileByUserAndExercice(user,exercice) != null){
+                return new ObjetReponse("error","","already done exercice");
+            }
+            Profile profile = profileManager.newProfile(user,exercice);
+            if(profile == null){
+                return new ObjetReponse("error","","couldn't done exercice");
+            }
+            return new ObjetReponse("success", "", "");
         }
 
-        return new ObjetReponse("error","","wyy");
+        return new ObjetReponse("error","","couldn't done exercice");
     }
 
     @RequestMapping(value = "/addexercice/cours/{idCours}", method = RequestMethod.GET)

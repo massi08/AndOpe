@@ -15,10 +15,11 @@ public class CoursManager {
 
     private EntityManager em;
     private CoursDao coursDao;
+    private InscriptionManager inscriptionManager;
 
     public CoursManager(EntityManager em, CoursDao coursDao) {
         this.em = em;
-        this.coursDao = new CoursDao(em);
+        this.coursDao = coursDao;
     }
 
     public Cours newCours(String title, String image, String description, int nbExercice) {
@@ -101,6 +102,17 @@ public class CoursManager {
         transaction.begin();
 
         cours = this.coursDao.updateCoursExerciceNumber(cours, nbExercice);
+
+        transaction.commit();
+        return cours;
+    }
+
+    public Cours updateCoursChapitreNumber(Cours cours, int nbChapitre) {
+
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+
+        cours = this.coursDao.updateCoursChapitreNumber(cours, nbChapitre);
 
         transaction.commit();
         return cours;

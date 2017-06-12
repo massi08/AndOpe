@@ -1,11 +1,10 @@
 package Controllers;
 
-import Metier.ChapitreManager;
-import Metier.CoursManager;
-import Metier.UserManager;
+import Metier.*;
 import Model.Chapitre;
 import Model.Cours;
 import Model.User;
+import Model.Userchapitre;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -39,6 +38,14 @@ public class ChapitreController {
     @Autowired
     @Qualifier(value = "usermanager")
     private UserManager usermanager;
+
+    @Autowired
+    @Qualifier(value = "inscriptionmanager")
+    private InscriptionManager inscriptionManager;
+
+    @Autowired
+    @Qualifier(value = "userchapitremanager")
+    private UserChapitreManager userChapitreManager;
 
     @RequestMapping(value = "/chapitre", method = RequestMethod.GET)
     @ResponseBody
@@ -104,11 +111,34 @@ public class ChapitreController {
         ModelAndView modelAndView = new ModelAndView("chapitre");
         User user = usermanager.getUser((String) session.getAttribute("pseudo"));
         Cours cours = coursManager.getCours(idC);
+        inscriptionManager.newInscription(user,cours);
         List<Chapitre> allChapitre = chapitreManager.getAllChapitreByCoursId(idC);
+        List<Userchapitre> userchapitres = userChapitreManager.getAllUserchapitreByUserAndCours(user, cours);
         modelAndView.addObject("user", user);
         modelAndView.addObject("cours", cours);
         modelAndView.addObject("chapitres",allChapitre);
+        modelAndView.addObject("userchapitres", userchapitres);
         return modelAndView;
+    }
+
+    @PostMapping("/chapitre/done/{idChapitre}")
+    @ResponseBody
+    public ObjetReponse postChapitreDone(@PathVariable String idChapitre,
+                                         HttpSession session){
+        int idC = Integer.valueOf(idChapitre);
+        User user = usermanager.getUser((String) session.getAttribute("pseudo"));
+        Chapitre chapitre = chapitreManager.getChapitre(idC);
+        if(user == null){
+            return new ObjetReponse("error","","User not connected");
+        }
+        if(userChapitreManager.getUserChapitreByUserAndChapitre(user,chapitre) != null){
+            return new ObjetReponse("error","","already exist user chapitre");
+        }
+        Userchapitre userchapitre = userChapitreManager.newUserChapitre(user,chapitre);
+        if(userchapitre == null){
+            return new ObjetReponse("error","","couldn't persist user chapitre");
+        }
+        return new ObjetReponse("success","","");
     }
 
     @GetMapping("/addchapitre/cours/{idCours}")
@@ -137,6 +167,8 @@ public class ChapitreController {
         }
         Chapitre chapitre = chapitreManager.newChapitre(title,"id",cours);
         if(chapitre != null) {
+            int nbChapitre = cours.getNbChapitre();
+            cours = coursManager.updateCoursChapitreNumber(cours,nbChapitre + 1);
             ObjectMapper mapper = new ObjectMapper();
             try {
                 File file = new File("src/main/webapp/html_files/"+cours.getIdCours()+"/cours/"+chapitre.getIdC()+".jsp");

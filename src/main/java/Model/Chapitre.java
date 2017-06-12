@@ -40,6 +40,10 @@ public class Chapitre {
     @JsonBackReference
     private Cours coursByIdCours;
 
+    @OneToMany(mappedBy = "chapitreByIdC")
+    @JsonManagedReference
+    private Collection<Userchapitre> userchapitresByIdC;
+
     public Chapitre(String title, String path, Cours cours) {
         this.title = title;
         this.path = path;
@@ -49,7 +53,6 @@ public class Chapitre {
     public Chapitre() {
     }
 
-
     public int getIdC() {
         return idC;
     }
@@ -58,7 +61,6 @@ public class Chapitre {
         this.idC = idC;
     }
 
-
     public String getTitle() {
         return title;
     }
@@ -66,7 +68,6 @@ public class Chapitre {
     public void setTitle(String title) {
         this.title = title;
     }
-
 
     public String getPath() {
         return path;
@@ -115,5 +116,13 @@ public class Chapitre {
 
     public void setCoursByIdCours(Cours coursByIdCours) {
         this.coursByIdCours = coursByIdCours;
+    }
+
+    public Collection<Userchapitre> getUserchapitresByIdC() {
+        return userchapitresByIdC;
+    }
+
+    public void setUserchapitresByIdUc(Collection<Userchapitre> userchapitresByIdC) {
+        this.userchapitresByIdC = userchapitresByIdC;
     }
 }

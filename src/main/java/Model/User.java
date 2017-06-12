@@ -26,7 +26,7 @@ public class User {
     private String password;
     private Collection<Inscrit> inscritsByIdU;
     private Collection<Profile> profilesByIdU;
-    private String access;
+    private Collection<Userchapitre> userchapitresByIdU;
 
     public User() {
         this.pseudo = "";
@@ -39,7 +39,6 @@ public class User {
         this.pseudo = pseudo;
         this.email = email;
         this.password = password;
-        this.access = "root";
     }
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -152,5 +151,14 @@ public class User {
 
     public void setProfilesByIdU(Collection<Profile> profilesByIdU) {
         this.profilesByIdU = profilesByIdU;
+    }
+
+    @OneToMany(mappedBy = "userByIdU")
+    public Collection<Userchapitre> getUserchapitresByIdU() {
+        return userchapitresByIdU;
+    }
+
+    public void setUserchapitresByIdU(Collection<Userchapitre> userchapitresByIdU) {
+        this.userchapitresByIdU = userchapitresByIdU;
     }
 }

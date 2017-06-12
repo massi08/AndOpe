@@ -24,7 +24,8 @@ CREATE TABLE `cours` (
 );
 ALTER TABLE andope.cours ADD image VARCHAR(255) NULL;
 ALTER TABLE andope.cours ADD description MEDIUMTEXT NULL;
-
+ALTER TABLE andope.cours ADD finished INT DEFAULT 0 NOT NULL;
+ALTER TABLE andope.cours ADD nbChapitre INT DEFAULT 0 NOT NULL;
 DROP TABLE IF EXISTS `Chapitre`;
 
 CREATE TABLE `chapitre` (
@@ -76,6 +77,24 @@ CREATE TABLE `profile` (
   CONSTRAINT `profile_exercice_idE_fk` FOREIGN KEY (`idE`) REFERENCES `exercice` (`idE`),
   CONSTRAINT `profile_user_idU_fk` FOREIGN KEY (`idU`) REFERENCES `user` (`idU`)
 );
+ALTER TABLE andope.profile ADD idCours INT NOT NULL;
+ALTER TABLE andope.profile
+ADD CONSTRAINT profile_cours_idCours_fk
+FOREIGN KEY (idCours) REFERENCES cours (idCours);
 
+DROP TABLE IF EXISTS `userchapitre`;
+
+CREATE TABLE `userchapitre`
+(
+    `idUC` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    `idU` INT NOT NULL,
+    `idC` INT NOT NULL,
+    CONSTRAINT userchapitre_user_idU_fk FOREIGN KEY (`idU`) REFERENCES user (`idU`),
+    CONSTRAINT userchapitre_chapitre_idC_fk FOREIGN KEY (`idC`) REFERENCES chapitre (`idC`)
+);
+ALTER TABLE andope.userchapitre ADD idCours INT NULL;
+ALTER TABLE andope.userchapitre
+ADD CONSTRAINT userchapitre_cours_idCours_fk
+FOREIGN KEY (idCours) REFERENCES cours (idCours);
 
 
