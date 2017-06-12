@@ -49,11 +49,14 @@ public class RegisterController {
     @ResponseBody
     public ModelAndView receivePost(@RequestParam(value="pseudo", required = true) String pseudo,
                                     @RequestParam(value="password", required = true) String password,
+                                    @RequestParam(value="confirm_password", required = true) String confirm_password,
                                     @RequestParam(value = "firstname", required = false, defaultValue = "") String firstname,
                                     @RequestParam(value = "lastname", required = false, defaultValue = "") String lastname,
                                     @RequestParam(value = "email", required = false, defaultValue = "") String email) {
-        if(pseudo.length() <= 45 && password.length() <= 45) {
-            Security security = new Security();
+        if(pseudo.length() <= 45 && password.length() <= 45 && confirm_password.length() <= 45) {
+            if(!password.equals(confirm_password)){
+                return new ModelAndView("redirect:/inscription");
+            }
             if(userManager.newUser(pseudo, password, firstname, lastname, email) != null) {
                 return new ModelAndView("redirect:/index");
             } else {
