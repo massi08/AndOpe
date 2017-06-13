@@ -62,34 +62,32 @@ public class CoursController {
 
     @RequestMapping(value = "/cours", method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView receiveGet(@RequestParam(value="title", required = false) String title,
-                                   @RequestParam(value="idCours", required = false) String idCours,
+    public ModelAndView receiveGet(@RequestParam(value = "title", required = false) String title,
+                                   @RequestParam(value = "idCours", required = false) String idCours,
                                    HttpSession session) {
         User user = usermanager.getUser((String) session.getAttribute("pseudo"));
-        if(user == null)
+        if (user == null)
             return new ModelAndView("redirect:/index");
         Cours cours = null;
         ObjectMapper mapper = new ObjectMapper();
         try {
-            if(title != null && !title.equals("")) {
+            if (title != null && !title.equals("")) {
                 cours = coursManager.getCours(title);
                 return new ModelAndView("manage_project", "", mapper.writeValueAsString(cours));
-            }
-            else if(idCours != null && !idCours.equals("")){
+            } else if (idCours != null && !idCours.equals("")) {
                 int idC = Integer.valueOf(idCours);
                 cours = coursManager.getCours(idC);
                 return new ModelAndView("manage_project", "", mapper.writeValueAsString(cours));
-            }
-            else if(idCours == null && title == null){
+            } else if (idCours == null && title == null) {
                 ModelAndView modelAndView = new ModelAndView("manage_project");
                 List<Cours> allCours = coursManager.getAllCours();
                 List<Double> stats = new ArrayList<>();
                 List<Integer> coursIds = new ArrayList<>();
-                for (Cours c:allCours) {
-                    List<Profile> allExoDone = profileManager.getAllUserchapitreByUserAndCours(user,c);
-                    List<Userchapitre> allChapitreDone = userChapitreManager.getAllUserchapitreByUserAndCours(user,c);
-                    if(c.getNbChapitre() !=0 && c.getNbExercices() != 0)
-                        stats.add((allExoDone.size()+allChapitreDone.size())/Double.valueOf(c.getNbExercices()+c.getNbChapitre()));
+                for (Cours c : allCours) {
+                    List<Profile> allExoDone = profileManager.getAllUserchapitreByUserAndCours(user, c);
+                    List<Userchapitre> allChapitreDone = userChapitreManager.getAllUserchapitreByUserAndCours(user, c);
+                    if (c.getNbChapitre() != 0 || c.getNbExercices() != 0)
+                        stats.add((allExoDone.size() + allChapitreDone.size()) / Double.valueOf(c.getNbExercices() + c.getNbChapitre()));
                     else
                         stats.add(0.0);
                     coursIds.add(c.getIdCours());
@@ -100,8 +98,7 @@ public class CoursController {
                 modelAndView.addObject("coursids", coursIds);
                 return modelAndView;
             }
-        }
-        catch (JsonProcessingException e) {
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         return new ModelAndView("index", "", "Une erreur est survenue lors de la récupération du cours.");
@@ -109,19 +106,19 @@ public class CoursController {
 
     @RequestMapping(value = "/cours", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView receivePost(@RequestParam(value="title", required = true) String title,
-                                    @RequestParam(value="image", required = true) String image,
-                                    @RequestParam(value="description", required = true) String description,
-                                    @RequestParam(value="nbExercices", required = true, defaultValue = "0") int nbExercices,
+    public ModelAndView receivePost(@RequestParam(value = "title", required = true) String title,
+                                    @RequestParam(value = "image", required = true) String image,
+                                    @RequestParam(value = "description", required = true) String description,
+                                    @RequestParam(value = "nbExercices", required = true, defaultValue = "0") int nbExercices,
                                     HttpSession session) {
         User user = usermanager.getUser((String) session.getAttribute("pseudo"));
         Cours cours = coursManager.newCours(title, image, description, nbExercices);
-        if(cours != null) {
+        if (cours != null) {
             ModelAndView modelAndView = new ModelAndView("redirect:/cours");
             modelAndView.addObject("user", user);
-            new File("src/main/webapp/html_files/"+cours.getIdCours()).mkdir();
-            new File("src/main/webapp/html_files/"+cours.getIdCours()+"/cours").mkdir();
-            new File("src/main/webapp/html_files/"+cours.getIdCours()+"/exercices").mkdir();
+            new File("src/main/webapp/html_files/" + cours.getIdCours()).mkdir();
+            new File("src/main/webapp/html_files/" + cours.getIdCours() + "/cours").mkdir();
+            new File("src/main/webapp/html_files/" + cours.getIdCours() + "/exercices").mkdir();
             return modelAndView;
         }
         return new ModelAndView("redirect:/addcours");
