@@ -2,6 +2,10 @@
   margin: 10px 0; }
   .answers .card-panel {
     display: none; }
+    .answers .card-panel a {
+      color: white !important;
+      padding: 0 10px;
+      text-decoration: underline; }
     .answers .card-panel.red {
       background-color: #FB9080 !important; }
     .answers .card-panel.show {
